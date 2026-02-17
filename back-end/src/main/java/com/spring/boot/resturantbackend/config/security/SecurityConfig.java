@@ -27,10 +27,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
-                        .requestMatchers("/auth/**").permitAll()
+//                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/**").permitAll()
-                        .anyRequest().authenticated()
+//                        .anyRequest().authenticated()
         );
 //        http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
