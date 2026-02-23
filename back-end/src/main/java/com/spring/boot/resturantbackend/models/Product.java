@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(schema = "hr")
+@Table(name = "product", schema = "hr")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
