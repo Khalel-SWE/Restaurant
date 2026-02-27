@@ -41,5 +41,8 @@ public class Account {
     private List<ContactInfo> contacts;
     @OneToMany(mappedBy = "account")
     private List<Order> orders;
-    private String enabled;
+    @Column(nullable = false)
+    private Boolean enabled;
+//    private String enabled;
+
 }

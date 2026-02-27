@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
         try {
             validateCreateAccount(accountDto);
             //enable account
-            accountDto.setEnabled("1");
+            accountDto.setEnabled(true);
             Account user = AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto);
             //encode password
             user.setPassword(passwordEncoder.encode(accountDto.getPassword()));

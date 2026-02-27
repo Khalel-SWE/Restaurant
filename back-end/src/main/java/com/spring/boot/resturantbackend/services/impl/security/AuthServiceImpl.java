@@ -1,22 +1,24 @@
 package com.spring.boot.resturantbackend.services.impl.security;
 
 import com.spring.boot.resturantbackend.config.security.TokenHandler;
+import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthRequestVm;
+import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthResponseVm;
 import com.spring.boot.resturantbackend.dto.security.AccountDto;
 import com.spring.boot.resturantbackend.mappers.security.AccountMapper;
 import com.spring.boot.resturantbackend.services.security.AccountService;
 import com.spring.boot.resturantbackend.services.security.AuthService;
-import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthRequestVm;
-import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthResponseVm;
 import jakarta.transaction.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthServiceImpl implements AuthService {
     @Autowired
     private AccountService accountService;
@@ -39,9 +41,15 @@ public class AuthServiceImpl implements AuthService {
     public AccountAuthResponseVm login(AccountAuthRequestVm accountAuthRequestVm) {
         try {
             AccountDto accountDto = accountService.getAccountByUsername(accountAuthRequestVm.getUsername());
+            // check account exists
             if (Objects.isNull(accountDto)) {
                 throw new SystemException("not_found.account");
             }
+            // check account enabled (السطر اللي طلبته)
+            if (!accountDto.isEnabled()) {
+                throw new SystemException("account.disabled");
+            }
+            // check password
             if (!passwordEncoder.matches(accountAuthRequestVm.getPassword(), accountDto.getPassword())) {
                 throw new SystemException("error.invalid.credentials");
             }
