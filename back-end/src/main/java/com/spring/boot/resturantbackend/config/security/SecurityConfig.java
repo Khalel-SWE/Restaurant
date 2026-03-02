@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
 //                        .requestMatchers("/swagger-ui/**").permitAll()
 //                        .requestMatchers("/v3/**").permitAll()
+                        // we canceled this to make things work without rules for now at least
                         .anyRequest().authenticated()
         );
 
