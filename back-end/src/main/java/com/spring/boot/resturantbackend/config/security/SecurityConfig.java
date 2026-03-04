@@ -28,6 +28,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(
                 authorizeRequests -> authorizeRequests
+                        // this line to make the account auth
                         .requestMatchers("/auth/**").permitAll()
 //                        .requestMatchers("/swagger-ui/**").permitAll()
 //                        .requestMatchers("/v3/**").permitAll()
