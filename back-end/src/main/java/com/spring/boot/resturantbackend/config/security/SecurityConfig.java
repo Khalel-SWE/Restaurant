@@ -28,7 +28,6 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(
                 // auth
-                // the admin check
                 authorizeRequests -> authorizeRequests
                         .requestMatchers("/auth/**").permitAll()
 //                        .requestMatchers("/swagger-ui/**").permitAll()
