@@ -27,6 +27,11 @@ public class SecurityConfig {
         http.securityMatcher("/**").cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         http.authorizeHttpRequests(
+                // auth
+                // admin
+                // and
+                // user
+                // check
                 authorizeRequests -> authorizeRequests
                         .requestMatchers("/auth/**").permitAll()
 //                        .requestMatchers("/swagger-ui/**").permitAll()
