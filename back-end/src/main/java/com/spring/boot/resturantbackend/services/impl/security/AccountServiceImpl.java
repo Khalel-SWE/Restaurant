@@ -1,9 +1,10 @@
 package com.spring.boot.resturantbackend.services.impl.security;
 
 import com.spring.boot.resturantbackend.dto.security.AccountDto;
-import com.spring.boot.resturantbackend.mappers.security.RoleMapper;
 import com.spring.boot.resturantbackend.mappers.security.AccountMapper;
+import com.spring.boot.resturantbackend.mappers.security.RoleMapper;
 import com.spring.boot.resturantbackend.models.security.Account;
+import com.spring.boot.resturantbackend.models.security.AccountDetails;
 import com.spring.boot.resturantbackend.models.security.Role;
 import com.spring.boot.resturantbackend.repositories.security.AccountRepo;
 import com.spring.boot.resturantbackend.services.security.AccountService;
@@ -89,6 +90,23 @@ public class AccountServiceImpl implements AccountService {
         } catch (SystemException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    @Override
+    public AccountDto updateAccountDetails(AccountDto accountDto) {
+        // 1. بنجيب الأكونت الأصلي من الداتا بيز
+        Account existingAccount = accountRepo.findById(accountDto.getId())
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+
+        // 2. بنحول الـ Details اللي جاية من الفرونت لـ Entity ونربطها
+        AccountDetails details = AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto).getAccountDetails();
+        details.setAccount(existingAccount);
+
+        existingAccount.setAccountDetails(details);
+
+        // 3. حفظ
+        accountRepo.save(existingAccount);
+        return AccountMapper.ACCOUNT_MAPPER.toAccountDto(existingAccount);
     }
 
     private void validateUpdateAccount(Long id) throws SystemException {

@@ -1,5 +1,7 @@
 package com.spring.boot.resturantbackend.services.impl;
 
+import com.spring.boot.resturantbackend.controllers.vm.RequestOrderVm;
+import com.spring.boot.resturantbackend.controllers.vm.ResponseOrderVm;
 import com.spring.boot.resturantbackend.controllers.vm.UserOrdersResponse;
 import com.spring.boot.resturantbackend.dto.OrderDto;
 import com.spring.boot.resturantbackend.dto.ProductDto;
@@ -10,10 +12,7 @@ import com.spring.boot.resturantbackend.mappers.security.AccountMapper;
 import com.spring.boot.resturantbackend.models.Order;
 import com.spring.boot.resturantbackend.repositories.OrderRepo;
 import com.spring.boot.resturantbackend.services.OrderService;
-import com.spring.boot.resturantbackend.controllers.vm.RequestOrderVm;
-import com.spring.boot.resturantbackend.controllers.vm.ResponseOrderVm;
 import com.spring.boot.resturantbackend.services.ProductService;
-import jakarta.transaction.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -32,9 +31,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ResponseOrderVm requestOrder(RequestOrderVm requestOrderVm) {
 
+        // 1.جيب المنتجات
         List<ProductDto> productDtoList = productService.getProductByIds(requestOrderVm.getProductsIds());
 
+        // 2. جيب بيانات اليوزر اللي عامل Login
         AccountDto accountDto = (AccountDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+
+        // 3. الحارس (التشيك الجديد)
+        if (Objects.isNull(accountDto.getAccountDetails())) {
+            throw new RuntimeException("Please update your profile details (Address, Phone, etc.) before ordering.");
+        }
 
         Order order = new Order();
         order.setTotalPrice(requestOrderVm.getTotalPrice());

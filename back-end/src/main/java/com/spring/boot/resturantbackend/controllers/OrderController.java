@@ -1,10 +1,8 @@
 package com.spring.boot.resturantbackend.controllers;
 
-import com.spring.boot.resturantbackend.annotation.ValidPhone;
 import com.spring.boot.resturantbackend.controllers.vm.RequestOrderVm;
 import com.spring.boot.resturantbackend.controllers.vm.ResponseOrderVm;
 import com.spring.boot.resturantbackend.controllers.vm.UserOrdersResponse;
-import com.spring.boot.resturantbackend.dto.CategoryDto;
 import com.spring.boot.resturantbackend.dto.ExceptionDto;
 import com.spring.boot.resturantbackend.services.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @Tag(
         name = "Order Controller",
@@ -50,6 +47,11 @@ public class OrderController {
     })
     @PostMapping("/create-orders")
     public ResponseEntity<ResponseOrderVm> createOrder(@RequestBody @Valid RequestOrderVm requestOrderVm) throws SystemException {
+
+        // 1. هنجيب اليوزر الحالي (هنحتاج نستخدم الـ SecurityContextHolder)
+        // 2. هنشوف لو الـ accountDetails موجودة
+        // 3. لو مش موجودة هنرمي Exception برسالة "Please update your profile first"
+
         return ResponseEntity.created(URI.create("create-orders")).body(orderService.requestOrder(requestOrderVm));
     }
 

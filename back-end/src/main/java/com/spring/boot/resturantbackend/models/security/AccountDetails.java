@@ -13,14 +13,17 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AccountDetails {
+    //غيرت اسماء الخانات في الداتابيس
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(name = "age", nullable = false)
     private String age;
-    @Column(nullable = false)
+    @Column(name = "email", nullable = false)
+    private String email;
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
-    @Column(nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
     @OneToOne
     private Account account;

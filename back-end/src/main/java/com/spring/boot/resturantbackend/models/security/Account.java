@@ -25,7 +25,9 @@ public class Account {
     private String username;
     @Column(nullable = false)
     private String password;
-    @OneToOne(mappedBy = "account")
+    @OneToOne(cascade = CascadeType.ALL) // ضيف cascade عشان لما نمسح يوزر يتمسح بياناته
+    @JoinColumn(name = "account_details_id", referencedColumnName = "id")
+    //@OneToOne(mappedBy = "account")
     private AccountDetails accountDetails;
     @Getter
     @ManyToMany(fetch = FetchType.EAGER)
