@@ -8,23 +8,22 @@ import {map} from "rxjs/operators";
 })
 export class RequestOrderService {
 
-  url = 'http://localhost:9090/orders/';
+  // شيل السلاش اللي في الآخر هنا
+  url = 'http://localhost:9090/orders'; 
 
   constructor(private http: HttpClient) { }
 
   createOrder(productsIds, totalPrice, totalNumber): Observable<any> {
-    return this.http.post<any>(this.url + 'create-orders' , {productsIds, totalPrice, totalNumber}).pipe(
-      map(
-        response => response
-      )
+    // ضيف السلاش هنا يدوي عشان تضمن إن الرابط يتجمع صح
+    return this.http.post<any>(this.url + '/create-orders' , {productsIds, totalPrice, totalNumber}).pipe(
+      map(response => response)
     );
   }
-
+  
+  // نفس الكلام هنا
   getOrder(): Observable<any> {
-    return this.http.get<any>(this.url + 'all-orders').pipe(
-      map(
-        response => response
-      )
+    return this.http.get<any>(this.url + '/all-orders').pipe(
+      map(response => response)
     );
   }
 }

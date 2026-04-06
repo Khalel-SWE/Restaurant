@@ -1,9 +1,11 @@
 package com.spring.boot.resturantbackend.controllers.security;
 
-import com.spring.boot.resturantbackend.dto.ExceptionDto;
-import com.spring.boot.resturantbackend.services.security.AuthService;
 import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthRequestVm;
 import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthResponseVm;
+import com.spring.boot.resturantbackend.dto.ExceptionDto;
+import com.spring.boot.resturantbackend.dto.security.AccountDto;
+import com.spring.boot.resturantbackend.services.security.AccountService;
+import com.spring.boot.resturantbackend.services.security.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,6 +27,8 @@ import java.net.URI;
 public class AuthController {
     @Autowired
     private AuthService authService;
+    @Autowired
+    private AccountService accountService; // ضيف السطر ده هنا
 
     @Operation(summary = "sign up")
     @ApiResponses({
@@ -45,5 +49,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AccountAuthResponseVm> login(@RequestBody @Valid AccountAuthRequestVm accountAuthRequestVm) throws SystemException {
         return ResponseEntity.ok(authService.login(accountAuthRequestVm));
+    }
+
+    // ضيف الميثود دي جوه الكلاس
+    @PutMapping("/update-details")
+    public ResponseEntity<AccountDto> updateDetails(@RequestBody AccountDto accountDto) {
+        return ResponseEntity.ok(accountService.updateAccountDetails(accountDto));
     }
 }

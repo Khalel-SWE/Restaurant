@@ -20,30 +20,34 @@ import {LoginSignUpGuard} from "../guard/login-sign-up.guard";
 import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 import { OrderCodeComponent } from './componants/order-code/order-code.component';
 import { OrderUserComponent } from './componants/order-user/order-user.component';
+import { ProfileComponent } from './componants/profile/profile.component';
+import { FormsModule } from '@angular/forms';
 
 // http://localhost:4200/
-export const routes: Routes = [
+  export const routes: Routes = [
 
-  // http://localhost:4200/products
-  {path: 'products', component: ProductsComponent, canActivate:[AuthGuard]},
-  {path: 'category/:id', component: ProductsComponent, canActivate:[AuthGuard]},
-  {path: 'products/:key', component: ProductsComponent, canActivate:[AuthGuard]},
-  // http://localhost:4200/cardDetails
-  {path: 'cardDetails', component: CardDetailsComponent, canActivate:[AuthGuard]},
-  {path: 'contact-info', component: ContactInfoComponent, canActivate:[AuthGuard]},
-  {path: 'login', component: LoginComponent, canActivate:[LoginSignUpGuard]},
-  {path: 'signup', component: SignupComponent, canActivate:[LoginSignUpGuard]},
-  {path: 'chefs', component: ChefsComponent, canActivate:[AuthGuard]},
-  {path: 'order-code/:code', component: OrderCodeComponent, canActivate:[AuthGuard]},
-  {path: 'orders-user', component: OrderUserComponent, canActivate:[AuthGuard]},
-  // http://localhost:4200/
-  {path: '', redirectTo: '/products', pathMatch: 'full'},
+    // http://localhost:4200/products
+    {path: 'products', component: ProductsComponent, canActivate:[AuthGuard]},
+    {path: 'category/:id', component: ProductsComponent, canActivate:[AuthGuard]},
+    {path: 'products/:key', component: ProductsComponent, canActivate:[AuthGuard]},
+    // http://localhost:4200/profile
+  {path: 'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+    // http://localhost:4200/cardDetails
+    {path: 'cardDetails', component: CardDetailsComponent, canActivate:[AuthGuard]},
+    {path: 'contact-info', component: ContactInfoComponent, canActivate:[AuthGuard]},
+    {path: 'login', component: LoginComponent, canActivate:[LoginSignUpGuard]},
+    {path: 'signup', component: SignupComponent, canActivate:[LoginSignUpGuard]},
+    {path: 'chefs', component: ChefsComponent, canActivate:[AuthGuard]},
+    {path: 'order-code/:code', component: OrderCodeComponent, canActivate:[AuthGuard]},
+    {path: 'orders-user', component: OrderUserComponent, canActivate:[AuthGuard]},
+    // http://localhost:4200/
+    {path: '', redirectTo: '/products', pathMatch: 'full'},
 
-  // if user enter thing without all routes
-  // http://localhost:4200/ghy
-  {path: '**', redirectTo: '/products', pathMatch: 'full'}
+    // if user enter thing without all routes
+    // http://localhost:4200/ghy
+    {path: '**', redirectTo: '/products', pathMatch: 'full'}
 
-];
+  ];  
 
 
 
@@ -65,13 +69,15 @@ export const routes: Routes = [
     LoginComponent,
     SignupComponent,
     OrderCodeComponent,
-    OrderUserComponent
+    OrderUserComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    FormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: APP_BASE_HREF, useValue: '/' }],

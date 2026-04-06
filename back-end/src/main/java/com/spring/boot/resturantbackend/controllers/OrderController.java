@@ -15,7 +15,11 @@ import jakarta.transaction.SystemException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.net.URI;
 
@@ -45,12 +49,31 @@ public class OrderController {
                     )
             ),
     })
+//    @PostMapping("/create-orders")
+//    public ResponseEntity<ResponseOrderVm> createOrder(@RequestBody @Valid RequestOrderVm requestOrderVm) throws SystemException {
+//
+//        // 1. هنجيب اليوزر الحالي (هنحتاج نستخدم الـ SecurityContextHolder)
+//        // 2. هنشوف لو الـ accountDetails موجودة
+//        // 3. لو مش موجودة هنرمي Exception برسالة "Please update your profile first"
+//
+//        return ResponseEntity.created(URI.create("create-orders")).body(orderService.requestOrder(requestOrderVm));
+//    }
+
     @PostMapping("/create-orders")
     public ResponseEntity<ResponseOrderVm> createOrder(@RequestBody @Valid RequestOrderVm requestOrderVm) throws SystemException {
 
-        // 1. هنجيب اليوزر الحالي (هنحتاج نستخدم الـ SecurityContextHolder)
-        // 2. هنشوف لو الـ accountDetails موجودة
-        // 3. لو مش موجودة هنرمي Exception برسالة "Please update your profile first"
+        // 1. هنجيب بيانات اليوزر اللي عامل Login حالياً من الـ Security Context
+        org.springframework.security.core.Authentication auth =
+                org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+
+        String username = auth.getName(); // ده اسم المستخدم (الإيميل أو الـ username)
+
+        // 2. هنكلم السيرفيس تتأكد إذا كان اليوزر ده مكمل بياناته ولا لأ
+        // الميثود دي هنضيفها في الـ OrderService حالاً
+        if (!orderService.isUserProfileComplete(username)) {
+            // 3. لو مش كاملة، ارمي الـ Exception اللي هيخلي الأنجولار يحوله لصفحة البروفايل
+            throw new RuntimeException("Please update your profile first with address and phone number.");
+        }
 
         return ResponseEntity.created(URI.create("create-orders")).body(orderService.requestOrder(requestOrderVm));
     }

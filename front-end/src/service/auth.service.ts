@@ -47,5 +47,8 @@ export class AuthService {
     sessionStorage.removeItem("roles");
   }
 
+  updateAccountDetails(accountDto: any): Observable<any> {
+  return this.http.put<any>(`http://localhost:9090/update-details`, accountDto);
+  }
 
 }

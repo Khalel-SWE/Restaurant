@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {CartService} from "../../../service/cart.service";
 import {ProductOrder} from "../../../model/product-order";
-import {Product} from "../../../model/product";
+//import {Product} from "../../../model/product";
 import {RequestOrderService} from "../../../service/request-order.service";
 import {Router} from "@angular/router";
 
@@ -46,16 +46,42 @@ export class CardDetailsComponent {
   }
 
 
-  createOrder() {
-    const productIds = this.cartService.productOrders.map(or => or.id);
+  //createOrder() {
+  //  const productIds = this.cartService.productOrders.map(or => or.id);
 
-    this.requestOrderService.createOrder(productIds, this.totalProductPrice, this.totalProductSize).subscribe(
-      response => {
-        this.cartService.productOrders = [];
-        this.cartService.totalPrice.next(0);
-        this.cartService.totalOrderSize.next(0);
-        this.router.navigateByUrl("/order-code/" + response.code)
+  //  this.requestOrderService.createOrder(productIds, this.totalProductPrice, this.totalProductSize).subscribe(
+  //    response => {
+  //      this.cartService.productOrders = [];
+  //      this.cartService.totalPrice.next(0);
+  //      this.cartService.totalOrderSize.next(0);
+  //      this.router.navigateByUrl("/order-code/" + response.code)
+  //    }
+  //  )
+  //}
+
+  createOrder() {
+  const productIds = this.cartService.productOrders.map(or => or.id);
+
+  this.requestOrderService.createOrder(productIds, this.totalProductPrice, this.totalProductSize).subscribe(
+    response => {
+      this.cartService.productOrders = [];
+      this.cartService.totalPrice.next(0);
+      this.cartService.totalOrderSize.next(0);
+      this.router.navigateByUrl("/order-code/" + response.code);
+    },
+    error => {
+      console.log("Error Details:", error); // عشان نشوف الخطأ في الكونسول
+      
+      // تحويل الخطأ لنص عشان نعرف نعمل includes
+      const errorMessage = JSON.stringify(error.error);
+
+      if (errorMessage && errorMessage.includes("update your profile")) {
+        alert("من فضلك أكمل بياناتك (العنوان والهاتف) لتتمكن من إتمام الطلب");
+        this.router.navigateByUrl("/profile");
+      } else {
+        alert("حدث خطأ أثناء تنفيذ الطلب: " + (error.error.message || "خطأ غير معروف"));
       }
-    )
-  }
+    }
+  );
+}
 }

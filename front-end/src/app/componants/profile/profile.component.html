@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <h3>تحديث البيانات الشخصية</h3>
+  <div class="form-group">
+    <label>العمر</label>
+    <input type="text" [(ngModel)]="accountDetails.age" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>الإيميل</label>
+    <input type="email" [(ngModel)]="accountDetails.email" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>رقم الهاتف</label>
+    <input type="text" [(ngModel)]="accountDetails.phoneNumber" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>العنوان بالكامل</label>
+    <input type="text" [(ngModel)]="accountDetails.address" class="form-control">
+  </div>
+  <button class="btn btn-success mt-3" (click)="update()">حفظ البيانات</button>
+</div>

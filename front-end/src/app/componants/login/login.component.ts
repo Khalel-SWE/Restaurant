@@ -30,6 +30,11 @@ export class LoginComponent implements OnInit {
       response => {
         sessionStorage.setItem("token", response.token);
         sessionStorage.setItem("roles", response.userRoles);
+
+        // التعديل المهم هنا:
+        // بنسيف الـ id عشان صفحة الـ Profile تعرف تجيبه وتحدث البيانات لليوزر ده
+        sessionStorage.setItem("id", response.id);
+        
         this.routes.navigateByUrl("/products");
       } , error => {
         this.messageAr = error.error.bundleMessage.message_ar;
