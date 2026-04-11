@@ -12,7 +12,7 @@ public class ResturantBackendApplication {
 
     public static void main(String[] args) {
         // this code to run the entir app
-        // this code 
+        // this code
         SpringApplication.run(ResturantBackendApplication.class, args);
     }
 
