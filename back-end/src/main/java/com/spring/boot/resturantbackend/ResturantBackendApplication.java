@@ -11,7 +11,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class ResturantBackendApplication {
 
     public static void main(String[] args) {
-        // this code to run the entir app
         SpringApplication.run(ResturantBackendApplication.class, args);
     }
 

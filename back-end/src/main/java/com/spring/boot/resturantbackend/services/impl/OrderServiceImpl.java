@@ -156,22 +156,62 @@ public class OrderServiceImpl implements OrderService {
                 .orElse(false);
     }
 
+//    @Override
+//    public ResponseOrderVm requestOrder(RequestOrderVm requestOrderVm) {
+//        List<ProductDto> productDtoList = productService.getProductByIds(requestOrderVm.getProductsIds());
+//        AccountDto accountDto = (AccountDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        Order order = new Order();
+//        order.setTotalPrice(requestOrderVm.getTotalPrice());
+//        order.setTotalNumber(requestOrderVm.getTotalNumber());
+//        order.setProducts(ProductMapper.PRODUCT_MAPPER.toProductList(productDtoList));
+//        order.setAccount(AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto));
+//
+//        Order orderSaved = orderRepo.save(order);
+//        orderSaved.setCode("RES-" + orderSaved.getId());
+//        orderSaved = orderRepo.save(orderSaved);
+//
+//        return new ResponseOrderVm(orderSaved.getCode(), orderSaved.getTotalPrice(), orderSaved.getTotalNumber());
+//    }
+
     @Override
     public ResponseOrderVm requestOrder(RequestOrderVm requestOrderVm) {
-        List<ProductDto> productDtoList = productService.getProductByIds(requestOrderVm.getProductsIds());
-        AccountDto accountDto = (AccountDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        // 1. نجيب المنتجات
+        List<ProductDto> productDtoList = productService.getProductByIds(requestOrderVm.getProductsIds());
+
+        // 2. نجيب المستخدم الحالي
+        AccountDto accountDto = (AccountDto) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        // 3. نعمل Order
         Order order = new Order();
+
+        //  نحط كود مؤقت (مهم جداً عشان الداتابيز)
+        order.setCode("TEMP");
+
         order.setTotalPrice(requestOrderVm.getTotalPrice());
         order.setTotalNumber(requestOrderVm.getTotalNumber());
         order.setProducts(ProductMapper.PRODUCT_MAPPER.toProductList(productDtoList));
         order.setAccount(AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto));
 
+        // 4. نحفظ أول مرة
         Order orderSaved = orderRepo.save(order);
+
+        // 5. نولّد الكود الحقيقي باستخدام ID
         orderSaved.setCode("RES-" + orderSaved.getId());
+
+        // 6. نحفظ مرة ثانية
         orderSaved = orderRepo.save(orderSaved);
 
-        return new ResponseOrderVm(orderSaved.getCode(), orderSaved.getTotalPrice(), orderSaved.getTotalNumber());
+        // 7. نرجّع response
+        return new ResponseOrderVm(
+                orderSaved.getCode(),
+                orderSaved.getTotalPrice(),
+                orderSaved.getTotalNumber()
+        );
     }
 
     @Override

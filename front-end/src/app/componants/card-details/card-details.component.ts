@@ -70,18 +70,18 @@ export class CardDetailsComponent {
       this.router.navigateByUrl("/order-code/" + response.code);
     },
     error => {
-      console.log("Error Details:", error); // عشان نشوف الخطأ في الكونسول
-      
-      // تحويل الخطأ لنص عشان نعرف نعمل includes
-      const errorMessage = JSON.stringify(error.error);
+  console.log("Error Details:", error);
+  
+  // الوصول للرسالة مباشرة (Spring Boot بيرجعها في حقل اسمه message)
+  const msg = error.error?.message || error.message || "";
 
-      if (errorMessage && errorMessage.includes("update your profile")) {
-        alert("من فضلك أكمل بياناتك (العنوان والهاتف) لتتمكن من إتمام الطلب");
-        this.router.navigateByUrl("/profile");
-      } else {
-        alert("حدث خطأ أثناء تنفيذ الطلب: " + (error.error.message || "خطأ غير معروف"));
-      }
-    }
+  if (msg.includes("update your profile")) {
+    alert(" من فضلك أكمل بياناتك (العنوان والهاتف) لتتمكن من إتمام الطلب");
+    this.router.navigateByUrl("/profile");
+  } else {
+    alert(" حدث خطأ: " + msg);
+  }
+}
   );
 }
 }

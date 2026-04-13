@@ -15,13 +15,7 @@ import jakarta.transaction.SystemException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.net.URI;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(
         name = "Order Controller",
@@ -70,12 +64,13 @@ public class OrderController {
 
         // 2. هنكلم السيرفيس تتأكد إذا كان اليوزر ده مكمل بياناته ولا لأ
         // الميثود دي هنضيفها في الـ OrderService حالاً
-        if (!orderService.isUserProfileComplete(username)) {
-            // 3. لو مش كاملة، ارمي الـ Exception اللي هيخلي الأنجولار يحوله لصفحة البروفايل
-            throw new RuntimeException("Please update your profile first with address and phone number.");
-        }
+//        if (!orderService.isUserProfileComplete(username)) {
+//            // 3. لو مش كاملة، ارمي الـ Exception اللي هيخلي الأنجولار يحوله لصفحة البروفايل
+//            throw new RuntimeException("Please update your profile first with address and phone number.");
+//        }
 
-        return ResponseEntity.created(URI.create("create-orders")).body(orderService.requestOrder(requestOrderVm));
+//        return ResponseEntity.created(URI.create("create-orders")).body(orderService.requestOrder(requestOrderVm));
+        return ResponseEntity.ok(orderService.requestOrder(requestOrderVm));
     }
 
     @GetMapping("/all-orders") // UserOrdersResponse

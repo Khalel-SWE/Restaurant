@@ -28,6 +28,11 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe(
       response => {
+
+        console.log("FULL RESPONSE:", JSON.stringify(response)); // 👈 مهم جداً
+
+        console.log("TOKEN VALUE:", response.token);
+
         sessionStorage.setItem("token", response.token);
         sessionStorage.setItem("roles", response.userRoles);
 
