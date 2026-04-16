@@ -1,7 +1,7 @@
 package com.spring.boot.resturantbackend.controllers.vm;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +16,21 @@ public class ResponseOrderVm {
 //    private Long id;
 //    @NotEmpty(message = "error.user_id.not_empty")
 //    private Long userId;
-    @NotEmpty(message = "error.code.not_empty")
+//    @NotNull(message = "error.code.not_empty")
     private String code;
-    @NotEmpty(message = "error.total_price.not_empty")
-    private double totalPrice;
-    @NotEmpty(message = "error.total_number.not_empty")
-    private double totalNumber;
+    @NotNull(message = "error.total_price.not_empty")
+    private Double totalPrice;
+    @NotNull(message = "error.total_number.not_empty")
+    private Double totalNumber;
+    public String message;
+
+    public ResponseOrderVm(String message) {
+        this.message = message;
+    }
+
+//    public ResponseOrderVm(String code, Double totalPrice, Double totalNumber) {
+//        this.code = code;
+//        this.totalPrice = totalPrice;
+//        this.totalNumber = totalNumber;
+//    }
 }

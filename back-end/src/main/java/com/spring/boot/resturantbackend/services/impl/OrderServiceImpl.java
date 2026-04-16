@@ -10,13 +10,15 @@ import com.spring.boot.resturantbackend.mappers.OrderMapper;
 import com.spring.boot.resturantbackend.mappers.ProductMapper;
 import com.spring.boot.resturantbackend.mappers.security.AccountMapper;
 import com.spring.boot.resturantbackend.models.Order;
+import com.spring.boot.resturantbackend.models.security.Account;
 import com.spring.boot.resturantbackend.repositories.OrderRepo;
-import com.spring.boot.resturantbackend.repositories.security.AccountRepo; 
+import com.spring.boot.resturantbackend.repositories.security.AccountRepo;
 import com.spring.boot.resturantbackend.services.OrderService;
 import com.spring.boot.resturantbackend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -31,14 +33,31 @@ public class OrderServiceImpl implements OrderService {
     private ProductService productService;
 
 
-    @Override
+//    @Override
+//    public boolean isUserProfileComplete(String username) {
+//        // بنغير findByEmail لـ findByUsername
+//        return accountRepo.findByUsername(username)
+//                .map(account -> account.getAccountDetails() != null
+//                        && account.getAccountDetails().getAddress() != null
+//                        && !account.getAccountDetails().getAddress().isEmpty())
+//                .orElse(false);
+//    }
+
     public boolean isUserProfileComplete(String username) {
-        // بنغير findByEmail لـ findByUsername
-        return accountRepo.findByUsername(username)
-                .map(account -> account.getAccountDetails() != null
-                        && account.getAccountDetails().getAddress() != null
-                        && !account.getAccountDetails().getAddress().isEmpty())
-                .orElse(false);
+        // 1. هنجيب الحساب عن طريق الـ username
+        Account account = accountRepo.findByUsername(username)
+                .orElse(null); // ولو رجع null الـ if اللي بعدها هتتعامل
+
+        // 2. التحقق: لو ملوش AccountDetails (يعني الـ Field ده NULL في الـ Entity)
+        // أو لو كانت البيانات اللي جواه (العنوان أو التليفون) فاضية
+        if (account.getAccountDetails() == null) {
+            return false;
+        }
+
+        // زيادة تأكيد: نتحقق إن الحقول الجوهرية مش فاضية
+        return account.getAccountDetails().getAddress() != null &&
+                !account.getAccountDetails().getAddress().isEmpty() &&
+                account.getAccountDetails().getPhoneNumber() != null;
     }
 
     @Override
@@ -77,7 +96,8 @@ public class OrderServiceImpl implements OrderService {
         return new ResponseOrderVm(
                 orderSaved.getCode(),
                 orderSaved.getTotalPrice(),
-                orderSaved.getTotalNumber()
+                orderSaved.getTotalNumber(),
+                "SUCCESS"
         );
     }
 
