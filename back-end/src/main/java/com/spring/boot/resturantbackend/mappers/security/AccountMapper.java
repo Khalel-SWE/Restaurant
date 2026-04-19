@@ -9,7 +9,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper
 public interface AccountMapper {
-    // DTO
     AccountMapper ACCOUNT_MAPPER = Mappers.getMapper(AccountMapper.class);
 
     AccountDto toAccountDto(Account account);
