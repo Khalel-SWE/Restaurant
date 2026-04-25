@@ -28,4 +28,9 @@ public class ResponseOrderVm {
         this.message = message;
     }
 
+//    public ResponseOrderVm(String code, Double totalPrice, Double totalNumber) {
+//        this.code = code;
+//        this.totalPrice = totalPrice;
+//        this.totalNumber = totalNumber;
+//    }
 }
