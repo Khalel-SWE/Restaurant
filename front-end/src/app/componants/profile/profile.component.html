@@ -1,20 +1,62 @@
-<div class="container mt-5">
-  <h3>تحديث البيانات الشخصية</h3>
-  <div class="form-group">
-    <label>العمر</label>
-    <input type="text" [(ngModel)]="accountDetails.age" class="form-control">
+<div class="container mt-5 d-flex justify-content-center">
+  <div style="width:100%;max-width:560px;background:#222;border:1px solid rgba(255,165,0,.25);border-radius:10px;overflow:hidden;">
+
+    <!-- Header -->
+    <div style="background:#2a2a2a;border-bottom:1px solid rgba(255,165,0,.25);padding:1.4rem 1.8rem;display:flex;align-items:center;gap:.9rem;">
+      <div style="width:42px;height:42px;background:rgba(255,165,0,.12);border:1px solid rgba(255,165,0,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;">
+        👤
+      </div>
+      <div>
+        <h5 class="mb-0 text-white fw-bold">Update Personal Details</h5>
+        <small style="color:#aaa;">Manage and update your account information</small>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:1.8rem;">
+      <div class="row g-3">
+
+        <div class="col-6">
+          <label style="color:#FFA500;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Age</label>
+          <input type="number" [(ngModel)]="accountDetails.age"
+                 class="form-control"
+                 style="background:#2a2a2a;border:1px solid rgba(255,165,0,.25);color:#fff;"
+                 placeholder="e.g. 25">
+        </div>
+
+        <div class="col-6">
+          <label style="color:#FFA500;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Phone Number</label>
+          <input type="tel" [(ngModel)]="accountDetails.phoneNumber"
+                 class="form-control"
+                 style="background:#2a2a2a;border:1px solid rgba(255,165,0,.25);color:#fff;"
+                 placeholder="01012345678">
+        </div>
+
+        <div class="col-12">
+          <label style="color:#FFA500;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Email</label>
+          <input type="email" [(ngModel)]="accountDetails.email"
+                 class="form-control"
+                 style="background:#2a2a2a;border:1px solid rgba(255,165,0,.25);color:#fff;"
+                 placeholder="example@email.com">
+        </div>
+
+        <div class="col-12">
+          <label style="color:#FFA500;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Address</label>
+          <input type="text" [(ngModel)]="accountDetails.address"
+                 class="form-control"
+                 style="background:#2a2a2a;border:1px solid rgba(255,165,0,.25);color:#fff;"
+                 placeholder="e.g. Cairo, Egypt">
+        </div>
+
+      </div>
+
+      <hr style="border-color:rgba(255,165,0,.2);margin:1.5rem 0;">
+
+      <button class="btn w-100 fw-bold py-2" (click)="update()"
+              style="background:#FFA500;color:#111;border:none;">
+        💾 Save Changes
+      </button>
+    </div>
+
   </div>
-  <div class="form-group">
-    <label>الإيميل</label>
-    <input type="email" [(ngModel)]="accountDetails.email" class="form-control">
-  </div>
-  <div class="form-group">
-    <label>رقم الهاتف</label>
-    <input type="text" [(ngModel)]="accountDetails.phoneNumber" class="form-control">
-  </div>
-  <div class="form-group">
-    <label>العنوان بالكامل</label>
-    <input type="text" [(ngModel)]="accountDetails.address" class="form-control">
-  </div>
-  <button class="btn btn-success mt-3" (click)="update()">حفظ البيانات</button>
 </div>

@@ -47,8 +47,13 @@ export class AuthService {
     sessionStorage.removeItem("roles");
   }
 
+  // updateAccountDetails(accountDto: any): Observable<any> {
+  // return this.http.put<any>(`http://localhost:9090/update-details`, accountDto);
+  // }
+
   updateAccountDetails(accountDto: any): Observable<any> {
-  return this.http.put<any>(`http://localhost:9090/update-details`, accountDto);
-  }
+  // شيلنا كلمة auth خالص لأنها موجودة جوه الـ baseUrl
+  return this.http.put(`${this.baseUrl}/update-details`, accountDto);
+}
 
 }

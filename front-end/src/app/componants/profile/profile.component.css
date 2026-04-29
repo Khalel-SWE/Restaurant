@@ -1,0 +1,7 @@
+/* ضيف ده في profile.component.css */
+.form-control:focus {
+  background: #333 !important;
+  border-color: #FFA500 !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 165, 0, 0.25);
+  color: #fff;
+}

@@ -4,6 +4,7 @@ import com.spring.boot.resturantbackend.controllers.vm.RequestOrderVm;
 import com.spring.boot.resturantbackend.controllers.vm.ResponseOrderVm;
 import com.spring.boot.resturantbackend.controllers.vm.UserOrdersResponse;
 import com.spring.boot.resturantbackend.dto.ExceptionDto;
+import com.spring.boot.resturantbackend.dto.security.AccountDto;
 import com.spring.boot.resturantbackend.services.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,7 +12,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.transaction.SystemException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,25 +70,49 @@ public class OrderController {
 //        return ResponseEntity.ok(response);
 //    }
 
+//    @PostMapping("/create-orders")
+//    public ResponseEntity<ResponseOrderVm> createOrder(@RequestBody @Valid RequestOrderVm requestOrderVm) throws SystemException {
+//
+//        org.springframework.security.core.Authentication auth =
+//                org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+//
+//        // السطر ده هو التعديل الأهم:
+//        String username;
+//        if (auth.getPrincipal() instanceof com.spring.boot.resturantbackend.dto.security.AccountDto) {
+//            username = ((com.spring.boot.resturantbackend.dto.security.AccountDto) auth.getPrincipal()).getUsername();
+//        } else {
+//            username = auth.getName();
+//        }
+//
+//        if (!orderService.isUserProfileComplete(username)) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                    .body(new ResponseOrderVm("PROFILE_INCOMPLETE"));
+//        }
+//
+//        return ResponseEntity.ok(orderService.requestOrder(requestOrderVm));
+//    }
+
     @PostMapping("/create-orders")
-    public ResponseEntity<ResponseOrderVm> createOrder(@RequestBody @Valid RequestOrderVm requestOrderVm) throws SystemException {
+    public ResponseEntity<ResponseOrderVm> createOrder(@RequestBody @Valid RequestOrderVm requestOrderVm) {
 
-        org.springframework.security.core.Authentication auth =
-                org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication();
+        // 1. هنجيب الـ DTO من الـ SecurityContext مباشرة (ده أسرع وأدق)
+        Object principal = org.springframework.security.core.context.SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
 
-        // السطر ده هو التعديل الأهم:
-        String username;
-        if (auth.getPrincipal() instanceof com.spring.boot.resturantbackend.dto.security.AccountDto) {
-            username = ((com.spring.boot.resturantbackend.dto.security.AccountDto) auth.getPrincipal()).getUsername();
-        } else {
-            username = auth.getName();
+        if (!(principal instanceof AccountDto)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
+        AccountDto currentAccount = (AccountDto) principal;
+        String username = currentAccount.getUsername();
+
+        // 2. التحقق من اكتمال البروفايل
         if (!orderService.isUserProfileComplete(username)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseOrderVm("PROFILE_INCOMPLETE"));
         }
 
+        // 3. التنفيذ
         return ResponseEntity.ok(orderService.requestOrder(requestOrderVm));
     }
 

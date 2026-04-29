@@ -2,15 +2,9 @@ package com.spring.boot.resturantbackend.controllers.security;
 
 import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthRequestVm;
 import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthResponseVm;
-import com.spring.boot.resturantbackend.dto.ExceptionDto;
 import com.spring.boot.resturantbackend.dto.security.AccountDto;
 import com.spring.boot.resturantbackend.services.security.AccountService;
 import com.spring.boot.resturantbackend.services.security.AuthService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.SystemException;
 import jakarta.validation.Valid;
@@ -21,39 +15,38 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @Tag(name = "Auth Controller", description = "Sign up, login")
-@RequestMapping("/auth")
 @RestController
-@CrossOrigin("http://localhost:4200")
+@RequestMapping("/auth")
+// انوتيشن واحدة شاملة لكل الطرق والـ Headers ومسموحة للأنجولار
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class AuthController {
+
     @Autowired
     private AuthService authService;
-    @Autowired
-    private AccountService accountService; // ضيف السطر ده هنا
 
-    @Operation(summary = "sign up")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Http Status sign up"),
-            @ApiResponse(responseCode = "500", description = "Http Status internal server error",
-                    content = @Content(schema = @Schema(implementation = ExceptionDto.class))),
-    })
+    @Autowired
+    private AccountService accountService;
+
     @PostMapping("/sign-up")
     public ResponseEntity<AccountAuthResponseVm> signUp(@RequestBody @Valid AccountAuthRequestVm accountAuthRequestVm) throws SystemException {
         return ResponseEntity.created(URI.create("/sign-up")).body(authService.signUp(accountAuthRequestVm));
     }
-    @Operation(summary = "login")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Http Status sign up"),
-            @ApiResponse(responseCode = "500", description = "Http Status internal server error",
-                    content = @Content(schema = @Schema(implementation = ExceptionDto.class))),
-    })
+
     @PostMapping("/login")
     public ResponseEntity<AccountAuthResponseVm> login(@RequestBody @Valid AccountAuthRequestVm accountAuthRequestVm) throws SystemException {
         return ResponseEntity.ok(authService.login(accountAuthRequestVm));
     }
 
-    // ضيف الميثود دي جوه الكلاس
+//    @PutMapping("/update-details")
+//    public ResponseEntity<AccountDto> updateDetails(@RequestBody AccountDto accountDto) {
+//        // ضفت لك Log بسيط عشان تتاكد في كونسول IntelliJ إن الداتا وصلت
+//        System.out.println(">>> Update request received for user: " + accountDto.getUsername());
+//        return ResponseEntity.ok(accountService.updateAccountDetails(accountDto));
+//    }
+
     @PutMapping("/update-details")
-    public ResponseEntity<AccountDto> updateDetails(@RequestBody AccountDto accountDto) {
-        return ResponseEntity.ok(accountService.updateAccountDetails(accountDto));
+    public ResponseEntity<String> updateDetails(@RequestBody AccountDto accountDto) {
+        System.out.println("INSIDE UPDATE ENDPOINT");
+        return ResponseEntity.ok("WORKING");
     }
 }

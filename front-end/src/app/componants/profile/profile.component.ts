@@ -9,55 +9,49 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  // بيانات الـ Form
+  // بيانات الـ Form اللي مربوطة بـ [(ngModel)] في الـ HTML
   accountDetails = {
-    age: '',
-    email: '',
+    age: null,
     phoneNumber: '',
+    email: '',
     address: ''
   };
 
+  // إحنا هنا معرفين authService فقط في الـ constructor
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    // اختياري: لو عاوز تملا البيانات القديمة أول ما الصفحة تفتح
+    const currentAccount = JSON.parse(sessionStorage.getItem('user') || '{}');
+    if (currentAccount.accountDetails) {
+      this.accountDetails = currentAccount.accountDetails;
+    }
   }
 
-  //update() {
-    // إحنا محتاجين نبعت الـ ID بتاع اليوزر الحالي (ممكن نجيبه من التوكن أو نسيبه للباك إند)
-    // للتبسيط، هنفترض إن الباك إند هيعرف اليوزر من الـ Security Context
-  //  const dataToSend = {
-  //     accountDetails: this.accountDetails
-  //  };
-
-  //  this.authService.updateAccountDetails(dataToSend).subscribe(
-  //    res => {
-  //      alert("تم تحديث بياناتك بنجاح! يمكنك الآن الطلب.");
-  //      this.router.navigateByUrl("/card-details"); // نرجعه للسلة يكمل طلبه
-  //    },
-  //    err => alert("خطأ في التحديث")
-  //  );
-  //}
-
   update() {
-  // 1. هنجيب الـ id اللي اتسيف لما اليوزر عمل Login
-  // ملحوظة: تأكد إنك بتسيف الـ id في الـ sessionStorage وقت اللوجين
-  const userId = sessionStorage.getItem("id"); 
+    // 1. بنجيب بيانات الأكونت الحالي من الـ sessionStorage عشان نحصل على الـ ID
+    const currentAccount = JSON.parse(sessionStorage.getItem('user') || '{}');
 
-  const dataToSend = {
-    id: userId, // السطر ده هو "كلمة السر" عشان الربط ينجح
-    accountDetails: this.accountDetails
-  };
+    // 2. بنجهز الكائن اللي هيبعت للباك إند (لازم يحتوي على الـ ID)
+    const updatedData = {
+      id: currentAccount.id, 
+      username: currentAccount.username,
+      accountDetails: this.accountDetails
+    };
 
-  this.authService.updateAccountDetails(dataToSend).subscribe(
-    res => {
-      alert("تم تحديث بياناتك بنجاح! يمكنك الآن الطلب.");
-      this.router.navigateByUrl("/cardDetails");
-    },
-    err => {
-      console.error(err);
-      alert("حدث خطأ، تأكد من تسجيل الدخول أولاً");
-    }
-  );
-}
-
+    // 3. بننادي على authService (لأن هو ده اللي موجود في الـ constructor فوق)
+    this.authService.updateAccountDetails(updatedData).subscribe(
+      res => {
+        alert("✅ تم تحديث بياناتك بنجاح! يمكنك الآن إتمام طلباتك.");
+        // بنحدث بيانات المستخدم في الكاش عشان الـ ID بتاع الـ Details يتسيف
+        sessionStorage.setItem('user', JSON.stringify(res));
+        // نرجعه لصفحة الكارت يكمل الطلب اللي كان بيحاول يعمله
+        this.router.navigateByUrl("/card-details");
+      },
+      err => {
+        console.error("Update error:", err);
+        alert("❌ حدث خطأ أثناء التحديث، تأكد من إدخال البيانات بشكل صحيح.");
+      }
+    );
+  }
 }
