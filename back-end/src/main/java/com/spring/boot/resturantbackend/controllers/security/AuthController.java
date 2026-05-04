@@ -37,12 +37,6 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(accountAuthRequestVm));
     }
 
-//    @PutMapping("/update-details")
-//    public ResponseEntity<AccountDto> updateDetails(@RequestBody AccountDto accountDto) {
-//        // ضفت لك Log بسيط عشان تتاكد في كونسول IntelliJ إن الداتا وصلت
-//        System.out.println(">>> Update request received for user: " + accountDto.getUsername());
-//        return ResponseEntity.ok(accountService.updateAccountDetails(accountDto));
-//    }
 
     @PutMapping("/update-details")
     public ResponseEntity<String> updateDetails(@RequestBody AccountDto accountDto) {
