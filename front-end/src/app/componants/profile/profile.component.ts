@@ -39,6 +39,9 @@ export class ProfileComponent implements OnInit {
       accountDetails: this.accountDetails
     };
 
+    console.log(currentAccount);
+    console.log(updatedData);
+
     // 3. بننادي على authService (لأن هو ده اللي موجود في الـ constructor فوق)
     this.authService.updateAccountDetails(updatedData).subscribe(
       res => {

@@ -1,3 +1,54 @@
+//package com.spring.boot.resturantbackend.models.security;
+//
+//import com.spring.boot.resturantbackend.models.ContactInfo;
+//import com.spring.boot.resturantbackend.models.Order;
+//import jakarta.persistence.*;
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//import lombok.Setter;
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//@Entity
+//@Table(schema = "hr")
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Setter
+//@Getter
+//public class Account {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+//    @Column(nullable = false, unique = true)
+//    private String username;
+//    @Column(nullable = false)
+//    private String password;
+//    @OneToOne(cascade = CascadeType.ALL) // ضيف cascade عشان لما نمسح يوزر يتمسح بياناته
+//    @JoinColumn(name = "account_details_id", referencedColumnName = "id")
+////    @OneToOne(mappedBy = "account")
+//    private AccountDetails accountDetails;
+//    @Getter
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            schema = "hr",
+//            name = "Account_Role",
+//            joinColumns = @JoinColumn(name = "account_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"),
+//            uniqueConstraints = @UniqueConstraint(columnNames = {"account_id", "role_id"})
+//    )
+//    private List<Role> roles = new ArrayList<>();
+//    @OneToMany(mappedBy = "account")
+//    private List<ContactInfo> contacts;
+//    @OneToMany(mappedBy = "account")
+//    private List<Order> orders;
+//    @Column(nullable = false)
+//    private Boolean enabled;
+////    private String enabled;
+//
+//}
+
 package com.spring.boot.resturantbackend.models.security;
 
 import com.spring.boot.resturantbackend.models.ContactInfo;
@@ -12,39 +63,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(schema = "hr")
+@Table(name = "ACCOUNTS", schema = "hr") // يفضل الجمع في أسماء الجداول
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 public class Account {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Id
+@SequenceGenerator(
+        name = "account_seq",
+        sequenceName = "ACCOUNT_SEQ",
+        allocationSize = 1
+)
+@GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "account_seq"
+)
     private Long id;
+
     @Column(nullable = false, unique = true)
     private String username;
+
     @Column(nullable = false)
     private String password;
-    @OneToOne(cascade = CascadeType.ALL) // ضيف cascade عشان لما نمسح يوزر يتمسح بياناته
+
+    @Column(nullable = false)
+    private Boolean enabled;
+
+    // العلاقة هنا هي الـ Owner، الـ Foreign Key سيكون في جدول الـ Account
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_details_id", referencedColumnName = "id")
-    //@OneToOne(mappedBy = "account")
     private AccountDetails accountDetails;
-    @Getter
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             schema = "hr",
-            name = "Account_Role",
+            name = "ACCOUNT_ROLES",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"account_id", "role_id"})
     )
     private List<Role> roles = new ArrayList<>();
-    @OneToMany(mappedBy = "account")
-    private List<ContactInfo> contacts;
-    @OneToMany(mappedBy = "account")
-    private List<Order> orders;
-    @Column(nullable = false)
-    private Boolean enabled;
-//    private String enabled;
 
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<ContactInfo> contacts;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<Order> orders;
 }
+

@@ -1,6 +1,25 @@
+// import { Component } from '@angular/core';
+// import {Router} from "@angular/router";
+// import {AuthService} from "../service/auth.service";
+
+// @Component({
+//   selector: 'app-root',
+//   templateUrl: './app.component.html',
+//   styleUrls: ['./app.component.css']
+// })
+// export class AppComponent {
+//   constructor( private authService: AuthService) {
+//   }
+
+
+
+//   isUserLogin(): boolean {
+//     return this.authService.isUserLogin();
+//   }
+// }
+
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
-import {AuthService} from "../service/auth.service";
+import { AuthService } from 'src/service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +27,10 @@ import {AuthService} from "../service/auth.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor( private authService: AuthService) {
-  }
+  
+  constructor(private authService: AuthService) {}
 
-
-
+  // الميثود دي ضرورية عشان الـ HTML اللي بعته شغال بيها
   isUserLogin(): boolean {
     return this.authService.isUserLogin();
   }
