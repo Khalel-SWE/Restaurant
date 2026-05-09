@@ -62,11 +62,10 @@ public class AccountDetails {
 
     // int not String
     @Column(name = "age", nullable = false)
-    private int age;
+    private Integer age;
 
     @Column(name = "email", nullable = false)
     private String email;
-
     @Column(name = "phone_number", nullable = false) // استخدام underscore ليتناسب مع naming convention الخاص بأوراكل
     private String phoneNumber;
 

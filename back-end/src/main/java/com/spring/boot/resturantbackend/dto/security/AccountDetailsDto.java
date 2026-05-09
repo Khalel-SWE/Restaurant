@@ -16,7 +16,9 @@ public class AccountDetailsDto {
     @NotEmpty(message = "not_empty.phone_number")
     private String phoneNumber;
     @Size(min = 16, max = 80, message = "error.age")
-    private int age;
+    private Integer age;
     @NotEmpty(message = "not_empty.address")
     private String address;
+
+    private String email;
 }

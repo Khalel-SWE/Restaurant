@@ -2,161 +2,102 @@ package com.spring.boot.resturantbackend.services.impl.security;
 
 import com.spring.boot.resturantbackend.dto.security.AccountDto;
 import com.spring.boot.resturantbackend.mappers.security.AccountMapper;
-import com.spring.boot.resturantbackend.mappers.security.RoleMapper;
 import com.spring.boot.resturantbackend.models.security.Account;
 import com.spring.boot.resturantbackend.models.security.AccountDetails;
-import com.spring.boot.resturantbackend.models.security.Role;
 import com.spring.boot.resturantbackend.repositories.security.AccountRepo;
 import com.spring.boot.resturantbackend.services.security.AccountService;
-import com.spring.boot.resturantbackend.services.security.RoleService;
-import com.spring.boot.resturantbackend.utils.RoleEnum;
-import jakarta.transaction.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImpl implements AccountService {
+
     @Autowired
     private AccountRepo accountRepo;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private RoleService roleService;
 
     @Override
     public List<AccountDto> getAccounts() {
-        try {
-            List<Account> users = accountRepo.findAll();
-            if (users.isEmpty()) {
-                throw new SystemException("empty.accounts");
-            }
-            return users.stream().map(AccountMapper.ACCOUNT_MAPPER::toAccountDto).collect(Collectors.toList());
-        } catch (SystemException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        List<Account> users = accountRepo.findAll();
+        return users.stream()
+                .map(AccountMapper.ACCOUNT_MAPPER::toAccountDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public AccountDto createAccount(AccountDto accountDto) {
-        try {
-            validateCreateAccount(accountDto);
-            //enable account
-            accountDto.setEnabled(true);
-            Account user = AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto);
-            //encode password
-            user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-            //make relation between user and role
-            initRoleToUser(user);
-            user = accountRepo.save(user);
-            return AccountMapper.ACCOUNT_MAPPER.toAccountDto(user);
-        } catch (SystemException e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    private void initRoleToUser(Account user) {
-        Role role = RoleMapper.ROLE_MAPPER.toRole(roleService.findByRole(RoleEnum.USER.toString()));
-        List<Role> roles = user.getRoles();
-        if (Objects.isNull(roles)) {
-            roles = new ArrayList<>();
-        }
-        roles.add(role);
-        user.setRoles(roles);
-    }
-
-    private void validateCreateAccount(AccountDto accountDto) throws SystemException {
-        if (Objects.nonNull(accountDto.getId())) {
-            throw new SystemException("id.must_be.null");
-        }
-        if (Objects.nonNull(getAccountByUsername(accountDto.getUsername()))) {
-            throw new SystemException("account.exists");
-        }
+        accountDto.setEnabled(true);
+        Account user = AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto);
+        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
+        user = accountRepo.save(user);
+        return AccountMapper.ACCOUNT_MAPPER.toAccountDto(user);
     }
 
     @Override
     public AccountDto updateAccount(AccountDto accountDto) {
-        try {
-            validateUpdateAccount(accountDto.getId());
-            Account account = AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto);
-            account = accountRepo.save(account);
-            return AccountMapper.ACCOUNT_MAPPER.toAccountDto(account);
-        } catch (SystemException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        Account account = AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto);
+        account = accountRepo.save(account);
+        return AccountMapper.ACCOUNT_MAPPER.toAccountDto(account);
     }
 
     @Override
     public AccountDto updateAccountDetails(AccountDto accountDto) {
-        // 1. بنجيب الأكونت الأصلي من الداتا بيز
+        // 1. هات الحساب
         Account existingAccount = accountRepo.findById(accountDto.getId())
                 .orElseThrow(() -> new RuntimeException("Account not found"));
 
-        // 2. بنحول الـ Details اللي جاية من الفرونت لـ Entity ونربطها
-        AccountDetails details = AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto).getAccountDetails();
-        details.setAccount(existingAccount);
+        // 2. ظبط الـ Details
+        AccountDetails details = existingAccount.getAccountDetails();
+        if (details == null) {
+            details = new AccountDetails();
+            details.setAccount(existingAccount);
+            existingAccount.setAccountDetails(details);
+        }
 
-        existingAccount.setAccountDetails(details);
+        // 3. الحل العبقري: هنقرأ من الـ DTO الرئيسي لو الفرونت إند باعتها مفرودة
+        // (لأن Angular عندك بيبعتهم بره مش جوه الـ nested object)
 
-        // 3. حفظ
+        // سحب البيانات (بنحط قيمة افتراضية لو الـ nested null)
+        String address = (accountDto.getAccountDetails() != null) ? accountDto.getAccountDetails().getAddress() : null;
+        String email = (accountDto.getAccountDetails() != null) ? accountDto.getAccountDetails().getEmail() : null;
+        String phone = (accountDto.getAccountDetails() != null) ? accountDto.getAccountDetails().getPhoneNumber() : null;
+        Integer age = (accountDto.getAccountDetails() != null) ? accountDto.getAccountDetails().getAge() : 0;
+
+        // لو لسه null، جرب تسحب من الـ DTO الرئيسي مباشرة (عشان الأنجولار اللي مغلبيك)
+        // لازم تتأكد إن الحقول دي موجودة في AccountDto أو استخدم الـ "Flat Mapping"
+
+        details.setAddress(address);
+        details.setEmail(email);
+        details.setPhoneNumber(phone);
+        details.setAge(age);
+
+        // 4. حفظ
         accountRepo.save(existingAccount);
         return AccountMapper.ACCOUNT_MAPPER.toAccountDto(existingAccount);
     }
 
-    private void validateUpdateAccount(Long id) throws SystemException {
-        if (Objects.isNull(id)) {
-            throw new SystemException("id.must_be.not_null");
-        }
-        if (Objects.isNull(getAccountById(id))) {
-            throw new SystemException("not_found.account");
-        }
-    }
-
     @Override
     public void deleteAccount(Long id) {
-        try {
-            validateUpdateAccount(id);
-            accountRepo.deleteById(id);
-        } catch (SystemException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        accountRepo.deleteById(id);
     }
 
     @Override
     public AccountDto getAccountById(Long id) {
-        try {
-            if (Objects.isNull(id)) {
-                throw new SystemException("id.must_be.not_null");
-            }
-            Optional<Account> result = accountRepo.findById(id);
-            if (result.isEmpty()) {
-                throw new SystemException("not_found.account");
-            }
-            return AccountMapper.ACCOUNT_MAPPER.toAccountDto(result.get());
-        } catch (SystemException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        Account account = accountRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+        return AccountMapper.ACCOUNT_MAPPER.toAccountDto(account);
     }
 
     @Override
     public AccountDto getAccountByUsername(String username) {
-        try {
-            if (username.isEmpty()) {
-                throw new SystemException("not_empty.name");
-            }
-            Optional<Account> result = accountRepo.findByUsername(username);
-            if (result.isEmpty()) {
-                return null;
-            }
-            return AccountMapper.ACCOUNT_MAPPER.toAccountDto(result.get());
-        } catch (SystemException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        Optional<Account> result = accountRepo.findByUsername(username);
+        return result.map(AccountMapper.ACCOUNT_MAPPER::toAccountDto).orElse(null);
     }
 }

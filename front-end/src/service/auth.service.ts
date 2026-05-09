@@ -86,13 +86,17 @@ export class AuthService {
     );
   }
 
-  updateAccountDetails(accountDto: any): Observable<any> {
+  // updateAccountDetails(accountDto: any): Observable<any> {
 
-    return this.http.put(
-      `${this.baseUrl}/update-details`,
-      accountDto
-    );
-  }
+  //   return this.http.put(
+  //     `${this.baseUrl}/update-details`,
+  //     accountDto
+  //   );
+  // }
+
+  updateAccountDetails(data: any): Observable<any> {
+  return this.http.put(`${this.baseUrl}/update-details`, data, { responseType: 'text' as 'json' });
+}
 
   isUserLogin(): boolean {
     return sessionStorage.getItem("token") != null;
