@@ -79,8 +79,15 @@ import { FormsModule } from '@angular/forms';
     NgbPaginationModule,
     FormsModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: APP_BASE_HREF, useValue: '/' }],
+  // providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  //   { provide: APP_BASE_HREF, useValue: '/' }],
+  providers: [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }
+],
   bootstrap: [
     AppComponent
   ]
