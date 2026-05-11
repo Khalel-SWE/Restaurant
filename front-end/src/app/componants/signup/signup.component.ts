@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createAccount(username, password, confirmPassword) {
+  createAccount(username : any, password : any, confirmPassword : any) {
     if(!this.validateAccount(username, password, confirmPassword)){
       setTimeout(() => {
         this.messageAr = "";
@@ -26,11 +26,36 @@ export class SignupComponent implements OnInit {
     }
 
     this.authService.createAccount(username, password).subscribe(
+      // response => {
+      //   sessionStorage.setItem("token", response.token);
+      //   sessionStorage.setItem("roles", response.userRoles);
+      //   this.routes.navigateByUrl("/products");
+      // }
       response => {
-        sessionStorage.setItem("token", response.token);
-        sessionStorage.setItem("roles", response.userRoles);
-        this.routes.navigateByUrl("/products");
-      } , error => {
+
+  sessionStorage.setItem(
+    "user",
+    JSON.stringify(response)
+  );
+
+  sessionStorage.setItem(
+    "token",
+    response.token
+  );
+
+  // sessionStorage.setItem(
+  //   "roles",
+  //   response.userRoles
+  // );
+
+  sessionStorage.setItem(
+  "roles",
+  JSON.stringify(response.userRoles)
+);
+
+  this.routes.navigateByUrl("/products");
+
+} , error => {
         this.messageAr = error.error.bundleMessage.message_ar;
         this.messageEn = error.error.bundleMessage.message_en;
         setTimeout(() => {

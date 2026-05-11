@@ -95,7 +95,10 @@ export class AuthService {
   // }
 
   updateAccountDetails(data: any): Observable<any> {
-  return this.http.put(`${this.baseUrl}/update-details`, data, { responseType: 'text' as 'json' });
+  return this.http.put(
+    `${this.baseUrl}/update-details`,
+     data,
+      { responseType: 'text' as 'json' });
 }
 
   isUserLogin(): boolean {
@@ -117,5 +120,7 @@ export class AuthService {
 
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("roles");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("id");
   }
 }

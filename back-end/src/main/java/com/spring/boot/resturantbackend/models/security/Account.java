@@ -94,7 +94,7 @@ public class Account {
     private Boolean enabled;
 
     // العلاقة هنا هي الـ Owner، الـ Foreign Key سيكون في جدول الـ Account
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_details_id", referencedColumnName = "id")
     private AccountDetails accountDetails;
 
