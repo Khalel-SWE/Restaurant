@@ -14,9 +14,6 @@ import java.util.List;
 @Setter
 @Getter
 public class RequestOrderVm {
-//    private Long id;
-//    @NotEmpty(message = "error.user_id.not_empty")
-//    private Long userId;
     @NotNull(message = "error.total_price.not_empty")
     private Double totalPrice;
     @NotNull(message = "error.total_number.not_empty")
