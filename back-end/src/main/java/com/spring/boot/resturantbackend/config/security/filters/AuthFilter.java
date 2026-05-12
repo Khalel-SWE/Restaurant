@@ -22,7 +22,7 @@ public class AuthFilter extends OncePerRequestFilter {
     @Lazy
     @Autowired
     private TokenHandler tokenHandler;
-    
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
