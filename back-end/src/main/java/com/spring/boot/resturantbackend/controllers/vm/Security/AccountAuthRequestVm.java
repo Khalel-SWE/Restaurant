@@ -1,5 +1,4 @@
 package com.spring.boot.resturantbackend.controllers.vm.Security;
-import com.spring.boot.resturantbackend.annotation.ValidPhone;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -23,7 +22,4 @@ public class AccountAuthRequestVm {
     )
     private String password;
 
-
-//    @ValidPhone
-//    private String phone;
 }
