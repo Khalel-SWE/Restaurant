@@ -18,7 +18,8 @@ export class CartService {
   addProductToOrder(product: ProductOrder){
 
     let isExist: boolean = false;
-    let existedProduct: ProductOrder = undefined;
+    // let existedProduct: ProductOrder = undefined;
+    let existedProduct: ProductOrder | undefined = undefined;
 
     if(this.productOrders.length > 0){
       existedProduct = this.productOrders.find(productOrder => productOrder.id === product.id);
@@ -26,7 +27,7 @@ export class CartService {
 
     isExist = (existedProduct !== undefined);
 
-    if(isExist){
+    if(existedProduct){
       existedProduct.quantity++;
     } else {
       this.productOrders.push(product)

@@ -1,4 +1,4 @@
-<div class="summary">
+<!-- <div class="summary">
   <div>
     <h1>User Orders</h1>
     <p>Total Orders: {{orders.size}}</p>
@@ -27,7 +27,44 @@
         </div>
       </div>
       <!-- more products -->
+    <!-- </div>
+  </div>
+
+</div> --> 
+
+<div class="orders-container">
+
+  <h1>My Orders</h1>
+
+  <div class="summary-box">
+    <h3>Total Orders: {{orders.size}}</h3>
+    <h3>Total Price: {{orders.totalPrice}}</h3>
+  </div>
+
+  <div *ngFor="let order of orders.orderDtos" class="order-card">
+
+    <div class="order-code">
+      {{order.code}}
     </div>
+
+    <div class="order-info">
+      <p>Total Price: {{order.totalPrice}}</p>
+      <p>Total Number: {{order.totalNumber}}</p>
+    </div>
+
+    <div class="products-box">
+
+      <h4>Products</h4>
+
+      <div
+        *ngFor="let product of order.products"
+        class="product-item"
+      >
+        {{product.name}} - {{product.price}} $
+      </div>
+
+    </div>
+
   </div>
 
 </div>

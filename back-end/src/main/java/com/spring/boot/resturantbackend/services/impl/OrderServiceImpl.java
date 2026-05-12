@@ -32,33 +32,6 @@ public class OrderServiceImpl implements OrderService {
     private ProductService productService;
 
 
-//    @Override
-//    public boolean isUserProfileComplete(String username) {
-//        // بنغير findByEmail لـ findByUsername
-//        return accountRepo.findByUsername(username)
-//                .map(account -> account.getAccountDetails() != null
-//                        && account.getAccountDetails().getAddress() != null
-//                        && !account.getAccountDetails().getAddress().isEmpty())
-//                .orElse(false);
-//    }
-
-//    public boolean isUserProfileComplete(String username) {
-//        // 1. هنجيب الحساب عن طريق الـ username
-//        Account account = accountRepo.findByUsername(username)
-//                .orElse(null); // ولو رجع null الـ if اللي بعدها هتتعامل
-//
-//        // 2. التحقق: لو ملوش AccountDetails (يعني الـ Field ده NULL في الـ Entity)
-//        // أو لو كانت البيانات اللي جواه (العنوان أو التليفون) فاضية
-//        if (account.getAccountDetails() == null) {
-//            return false;
-//        }
-//
-//        // زيادة تأكيد: نتحقق إن الحقول الجوهرية مش فاضية
-//        return account.getAccountDetails().getAddress() != null &&
-//                !account.getAccountDetails().getAddress().isEmpty() &&
-//                account.getAccountDetails().getPhoneNumber() != null;
-//    }
-
     public boolean isUserProfileComplete(String username) {
         // استخدم Optional عشان نتجنب الـ Exception المفاجئ
         return accountRepo.findByUsername(username).map(account -> {
@@ -73,46 +46,13 @@ public class OrderServiceImpl implements OrderService {
         }).orElse(false); // لو اليوزر مش موجود أصلاً نرجع false
     }
 
-//    @Override
-//    public ResponseOrderVm requestOrder(RequestOrderVm requestOrderVm) {
-//
-//        // 1. نجيب المنتجات
-//        List<ProductDto> productDtoList = productService.getProductByIds(requestOrderVm.getProductsIds());
-//
-//        // 2. نجيب المستخدم الحالي
-//        AccountDto accountDto = (AccountDto) SecurityContextHolder
-//                .getContext()
-//                .getAuthentication()
-//                .getPrincipal();
-//
-//        // 3. نعمل Order
-//        Order order = new Order();
-//
-//        //  نحط كود مؤقت (مهم جداً عشان الداتابيز)
-//        order.setCode("TEMP");
-//
-//        order.setTotalPrice(requestOrderVm.getTotalPrice());
-//        order.setTotalNumber(requestOrderVm.getTotalNumber());
-//        order.setProducts(ProductMapper.PRODUCT_MAPPER.toProductList(productDtoList));
-//        order.setAccount(AccountMapper.ACCOUNT_MAPPER.toAccount(accountDto));
-//
-//        // 4. نحفظ أول مرة
-//        Order orderSaved = orderRepo.save(order);
-//
-//        // 5. نولّد الكود الحقيقي باستخدام ID
-//        orderSaved.setCode("RES-" + orderSaved.getId());
-//
-//        // 6. نحفظ مرة ثانية
-//        orderSaved = orderRepo.save(orderSaved);
-//
-//        // 7. نرجّع response
-//        return new ResponseOrderVm(
-//                orderSaved.getCode(),
-//                orderSaved.getTotalPrice(),
-//                orderSaved.getTotalNumber(),
-//                "SUCCESS"
-//        );
-//    }
+    @Override
+    public List<OrderDto> getAllOrdersForAdmin() {
+        List<Order> orders = orderRepo.findAll();
+
+        return OrderMapper.ORDER_MAPPER.toOrderDtoList(orders);
+    }
+
 
     @Override
     public ResponseOrderVm requestOrder(RequestOrderVm requestOrderVm) {

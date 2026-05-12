@@ -89,6 +89,8 @@ createOrder() {
 
   this.requestOrderService.createOrder(productIds, this.totalProductPrice, this.totalProductSize).subscribe(
     response => {
+
+      console.log(response);
       // حالة النجاح
       this.cartService.productOrders = [];
       this.cartService.totalPrice.next(0);

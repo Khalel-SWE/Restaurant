@@ -22,7 +22,7 @@ export class HeaderComponent {
     return this.authService.isAdmin();
   }
 
-  search(key){
+  search(key: any){
     this.routes.navigateByUrl("/products/" + key);
   }
 
