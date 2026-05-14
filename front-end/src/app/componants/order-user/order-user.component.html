@@ -1,66 +1,56 @@
-<!-- <div class="summary">
-  <div>
-    <h1>User Orders</h1>
-    <p>Total Orders: {{orders.size}}</p>
-  </div>
-  <div>
-    <strong>Total Price:  {{orders.price}}</strong>
-  </div>
-</div>
-
-<div class="orders">
-
-
-  <div *ngFor="let order of orders.orderDtos" class="order-card">
-    <h2>{{order.code}}</h2>
-    <div class="order-meta">Items: {{order.totalNumber}} • Total: {{order.totalPrice}}</div>
-    <div class="products">
-      <div *ngFor="let product of order.products" class="product">
-        <img src="../../../assets/img/{{product.imagePath}}" alt="Mombar">
-        <div class="product-info">
-          <h4>{{product.name}}</h4>
-          <p>{{product.description}}</p>
-          <div class="product-footer">
-            <span class="badge">{{product.category.name}}</span>
-            <span>{{product.price}}</span>
-          </div>
-        </div>
-      </div>
-      <!-- more products -->
-    <!-- </div>
-  </div>
-
-</div> --> 
-
 <div class="orders-container">
 
   <h1>My Orders</h1>
 
+  <!-- Summary -->
   <div class="summary-box">
-    <h3>Total Orders: {{orders.size}}</h3>
-    <h3>Total Price: {{orders.totalPrice}}</h3>
+
+    <h3>Total Orders: {{ totalOrders }}</h3>
+
+    <h3>Total Price: {{ totalPrice }}</h3>
+
   </div>
 
-  <div *ngFor="let order of orders.orderDtos" class="order-card">
+  <!-- Orders -->
+
+  <div *ngFor="let order of orders" class="order-card">
 
     <div class="order-code">
-      {{order.code}}
+      Order Code: {{ order.code }}
     </div>
 
     <div class="order-info">
-      <p>Total Price: {{order.totalPrice}}</p>
-      <p>Total Number: {{order.totalNumber}}</p>
+
+      <p>
+        <strong>Total Price:</strong>
+        {{ order.totalPrice }}
+      </p>
+
+      <p>
+        <strong>Total Number:</strong>
+        {{ order.totalNumber }}
+      </p>
+
     </div>
+
+    <!-- Products -->
 
     <div class="products-box">
 
       <h4>Products</h4>
 
-      <div
-        *ngFor="let product of order.products"
-        class="product-item"
-      >
-        {{product.name}} - {{product.price}} $
+      <div *ngFor="let product of order.products"
+           class="product-item">
+
+        <h5>{{ product.name }}</h5>
+
+        <p>{{ product.description }}</p>
+
+        <p>
+          <strong>Price:</strong>
+          {{ product.price }}
+        </p>
+
       </div>
 
     </div>
