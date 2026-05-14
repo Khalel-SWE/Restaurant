@@ -38,8 +38,8 @@ public class SecurityConfig {
                 // auth endpoints
                 .requestMatchers("/auth/**").permitAll()
 
-                .requestMatchers("/orders/admin/**").hasAuthority("ADMIN")
-
+//                .requestMatchers("/orders/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/orders/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         );
 

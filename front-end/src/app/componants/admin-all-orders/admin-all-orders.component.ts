@@ -22,15 +22,19 @@ export class AdminAllOrdersComponent implements OnInit {
 
       next: (response) => {
 
-        console.log("ADMIN ORDERS", response);
+  console.log("ADMIN ORDERS", response);
 
-        this.orders = response.orderDtos;
+  this.orders = response;
 
-        this.totalOrders = response.size;
+  this.totalOrders = response.length;
 
-        this.totalPrice = response.price;
+  this.totalPrice = response.reduce(
+    (sum: number, order: any) =>
+      sum + order.totalPrice,
+    0
+  );
 
-      },
+},
 
       error: (error) => {
 
