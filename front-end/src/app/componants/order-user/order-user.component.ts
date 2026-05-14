@@ -45,7 +45,8 @@ export class OrderUserComponent implements OnInit {
 
       next: (response) => {
 
-        console.log("FULL RESPONSE", response);
+        // console.log("FULL RESPONSE", response);
+        console.log(JSON.stringify(response));
 
         this.orders = response.orderDtos;
 
