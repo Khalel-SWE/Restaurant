@@ -29,4 +29,12 @@ export class RequestOrderService {
       this.url + '/all-orders'
     );
   }
+
+   getAllOrdersForAdmin(): Observable<any> {
+
+    return this.http.get<any>(
+      this.url + '/admin/all-orders'
+    );
+  }
+
 }

@@ -22,6 +22,7 @@ import { OrderCodeComponent } from './componants/order-code/order-code.component
 import { OrderUserComponent } from './componants/order-user/order-user.component';
 import { ProfileComponent } from './componants/profile/profile.component';
 import { FormsModule } from '@angular/forms';
+import { AdminAllOrdersComponent } from './componants/admin-all-orders/admin-all-orders.component';
 
 // http://localhost:4200/
   export const routes: Routes = [
@@ -45,8 +46,9 @@ import { FormsModule } from '@angular/forms';
 
     // if user enter thing without all routes
     // http://localhost:4200/ghy
-    {path: '**', redirectTo: '/products', pathMatch: 'full'}
+    {path: '**', redirectTo: '/products', pathMatch: 'full'},
 
+    {path: 'admin-all-orders', component: AdminAllOrdersComponent, canActivate: [AuthGuard]},
   ];  
 
 
@@ -70,7 +72,8 @@ import { FormsModule } from '@angular/forms';
     SignupComponent,
     OrderCodeComponent,
     OrderUserComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminAllOrdersComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

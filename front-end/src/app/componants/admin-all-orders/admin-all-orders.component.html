@@ -2,18 +2,24 @@
 
   <div class="page-header">
 
-    <h1>My Orders</h1>
+    <h1>Admin Orders Dashboard</h1>
 
     <div class="summary-box">
 
       <div class="summary-item">
+
         <span>Total Orders</span>
+
         <h2>{{ totalOrders }}</h2>
+
       </div>
 
       <div class="summary-item">
-        <span>Total Price</span>
+
+        <span>Total Revenue</span>
+
         <h2>${{ totalPrice }}</h2>
+
       </div>
 
     </div>
@@ -28,14 +34,19 @@
     <div class="order-top">
 
       <div>
+
         <h2>{{ order.code }}</h2>
+
         <p class="order-date">
-          Restaurant Order
+          Admin View
         </p>
+
       </div>
 
       <div class="order-badge">
-        Completed
+
+        Active
+
       </div>
 
     </div>

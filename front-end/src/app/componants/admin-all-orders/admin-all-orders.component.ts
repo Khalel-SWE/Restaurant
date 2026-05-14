@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { RequestOrderService } from "../../../service/request-order.service";
 
 @Component({
-  selector: 'app-order-user',
-  templateUrl: './order-user.component.html',
-  styleUrls: ['./order-user.component.css']
+  selector: 'app-admin-all-orders',
+  templateUrl: './admin-all-orders.component.html',
+  styleUrls: ['./admin-all-orders.component.css']
 })
-export class OrderUserComponent implements OnInit {
+export class AdminAllOrdersComponent implements OnInit {
 
   orders: any[] = [];
 
@@ -18,11 +18,11 @@ export class OrderUserComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.requestOrderService.getOrder().subscribe({
+    this.requestOrderService.getAllOrdersForAdmin().subscribe({
 
       next: (response) => {
 
-        console.log("FULL RESPONSE", response);
+        console.log("ADMIN ORDERS", response);
 
         this.orders = response.orderDtos;
 
@@ -34,7 +34,7 @@ export class OrderUserComponent implements OnInit {
 
       error: (error) => {
 
-        console.log("ERROR", error);
+        console.log("ADMIN ERROR", error);
 
       }
 
