@@ -41,6 +41,7 @@ import { AdminAllOrdersComponent } from './componants/admin-all-orders/admin-all
     {path: 'chefs', component: ChefsComponent, canActivate:[AuthGuard]},
     {path: 'order-code/:code', component: OrderCodeComponent, canActivate:[AuthGuard]},
     {path: 'orders-user', component: OrderUserComponent, canActivate:[AuthGuard]},
+    {path: 'admin-all-orders', component: AdminAllOrdersComponent, canActivate: [AuthGuard]},
     // http://localhost:4200/
     {path: '', redirectTo: '/products', pathMatch: 'full'},
 
@@ -48,7 +49,6 @@ import { AdminAllOrdersComponent } from './componants/admin-all-orders/admin-all
     // http://localhost:4200/ghy
     {path: '**', redirectTo: '/products', pathMatch: 'full'},
 
-    {path: 'admin-all-orders', component: AdminAllOrdersComponent, canActivate: [AuthGuard]},
   ];  
 
 

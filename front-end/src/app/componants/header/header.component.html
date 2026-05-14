@@ -33,13 +33,15 @@
               <i class="fa fa-box-open text-primary me-2"></i> Show Orders H
              </a>
             <!-- <a *ngIf="isAdmin()" href="booking.html" -->
-            <a *ngIf="isAdmin()"
-            [routerLink]="['/admin-all-orders']"
-            class="dropdown-item d-flex align-items-center rounded mb-1">
+            <button
+  *ngIf="isAdmin()"
+  routerLink="/admin-all-orders"
+  class="dropdown-item d-flex align-items-center rounded mb-1 border-0 bg-transparent">
 
-            <i class="fa fa-box-open text-primary me-2"></i>
-            Show All Orders
-            </a>
+  <i class="fa fa-box-open text-primary me-2"></i>
+  Show All Orders
+
+</button>
             
             <a *ngIf="isAdmin()" href="booking.html" class="dropdown-item d-flex align-items-center rounded mb-1">
               <i class="fa fa-plus-circle text-success me-2"></i> Add New Product
