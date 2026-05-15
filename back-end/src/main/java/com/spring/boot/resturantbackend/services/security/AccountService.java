@@ -1,6 +1,7 @@
 package com.spring.boot.resturantbackend.services.security;
 
 import com.spring.boot.resturantbackend.dto.security.AccountDto;
+import com.spring.boot.resturantbackend.models.security.Account;
 
 import java.util.List;
 
@@ -20,4 +21,5 @@ public interface AccountService {
 
     AccountDto getAccountByUsername(String username);
 
+    Account getCurrentAccount();
 }

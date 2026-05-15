@@ -7,6 +7,8 @@ import com.spring.boot.resturantbackend.models.security.AccountDetails;
 import com.spring.boot.resturantbackend.repositories.security.AccountRepo;
 import com.spring.boot.resturantbackend.services.security.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -99,5 +101,25 @@ public class AccountServiceImpl implements AccountService {
     public AccountDto getAccountByUsername(String username) {
         Optional<Account> result = accountRepo.findByUsername(username);
         return result.map(AccountMapper.ACCOUNT_MAPPER::toAccountDto).orElse(null);
+    }
+
+    @Override
+    public Account getCurrentAccount() {
+
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        if (authentication == null) {
+            return null;
+        }
+
+        AccountDto accountDto =
+                (AccountDto) authentication.getPrincipal();
+
+        return accountRepo
+                .findById(accountDto.getId())
+                .orElse(null);
     }
 }

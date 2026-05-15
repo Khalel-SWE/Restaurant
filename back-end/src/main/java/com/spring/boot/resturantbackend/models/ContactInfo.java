@@ -25,7 +25,7 @@ public class ContactInfo {
     private String subject;
     @Column(nullable = false)
     private String message;
-    
+
     private String reply;
     @ManyToOne
     private Account account;
