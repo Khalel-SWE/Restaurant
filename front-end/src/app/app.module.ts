@@ -23,6 +23,7 @@ import { OrderUserComponent } from './componants/order-user/order-user.component
 import { ProfileComponent } from './componants/profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { AdminAllOrdersComponent } from './componants/admin-all-orders/admin-all-orders.component';
+import { AdminContactMessagesComponent } from './componants/admin-contact-messages/admin-contact-messages.component';
 
 // http://localhost:4200/
   export const routes: Routes = [
@@ -42,6 +43,7 @@ import { AdminAllOrdersComponent } from './componants/admin-all-orders/admin-all
     {path: 'order-code/:code', component: OrderCodeComponent, canActivate:[AuthGuard]},
     {path: 'orders-user', component: OrderUserComponent, canActivate:[AuthGuard]},
     {path: 'admin-all-orders', component: AdminAllOrdersComponent, canActivate: [AuthGuard]},
+    {path: 'admin-contact-messages', component: AdminContactMessagesComponent, canActivate: [AuthGuard]},
     // http://localhost:4200/
     {path: '', redirectTo: '/products', pathMatch: 'full'},
 
@@ -73,7 +75,8 @@ import { AdminAllOrdersComponent } from './componants/admin-all-orders/admin-all
     OrderCodeComponent,
     OrderUserComponent,
     ProfileComponent,
-    AdminAllOrdersComponent
+    AdminAllOrdersComponent,
+    AdminContactMessagesComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

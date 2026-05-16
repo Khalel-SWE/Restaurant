@@ -21,4 +21,24 @@ export class ContactInfoService {
 
   }
 
+  getAllMessages(): Observable<any> {
+
+  return this.http.get(
+    `${this.baseUrl}/admin/all`
+  );
+
+}
+
+replyMessage(id: number, reply: string): Observable<any> {
+
+  return this.http.put(
+    `${this.baseUrl}/admin/reply/${id}`,
+    reply,
+    {
+      responseType: 'text' as 'json'
+    }
+  );
+
+}
+
 }
