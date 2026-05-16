@@ -41,4 +41,12 @@ replyMessage(id: number, reply: string): Observable<any> {
 
 }
 
+getMyMessages(): Observable<any> {
+
+  return this.http.get(
+    `${this.baseUrl}/my-messages`
+  );
+
+}
+
 }

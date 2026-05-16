@@ -24,6 +24,7 @@ import { ProfileComponent } from './componants/profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { AdminAllOrdersComponent } from './componants/admin-all-orders/admin-all-orders.component';
 import { AdminContactMessagesComponent } from './componants/admin-contact-messages/admin-contact-messages.component';
+import { MyMessagesComponent } from './componants/my-messages/my-messages.component';
 
 // http://localhost:4200/
   export const routes: Routes = [
@@ -44,6 +45,7 @@ import { AdminContactMessagesComponent } from './componants/admin-contact-messag
     {path: 'orders-user', component: OrderUserComponent, canActivate:[AuthGuard]},
     {path: 'admin-all-orders', component: AdminAllOrdersComponent, canActivate: [AuthGuard]},
     {path: 'admin-contact-messages', component: AdminContactMessagesComponent, canActivate: [AuthGuard]},
+    {path: 'my-messages', component: MyMessagesComponent, canActivate:[AuthGuard]},
     // http://localhost:4200/
     {path: '', redirectTo: '/products', pathMatch: 'full'},
 
@@ -76,7 +78,8 @@ import { AdminContactMessagesComponent } from './componants/admin-contact-messag
     OrderUserComponent,
     ProfileComponent,
     AdminAllOrdersComponent,
-    AdminContactMessagesComponent
+    AdminContactMessagesComponent,
+    MyMessagesComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

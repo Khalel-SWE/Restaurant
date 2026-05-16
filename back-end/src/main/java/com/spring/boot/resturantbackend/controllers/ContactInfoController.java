@@ -2,6 +2,7 @@ package com.spring.boot.resturantbackend.controllers;
 
 import com.spring.boot.resturantbackend.dto.AdminContactMessageDto;
 import com.spring.boot.resturantbackend.dto.ContactInfoDto;
+import com.spring.boot.resturantbackend.dto.UserContactMessageDto;
 import com.spring.boot.resturantbackend.models.ContactInfo;
 import com.spring.boot.resturantbackend.services.ContactInfoService;
 import jakarta.validation.Valid;
@@ -44,6 +45,13 @@ public class ContactInfoController {
 
         return contactInfoService
                 .replyMessage(id, reply);
+
+    }
+
+    @GetMapping("/my-messages")
+    public List<UserContactMessageDto> getMyMessages() {
+
+        return contactInfoService.getMyMessages();
 
     }
 

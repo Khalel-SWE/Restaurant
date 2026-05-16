@@ -11,4 +11,6 @@ public interface ContactInfoRepo extends JpaRepository<ContactInfo, Long> {
 
     List<ContactInfo> findAllByOrderByIdDesc();
 
+    List<ContactInfo> findByAccountId(Long accountId);
+
 }

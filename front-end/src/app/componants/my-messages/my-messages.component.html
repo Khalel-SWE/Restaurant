@@ -1,0 +1,89 @@
+<div class="container mt-5 mb-5">
+
+  <div class="text-center mb-5">
+
+    <h1 class="fw-bold">
+      My Contact Messages
+    </h1>
+
+    <p class="text-muted">
+      Here you can view your messages and admin replies
+    </p>
+
+  </div>
+
+  <div
+    *ngFor="let message of messages"
+    class="card border-0 shadow-lg rounded-4 mb-4">
+
+    <div class="card-body p-4">
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h3 class="fw-bold text-dark">
+
+          {{ message.subject }}
+
+        </h3>
+
+        <span
+          *ngIf="message.reply != 'No reply yet'"
+          class="badge bg-success p-2">
+
+          Replied
+
+        </span>
+
+        <span
+          *ngIf="message.reply == 'No reply yet'"
+          class="badge bg-warning text-dark p-2">
+
+          Waiting
+
+        </span>
+
+      </div>
+
+      <div class="mb-4">
+
+        <h5 class="fw-bold text-primary">
+
+          My Message
+
+        </h5>
+
+        <div class="alert alert-light border rounded-3">
+
+          {{ message.message }}
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <h5 class="fw-bold text-success">
+
+          Admin Reply
+
+        </h5>
+
+        <div
+          class="alert rounded-3"
+          [ngClass]="
+            message.reply == 'No reply yet'
+            ? 'alert-warning'
+            : 'alert-success'
+          ">
+
+          {{ message.reply }}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
