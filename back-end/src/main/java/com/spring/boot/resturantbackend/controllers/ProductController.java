@@ -165,4 +165,13 @@ public class ProductController {
         );
 
     }
+
+    @DeleteMapping("/admin/delete-product/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+
+        productService.deleteProductById(id);
+
+        return ResponseEntity.ok("Product deleted successfully");
+    }
+
 }
