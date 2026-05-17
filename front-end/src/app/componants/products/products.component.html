@@ -27,9 +27,10 @@
                     <i class="fa fa-cart-plus"></i>
                   </button>
 
-                  <!-- Update -->
-                  <button  *ngIf="isAdmin()" type="button" class="btn btn-warning btn-sm">
-                    <i class="fa fa-edit"></i>
+                  <!-- Update --> <!-- Edit -->
+                   <button *ngIf="isAdmin()" type="button" class="btn btn-warning btn-sm me-2" 
+                   (click)="editProduct(pro)" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                   <i class="fa fa-edit"></i>
                   </button>
 
                   <!-- Delete -->

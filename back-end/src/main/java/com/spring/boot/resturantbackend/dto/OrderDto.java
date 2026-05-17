@@ -1,8 +1,5 @@
 package com.spring.boot.resturantbackend.dto;
 
-import com.spring.boot.resturantbackend.models.Product;
-import com.spring.boot.resturantbackend.models.security.Account;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +18,7 @@ public class OrderDto {
     private String code;
     private double totalPrice;
     private double totalNumber;
+    private String username;
     List<ProductDto> products;
 
 }

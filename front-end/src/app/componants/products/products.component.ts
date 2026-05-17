@@ -17,7 +17,8 @@ export class ProductsComponent  implements OnInit{
   messageAr: string = '';
   messageEn: string = '';
   products: Product[] = [];
-  newProduct = {
+  isEditMode: boolean = false;
+  newProduct: any = {
   name: '',
   imagePath: '',
   description: '',
@@ -26,6 +27,21 @@ export class ProductsComponent  implements OnInit{
     id: 1
   }
 };
+openAddProductModal() {
+
+  this.isEditMode = false;
+
+  this.newProduct = {
+    name: '',
+    imagePath: '',
+    description: '',
+    price: 0,
+    category: {
+      id: 1
+    }
+  };
+
+}
   pageNumber: number = 1;
   pageSize: number = 20;
   totalProductSize: number = 0;
@@ -35,9 +51,35 @@ export class ProductsComponent  implements OnInit{
   }
   saveProduct() {
 
-  this.productService
-    .addProduct(this.newProduct)
-    .subscribe({
+  if (this.newProduct.id) {
+
+    this.productService.updateProduct(this.newProduct).subscribe({
+
+      next: (response) => {
+
+        console.log("PRODUCT UPDATED", response);
+
+        alert("Product Updated Successfully 🔥");
+
+        this.loadProducts(this.pageNumber);
+
+        this.isEditMode = false;
+
+      },
+
+      error: (error) => {
+
+        console.log(error);
+
+        alert("Error While Updating Product");
+
+      }
+
+    });
+
+  } else {
+
+    this.productService.addProduct(this.newProduct).subscribe({
 
       next: (response) => {
 
@@ -58,6 +100,26 @@ export class ProductsComponent  implements OnInit{
       }
 
     });
+
+  }
+
+}
+
+
+editProduct(product: any) {
+
+  this.isEditMode = true;
+
+  this.newProduct = {
+    id: product.id,
+    name: product.name,
+    imagePath: product.imagePath,
+    description: product.description,
+    price: product.price,
+    category: {
+      id: product.category.id
+    }
+  };
 
 }
 

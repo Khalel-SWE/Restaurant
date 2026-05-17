@@ -48,6 +48,22 @@ export class ProductService {
 
 }
 
+updateProduct(product: any): Observable<any> {
+
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.put(
+    this.baseUrl + "admin/update-product",
+    product,
+    { headers }
+  );
+
+}
+
 deleteProduct(productId: number) {
 
   const token = localStorage.getItem('token');

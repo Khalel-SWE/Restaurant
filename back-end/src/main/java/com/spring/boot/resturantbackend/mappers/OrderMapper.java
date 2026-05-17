@@ -1,11 +1,9 @@
 package com.spring.boot.resturantbackend.mappers;
 
-import com.spring.boot.resturantbackend.dto.OrderDto;
-import com.spring.boot.resturantbackend.dto.ProductDto;
-import com.spring.boot.resturantbackend.models.Order;
 import com.spring.boot.resturantbackend.controllers.vm.RequestOrderVm;
 import com.spring.boot.resturantbackend.controllers.vm.ResponseOrderVm;
-import com.spring.boot.resturantbackend.models.Product;
+import com.spring.boot.resturantbackend.dto.OrderDto;
+import com.spring.boot.resturantbackend.models.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -19,6 +17,10 @@ public interface OrderMapper {
 
     Order toOrder(RequestOrderVm requestOrderVm);
 
+    @org.mapstruct.Mapping(
+            source = "account.username",
+            target = "username"
+    )
     OrderDto toProductDto(Order order);
     List<OrderDto> toOrderDtoList(List<Order> order);
 }
