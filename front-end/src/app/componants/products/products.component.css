@@ -1,15 +1,166 @@
-.message-box {
-  max-width: 500px;
-  margin: 20px auto;
+.custom-modal {
+
+  background: #1f1f1f;
+
+  border-radius: 22px;
+
+  overflow: hidden;
+
+  border: 1px solid #353535;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.45);
+
+  animation: popup 0.25s ease;
+}
+
+.custom-header {
+
+  background: #2a2a2a;
+
+  padding: 25px 35px;
+
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.custom-header h3 {
+
+  color: white;
+
+  font-size: 32px;
+
+  font-weight: 700;
+
+  margin: 0;
+}
+
+.custom-label {
+
+  color: #e0e0e0;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  margin-bottom: 10px;
+
+  display: block;
+}
+
+.custom-input {
+
+  background: #2c2c2c !important;
+
+  border: 2px solid #404040 !important;
+
+  color: white !important;
+
+  border-radius: 14px !important;
+
+  min-height: 55px;
+
+  padding-left: 18px;
+
+  font-size: 16px;
+
+  transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+
+  border-color: #ff9800 !important;
+
+  box-shadow:
+    0 0 0 4px rgba(255,152,0,0.15) !important;
+
+  background: #323232 !important;
+}
+
+.custom-input::placeholder {
+
+  color: #9e9e9e;
+}
+
+.custom-textarea {
+
+  min-height: 160px;
+
+  padding-top: 15px;
+}
+
+.form-select option {
+
+  background: #2c2c2c;
+
+  color: white;
+}
+
+.custom-footer {
+
+  border-top: 1px solid #353535;
+
+  padding: 25px 35px;
+
+  background: #262626;
+}
+
+.cancel-btn {
+
+  background: #555;
+
+  color: white;
+
+  min-width: 140px;
+
+  height: 50px;
+
   border-radius: 12px;
-  padding: 15px 20px;
+
+  font-weight: 600;
 }
-.message-ar {
-  direction: rtl;
-  font-weight: bold;
-  color: #d63384; /* pinkish for Arabic */
+
+.cancel-btn:hover {
+
+  background: #666;
 }
-.message-en {
-  direction: ltr;
-  color: #0d6efd; /* bootstrap blue for English */
+
+.save-btn {
+
+  background: #ff9800;
+
+  color: white;
+
+  min-width: 220px;
+
+  height: 50px;
+
+  border-radius: 12px;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+
+  background: #e68900;
+
+  transform: translateY(-2px);
+}
+
+@keyframes popup {
+
+  from {
+
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+
+    opacity: 1;
+    transform: scale(1);
+  }
 }

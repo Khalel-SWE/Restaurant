@@ -81,5 +81,221 @@
       </div>
     </div>
   </div>
+
+  <!-- Add Product Modal -->
+
+<div
+  class="modal fade"
+  id="addProductModal"
+  tabindex="-1"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+
+    <div class="modal-content custom-modal">
+
+      <!-- HEADER -->
+
+      <div class="modal-header custom-header">
+
+        <h3 class="modal-title">
+
+          <i class="fa fa-utensils me-2"></i>
+
+          Add New Product
+
+        </h3>
+
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal">
+        </button>
+
+      </div>
+
+      <!-- BODY -->
+
+      <div class="modal-body">
+
+        <div class="row g-4">
+
+          <!-- PRODUCT NAME -->
+
+          <div class="col-md-6">
+
+            <label class="custom-label">
+
+              Product Name
+
+            </label>
+
+            <input
+              type="text"
+              class="form-control custom-input"
+
+              placeholder="Enter product name"
+
+              [(ngModel)]="newProduct.name">
+
+          </div>
+
+          <!-- PRICE -->
+
+          <div class="col-md-6">
+
+            <label class="custom-label">
+
+              Price
+
+            </label>
+
+            <input
+              type="number"
+              class="form-control custom-input"
+
+              placeholder="Enter price"
+
+              [(ngModel)]="newProduct.price">
+
+          </div>
+
+          <!-- IMAGE -->
+
+          <div class="col-md-6">
+
+            <label class="custom-label">
+
+              Product Image
+
+            </label>
+
+            <select
+              class="form-select custom-input"
+
+              [(ngModel)]="newProduct.imagePath">
+
+              <option value="menu-1.jpg">
+                Burger
+              </option>
+
+              <option value="menu-2.jpg">
+                Pizza
+              </option>
+
+              <option value="menu-3.jpg">
+                Chicken
+              </option>
+
+              <option value="menu-4.jpg">
+                Rice
+              </option>
+
+              <option value="menu-5.jpg">
+                Pasta
+              </option>
+
+              <option value="menu-6.jpg">
+                Drinks
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- CATEGORY -->
+
+          <div class="col-md-6">
+
+            <label class="custom-label">
+
+              Category
+
+            </label>
+
+            <select
+              class="form-select custom-input"
+
+              [(ngModel)]="newProduct.category.id">
+
+              <option [ngValue]="1">
+                Fast Food
+              </option>
+
+              <option [ngValue]="2">
+                Cold Drinks
+              </option>
+
+              <option [ngValue]="3">
+                Hot Drinks
+              </option>
+
+              <option [ngValue]="4">
+                Sweets
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- DESCRIPTION -->
+
+          <div class="col-12">
+
+            <label class="custom-label">
+
+              Description
+
+            </label>
+
+            <textarea
+              rows="5"
+              class="form-control custom-input custom-textarea"
+
+              placeholder="Enter product description"
+
+              [(ngModel)]="newProduct.description">
+
+            </textarea>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+
+      <div class="modal-footer custom-footer">
+
+        <button
+          type="button"
+          class="btn cancel-btn"
+          data-bs-dismiss="modal">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="button"
+          class="btn save-btn"
+
+          (click)="saveProduct()">
+
+          <i class="fa fa-save me-2"></i>
+
+          Save Product
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 </div>
 

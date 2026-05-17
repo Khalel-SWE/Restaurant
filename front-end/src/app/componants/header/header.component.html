@@ -40,9 +40,10 @@
               <i class="fa fa-box-open text-primary me-2"></i> Show All Orders
             </button>
             
-            <a *ngIf="isAdmin()" href="booking.html" class="dropdown-item d-flex align-items-center rounded mb-1">
-              <i class="fa fa-plus-circle text-success me-2"></i> Add New Product
-            </a>
+            <button *ngIf="isAdmin()" type="button" class="dropdown-item d-flex align-items-center rounded mb-1 border-0 bg-transparent"
+            data-bs-toggle="modal" data-bs-target="#addProductModal">
+            <i class="fa fa-plus-circle text-success me-2"></i> Add New Product
+          </button>
             <a href="booking.html" class="dropdown-item d-flex align-items-center rounded mb-1">
               <i class="fa fa-key text-warning me-2"></i> Change Password
             </a>

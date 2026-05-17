@@ -17,13 +17,49 @@ export class ProductsComponent  implements OnInit{
   messageAr: string = '';
   messageEn: string = '';
   products: Product[] = [];
+  newProduct = {
+  name: '',
+  imagePath: '',
+  description: '',
+  price: 0,
+  category: {
+    id: 1
+  }
+};
   pageNumber: number = 1;
   pageSize: number = 20;
-  totalProductSize: number;
+  totalProductSize: number = 0;
   constructor(private productService: ProductService, private activatedRoute: ActivatedRoute,
               private cartService: CartService, private authService: AuthService) {
 
   }
+  saveProduct() {
+
+  this.productService
+    .addProduct(this.newProduct)
+    .subscribe({
+
+      next: (response) => {
+
+        console.log("PRODUCT ADDED", response);
+
+        alert("Product Added Successfully 🔥");
+
+        this.loadProducts(this.pageNumber);
+
+      },
+
+      error: (error) => {
+
+        console.log(error);
+
+        alert("Error While Adding Product");
+
+      }
+
+    });
+
+}
 
   isAdmin(): boolean {
     return this.authService.isAdmin();
@@ -38,7 +74,7 @@ export class ProductsComponent  implements OnInit{
   // http://localhost:4200/products
   // http://localhost:4200/category/1
   // http://localhost:4200/search/rice
-  loadProducts(pageNum){
+  loadProducts(pageNum : number){
       // check
       let hasCategoryId = this.activatedRoute.snapshot.paramMap.has("id");
       let hasKey = this.activatedRoute.snapshot.paramMap.has("key");
@@ -56,7 +92,7 @@ export class ProductsComponent  implements OnInit{
   }
 
 
-  getProducts(pageNum){
+  getProducts(pageNum : number){
     this.productService.getProducts(pageNum, this.pageSize).subscribe(
       response => {
         this.products = response.products;
@@ -69,7 +105,7 @@ export class ProductsComponent  implements OnInit{
     )
   }
 
-  getProductByCategoryId(id, pageNum){
+  getProductByCategoryId(id: any, pageNum: number){
     this.productService.getProductsByCategoryId(id, pageNum, this.pageSize).subscribe(
       response => {
         this.products = response.products;
@@ -82,7 +118,7 @@ export class ProductsComponent  implements OnInit{
     )
   }
 
-  searchByKey(key, pageNum){
+  searchByKey(key: any, pageNum: Number){
     this.productService.search(key, pageNum, this.pageSize).subscribe(
       response => {
         this.products = response.products;

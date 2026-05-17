@@ -41,6 +41,7 @@ public class SecurityConfig {
 //                .requestMatchers("/orders/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/orders/admin/**").hasRole("ADMIN")
                 .requestMatchers("/contact/admin/**").hasRole("ADMIN")
+                .requestMatchers("/products/admin/**").hasRole("ADMIN")
                 .requestMatchers("/contact/**").authenticated()
                 .anyRequest().authenticated()
         );

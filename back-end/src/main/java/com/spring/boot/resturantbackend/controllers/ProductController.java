@@ -2,6 +2,7 @@ package com.spring.boot.resturantbackend.controllers;
 
 import com.spring.boot.resturantbackend.controllers.vm.ProductResponseVm;
 import com.spring.boot.resturantbackend.dto.ExceptionDto;
+import com.spring.boot.resturantbackend.dto.ProductDto;
 import com.spring.boot.resturantbackend.services.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -152,5 +153,16 @@ public class ProductController {
     )
             throws SystemException {
         return ResponseEntity.ok(productService.getAllProductsByCategoryIdAndKey(categoryId, key, page, size));
+    }
+
+    @PostMapping("/admin/add-product")
+    public ResponseEntity<ProductDto> addProduct(
+            @RequestBody ProductDto productDto
+    ) {
+
+        return ResponseEntity.ok(
+                productService.createProduct(productDto)
+        );
+
     }
 }
