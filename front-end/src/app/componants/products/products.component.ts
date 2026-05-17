@@ -145,4 +145,31 @@ export class ProductsComponent  implements OnInit{
     this.cartService.addProductToOrder(productOrder);
 
   }
+
+  deleteProduct(productId: number) {
+
+  const confirmDelete = confirm('Are you sure you want to delete this product?');
+
+  if (!confirmDelete) {
+    return;
+  }
+
+  this.productService.deleteProduct(productId).subscribe({
+
+    next: () => {
+
+      this.products = this.products.filter(
+        (product: any) => product.id !== productId
+      );
+
+      alert('Product deleted successfully');
+    },
+
+    error: (err) => {
+      console.log(err);
+      alert('Failed to delete product');
+    }
+
+  });
+}
 }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from "rxjs";
 import {Category} from "../model/category";
 import {map} from "rxjs/operators";
 import {Product} from "../model/product";
+
 
 @Injectable({
   providedIn: 'root'
@@ -46,4 +47,19 @@ export class ProductService {
   );
 
 }
+
+deleteProduct(productId: number) {
+
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.delete(
+  this.baseUrl + `admin/delete-product/${productId}`,
+  { headers }
+);
+}
+
 }

@@ -33,8 +33,9 @@
                   </button>
 
                   <!-- Delete -->
-                  <button  *ngIf="isAdmin()" type="button" class="btn btn-danger btn-sm">
-                    <i class="fa fa-trash"></i>
+                   <button *ngIf="isAdmin()" type="button" class="btn btn-danger btn-sm"
+                   (click)="deleteProduct(pro.id)">
+                   <i class="fa fa-trash"></i>
                   </button>
 
                   <!-- Details -->
