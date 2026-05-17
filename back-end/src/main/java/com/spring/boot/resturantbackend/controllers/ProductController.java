@@ -174,4 +174,14 @@ public class ProductController {
         return ResponseEntity.ok("Product deleted successfully");
     }
 
+    @PutMapping("/admin/update-product")
+    public ResponseEntity<ProductDto> updateProduct(
+            @RequestBody ProductDto productDto
+    ) {
+
+        return ResponseEntity.ok(
+                productService.updateProduct(productDto)
+        );
+    }
+
 }
