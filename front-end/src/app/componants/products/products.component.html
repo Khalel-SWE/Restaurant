@@ -24,19 +24,19 @@
                 <div class="mt-auto d-flex gap-2 flex-wrap">
 
                   <!-- Update --> <!-- Edit -->
-                   <button *ngIf="isAdmin()" type="button" class="btn btn-warning btn-sm me-2" 
+                   <button *ngIf="isAdmin()" type="button" class="btn btn-warning btn-sm gap-2" 
                    (click)="editProduct(pro)" data-bs-toggle="modal" data-bs-target="#addProductModal">
                    <i class="fa fa-edit"></i>
                   </button>
 
                   <!-- Delete -->
-                   <button *ngIf="isAdmin()" type="button" class="btn btn-danger btn-sm"
+                   <button *ngIf="isAdmin()" type="button" class="btn btn-danger btn-sm gap-2"
                    (click)="deleteProduct(pro.id)">
                    <i class="fa fa-trash"></i>
                   </button>
 
                   <!-- Details -->
-                  <button type="button" class="btn btn-info btn-sm px-3" (click)="showDetails(pro)" 
+                  <button type="button" class="btn btn-info btn-sm gap-2" (click)="showDetails(pro)" 
                   data-bs-toggle="modal" data-bs-target="#productDetailsModal"> <i class="fa fa-info-circle"></i> 
                 </button>
                 </div>
