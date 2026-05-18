@@ -3,6 +3,8 @@ package com.spring.boot.resturantbackend.controllers.security;
 import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthRequestVm;
 import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthResponseVm;
 import com.spring.boot.resturantbackend.dto.security.AccountDto;
+import com.spring.boot.resturantbackend.mappers.security.AccountMapper;
+import com.spring.boot.resturantbackend.models.security.Account;
 import com.spring.boot.resturantbackend.services.security.AccountService;
 import com.spring.boot.resturantbackend.services.security.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -74,5 +76,17 @@ public class AuthController {
         accountService.deleteAccount(id);
 
         return ResponseEntity.ok("USER DELETED");
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<AccountDto> getCurrentUser() {
+
+        Account account = accountService.getCurrentAccount();
+
+        AccountDto accountDto =
+                AccountMapper.ACCOUNT_MAPPER
+                        .toAccountDto(account);
+
+        return ResponseEntity.ok(accountDto);
     }
 }

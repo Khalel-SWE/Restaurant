@@ -7,15 +7,6 @@ import { AuthService } from 'src/service/auth.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-// export class ProfileComponent implements OnInit {
-
-//   // تعريف المتغيرات مفرودة لحل أخطاء الـ Build في الـ HTML
-//   id: any;
-//   username: string = '';
-//   email: string = '';
-//   phoneNumber: string = '';
-//   address: string = '';
-//   age: number = 0;
 
 export class ProfileComponent implements OnInit {
   id: any;
@@ -35,68 +26,43 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserData() {
-    const userStr = sessionStorage.getItem('user');
-    if (userStr) {
-      const user = JSON.parse(userStr);
-      this.id = user.id;
-      this.username = user.username;
 
-      // فك الكائن القادم من السيشن وتوزيعه على المتغيرات المفرودة
-      if (user.accountDetails) {
-        this.email = user.accountDetails.email || '';
-        this.phoneNumber = user.accountDetails.phoneNumber || '';
-        this.address = user.accountDetails.address || '';
-        this.age = user.accountDetails.age || 0;
+  this.authService.getCurrentUser().subscribe({
+
+    next: (response: any) => {
+
+      console.log("CURRENT USER", response);
+
+      this.id = response.id;
+
+      this.username = response.username;
+
+      if (response.accountDetails) {
+
+        this.email =
+          response.accountDetails.email || '';
+
+        this.phoneNumber =
+          response.accountDetails.phoneNumber || '';
+
+        this.address =
+          response.accountDetails.address || '';
+
+        this.age =
+          response.accountDetails.age || 0;
       }
-    } else {
-      this.router.navigateByUrl('/login');
+
+    },
+
+    error: (error) => {
+
+      console.log(error);
+
     }
-  }
 
-//   update() {
-//     // تجميع الحقول المفرودة في كائن واحد لإرساله للباك إند
-//     const updateData = {
-//       id: this.id,
-//       username: this.username,
-//       accountDetails: {
-//         email: this.email,
-//         phoneNumber: this.phoneNumber,
-//         address: this.address,
-//         age: this.age
-//       }
-//     };
+  });
 
-//     console.log("Sending to Backend:", updateData);
-
-//     this.authService.updateAccountDetails(updateData).subscribe(
-//       response => {
-//         // تحديث السيشن مع الحفاظ على التوكن
-//         const currentUser = JSON.parse(sessionStorage.getItem('user') || '{}');
-//         const updatedUser = { 
-//           ...currentUser, 
-//           accountDetails: updateData.accountDetails 
-//         };
-//         sessionStorage.setItem('user', JSON.stringify(updatedUser));
-        
-//         alert("Success: Profile Updated!");
-        
-//         // الانتقال للمنتجات وعمل ريفريش للتأكد من زوال الـ 403
-//         this.router.navigateByUrl('/products').then(() => {
-//           window.location.reload();
-//         });
-//       },
-//       // error => {
-//       //   console.error("Update error:", error);
-//       //   alert("Failed to update profile. Check console for details.");
-//       // }
-//       error => {
-//     console.error("Error loading products", error);
-//     // استخدم الـ Optional Chaining (?.) عشان الكود ميقفش لو الرسالة مش موجودة
-//     this.errorMessage = error?.error?.bundleMessage || "حدث خطأ في الصلاحيات (403)";
-// }
-//     );
-//   }
-
+}
 
 update() {
 

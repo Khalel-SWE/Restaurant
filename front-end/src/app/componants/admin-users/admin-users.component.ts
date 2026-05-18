@@ -87,7 +87,69 @@ export class AdminUsersComponent implements OnInit {
 
   editUser(user: any) {
 
-  console.log("EDIT USER", user);
+  this.selectedUser = {
+
+    id: user.id,
+
+    username: user.username,
+
+    email: user.accountDetails?.email || '',
+
+    phoneNumber: user.accountDetails?.phoneNumber || '',
+
+    address: user.accountDetails?.address || '',
+
+    age: user.accountDetails?.age || 0
+
+  };
+
+  console.log(this.selectedUser);
+
+}
+
+saveUserDetails() {
+
+  const updatedUser = {
+
+    id: this.selectedUser.id,
+
+    username: this.selectedUser.username,
+
+    accountDetails: {
+
+      email: this.selectedUser.email,
+
+      phoneNumber: this.selectedUser.phoneNumber,
+
+      address: this.selectedUser.address,
+
+      age: this.selectedUser.age
+
+    }
+
+  };
+
+  this.authService.updateAccountDetails(updatedUser).subscribe({
+
+    next: (response) => {
+
+      console.log("UPDATED USER", response);
+
+      alert("User Updated Successfully...");
+
+      this.loadUsers();
+
+    },
+
+    error: (error) => {
+
+      console.log(error);
+
+      alert("Error While Updating User");
+
+    }
+
+  });
 
 }
 
