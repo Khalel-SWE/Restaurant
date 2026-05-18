@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @Tag(name = "Auth Controller", description = "Sign up, login")
 @RestController
@@ -55,5 +56,23 @@ public class AuthController {
         accountService.updateAccountDetails(accountDto);
 
         return ResponseEntity.ok("WORKING");
+    }
+
+    @GetMapping("/admin/all-users")
+    public ResponseEntity<List<AccountDto>> getAllUsers() {
+
+        return ResponseEntity.ok(
+                accountService.getAccounts()
+        );
+    }
+
+    @DeleteMapping("/admin/delete-user/{id}")
+    public ResponseEntity<String> deleteUser(
+            @PathVariable Long id
+    ) {
+
+        accountService.deleteAccount(id);
+
+        return ResponseEntity.ok("USER DELETED");
     }
 }

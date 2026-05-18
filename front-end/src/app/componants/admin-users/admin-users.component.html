@@ -1,0 +1,165 @@
+<div class="container mt-5">
+
+  <!-- TITLE -->
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+      <h2 class="fw-bold">
+        All Users
+      </h2>
+
+      <p class="text-muted">
+        Admin Users Dashboard
+      </p>
+
+    </div>
+
+    <div class="badge bg-dark p-3">
+
+      Total Users:
+      {{ users.length }}
+
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+
+  <div class="table-responsive shadow rounded">
+
+    <table class="table table-hover align-middle mb-0">
+
+      <thead class="table-dark">
+
+        <tr>
+
+          <th>ID</th>
+
+          <th>Username</th>
+
+          <th>Email</th>
+
+          <th>Phone</th>
+
+          <th>Address</th>
+
+          <th>Role</th>
+
+          <th>Status</th>
+
+          <th>Action</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let user of users">
+
+          <!-- ID -->
+
+          <td>
+            {{ user.id }}
+          </td>
+
+          <!-- USERNAME -->
+
+          <td class="fw-bold">
+            {{ user.username }}
+          </td>
+
+          <!-- EMAIL -->
+
+          <td>
+
+            {{ user.accountDetails?.email || 'No Email' }}
+
+          </td>
+
+          <!-- PHONE -->
+
+          <td>
+
+            {{ user.accountDetails?.phoneNumber || 'No Phone' }}
+
+          </td>
+
+          <!-- ADDRESS -->
+
+          <td>
+
+            {{ user.accountDetails?.address || 'No Address' }}
+
+          </td>
+
+          <!-- ROLE -->
+
+          <td>
+
+            <span
+              *ngFor="let role of user.roles"
+              class="badge bg-primary me-1">
+
+              {{ role.role }}
+
+            </span>
+
+          </td>
+
+          <!-- STATUS -->
+
+          <td>
+
+            <span
+              *ngIf="user.accountDetails?.email &&
+                     user.accountDetails?.phoneNumber &&
+                     user.accountDetails?.address;
+                     else incomplete">
+
+              <span class="badge bg-success">
+
+                Completed
+
+              </span>
+
+            </span>
+
+            <ng-template #incomplete>
+
+              <span class="badge bg-warning text-dark">
+
+                Incomplete
+
+              </span>
+
+            </ng-template>
+
+          </td>
+
+          <!-- DELETE -->
+
+          <td>
+
+            <button
+              class="btn btn-danger btn-sm"
+
+              (click)="deleteUser(user.id)">
+
+              <i class="fa fa-trash"></i>
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

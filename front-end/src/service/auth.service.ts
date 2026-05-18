@@ -101,6 +101,25 @@ export class AuthService {
       { responseType: 'text' as 'json' });
 }
 
+getAllAccounts(): Observable<any> {
+
+  return this.http.get(
+    `${this.baseUrl}/admin/all-users`
+  );
+
+}
+
+deleteAccount(id: number): Observable<any> {
+
+  return this.http.delete(
+    `${this.baseUrl}/admin/delete-user/${id}`,
+    {
+      responseType: 'text' as 'json'
+    }
+  );
+
+}
+
   isUserLogin(): boolean {
     return sessionStorage.getItem("token") != null;
   }
