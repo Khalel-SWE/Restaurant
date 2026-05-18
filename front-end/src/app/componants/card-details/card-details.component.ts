@@ -85,6 +85,15 @@ export class CardDetailsComponent {
 //   );
 
 createOrder() {
+
+  const confirmOrder = confirm(
+  'Confirm your order?'
+   );
+
+    if (!confirmOrder) {
+  return;
+  }
+
   const productIds = this.cartService.productOrders.map(or => or.id);
 
   this.requestOrderService.createOrder(productIds, this.totalProductPrice, this.totalProductSize).subscribe(
@@ -112,4 +121,23 @@ createOrder() {
     }
   );
 }
+
+clearCart() {
+
+  const confirmClear = confirm(
+    'Are you sure you want to clear cart?'
+  );
+
+  if (!confirmClear) {
+    return;
+  }
+
+  this.cartService.productOrders = [];
+
+  this.cartService.totalPrice.next(0);
+
+  this.cartService.totalOrderSize.next(0);
+
+}
+
 }

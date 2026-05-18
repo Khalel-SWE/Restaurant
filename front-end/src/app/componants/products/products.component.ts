@@ -27,6 +27,8 @@ export class ProductsComponent  implements OnInit{
     id: 1
   }
 };
+selectedProduct: any = null;
+
 openAddProductModal() {
 
   this.isEditMode = false;
@@ -207,6 +209,12 @@ editProduct(product: any) {
     this.cartService.addProductToOrder(productOrder);
 
   }
+
+  showDetails(product: any) {
+
+  this.selectedProduct = product;
+
+}
 
   deleteProduct(productId: number) {
 

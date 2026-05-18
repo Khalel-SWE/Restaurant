@@ -3,6 +3,23 @@
     <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-4">
         <h1 class="heading-section">Orders</h1>
+        <div class="mt-3">
+
+  <h5>
+    Total Items:
+    <span class="text-warning">
+      {{totalProductSize}}
+    </span>
+  </h5>
+
+  <h5>
+    Total Price:
+    <span class="text-success">
+      ${{totalProductPrice}}
+    </span>
+  </h5>
+
+</div>
       </div>
     </div>
     <div class="row">
@@ -67,7 +84,29 @@
             </tr>
             </tbody>
           </table>
-          <button type="button" class="btn btn-success col-12" (click)="createOrder()">Take Order</button>
+          <div class="d-flex gap-2">
+
+  <button
+    type="button"
+    class="btn btn-danger col-6"
+
+    (click)="clearCart()">
+
+    Clear Cart
+
+  </button>
+
+  <button
+    type="button"
+    class="btn btn-success col-6"
+
+    (click)="createOrder()">
+
+    Take Order
+
+  </button>
+
+</div>
         </div>
       </div>
     </div>

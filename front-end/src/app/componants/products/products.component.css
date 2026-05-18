@@ -164,3 +164,19 @@
     transform: scale(1);
   }
 }
+
+.card {
+
+  transition: 0.3s ease;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+}
+
+.card:hover {
+
+  transform: translateY(-5px);
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+
+}
