@@ -10,6 +10,15 @@ export class AdminUsersComponent implements OnInit {
 
   users: any[] = [];
 
+  selectedUser: any = {
+  id: null,
+  username: '',
+  email: '',
+  phoneNumber: '',
+  address: '',
+  age: 0
+};
+
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -75,5 +84,75 @@ export class AdminUsersComponent implements OnInit {
     });
 
   }
+
+  editUser(user: any) {
+
+  console.log("EDIT USER", user);
+
+}
+
+  openEditModal(user: any) {
+
+  this.selectedUser = {
+
+    id: user.id,
+
+    username: user.username,
+
+    email: user.accountDetails?.email || '',
+
+    phoneNumber: user.accountDetails?.phoneNumber || '',
+
+    address: user.accountDetails?.address || '',
+
+    age: user.accountDetails?.age || 0
+
+  };
+
+}
+
+updateUserDetails() {
+
+  const requestBody = {
+
+    id: this.selectedUser.id,
+
+    accountDetails: {
+
+      email: this.selectedUser.email,
+
+      phoneNumber: this.selectedUser.phoneNumber,
+
+      address: this.selectedUser.address,
+
+      age: this.selectedUser.age
+
+    }
+
+  };
+
+  this.authService.updateAccountDetails(requestBody).subscribe({
+
+    next: (response) => {
+
+      console.log(response);
+
+      alert("User Updated Successfully");
+
+      this.loadUsers();
+
+    },
+
+    error: (error) => {
+
+      console.log(error);
+
+      alert("Error While Updating User");
+
+    }
+
+  });
+
+}
 
 }

@@ -139,20 +139,33 @@
 
           </td>
 
-          <!-- DELETE -->
+          <!-- ACTIONS -->
 
-          <td>
+<td class="d-flex gap-2">
 
-            <button
-              class="btn btn-danger btn-sm"
+  <!-- EDIT -->
 
-              (click)="deleteUser(user.id)">
+  <button
+    class="btn btn-warning btn-sm"
 
-              <i class="fa fa-trash"></i>
+    (click)="editUser(user)">
 
-            </button>
+    <i class="fa fa-edit"></i>
 
-          </td>
+  </button>
+
+  <!-- DELETE -->
+
+  <button
+    class="btn btn-danger btn-sm"
+
+    (click)="deleteUser(user.id)">
+
+    <i class="fa fa-trash"></i>
+
+  </button>
+
+</td>
 
         </tr>
 

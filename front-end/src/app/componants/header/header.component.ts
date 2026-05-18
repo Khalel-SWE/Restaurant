@@ -11,6 +11,7 @@ export class HeaderComponent {
 
 
   constructor(private routes: Router, private authService: AuthService) {
+    
   }
 
 
@@ -30,4 +31,8 @@ export class HeaderComponent {
     this.authService.logOut();
     this.routes.navigateByUrl("/login");
   }
+
+  isProductsPage(): boolean {
+  return this.routes.url.includes('/products');
+}
 }

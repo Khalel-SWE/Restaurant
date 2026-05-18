@@ -28,8 +28,8 @@
             <i class="fa fa-list-alt me-2"></i> services
           </a>
 
-          <div *ngIf="!isAdmin()" class="dropdown-menu shadow-lg rounded-3 border-0 p-2 animate__animated animate__fadeIn">
-            <a routerLink="/orders-user" class="dropdown-item d-flex align-items-center rounded mb-1">
+          <div class="dropdown-menu shadow-lg rounded-3 border-0 p-2 animate__animated animate__fadeIn">
+            <a *ngIf="!isAdmin()" routerLink="/orders-user" class="dropdown-item d-flex align-items-center rounded mb-1">
               <i class="fa fa-box-open text-primary me-2"></i> Show Orders H
              </a>
              <a *ngIf="!isAdmin()" routerLink="/my-messages" class="dropdown-item d-flex align-items-center rounded mb-1">
@@ -40,9 +40,8 @@
               <i class="fa fa-box-open text-primary me-2"></i> Show All Orders
             </button>
             
-            <button *ngIf="isAdmin()" type="button" class="dropdown-item d-flex align-items-center rounded mb-1 border-0 bg-transparent"
-            data-bs-toggle="modal" data-bs-target="#addProductModal">
-            <i class="fa fa-plus-circle text-success me-2"></i> Add New Product
+            <button *ngIf="isAdmin() && isProductsPage()" type="button" class="btn btn-primary"
+            data-bs-toggle="modal" data-bs-target="#addProductModal"> Add New Product 
           </button>
             <a *ngIf="isAdmin()" routerLink="/admin-users" class="dropdown-item d-flex align-items-center rounded">
             <i class="fa fa-users text-danger me-2"></i> All Users
