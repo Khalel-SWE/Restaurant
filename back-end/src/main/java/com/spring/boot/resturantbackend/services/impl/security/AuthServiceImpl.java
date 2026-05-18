@@ -5,6 +5,8 @@ import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthReque
 import com.spring.boot.resturantbackend.controllers.vm.Security.AccountAuthResponseVm;
 import com.spring.boot.resturantbackend.dto.security.AccountDto;
 import com.spring.boot.resturantbackend.mappers.security.AccountMapper;
+import com.spring.boot.resturantbackend.models.security.Role;
+import com.spring.boot.resturantbackend.repositories.security.RoleRepo;
 import com.spring.boot.resturantbackend.services.security.AccountService;
 import com.spring.boot.resturantbackend.services.security.AuthService;
 import jakarta.transaction.SystemException;
@@ -26,15 +28,54 @@ public class AuthServiceImpl implements AuthService {
     private TokenHandler tokenHandler;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepo roleRepo;
 
     @Override
     public AccountAuthResponseVm signUp(AccountAuthRequestVm accountAuthRequestVm) {
-        AccountDto accountDto = AccountMapper.ACCOUNT_MAPPER.toAccountDto(accountAuthRequestVm);
-        accountDto = accountService.createAccount(accountDto);
-        AccountAuthResponseVm accountAuthResponseVm = AccountMapper.ACCOUNT_MAPPER.toAccountResponseVm(accountDto);
-        accountAuthResponseVm.setToken(tokenHandler.generateToken(accountDto));
-        accountAuthResponseVm.setUserRoles(getAccountRoles(accountDto));
-        return accountAuthResponseVm;
+
+        // نحول الـ VM لـ DTO
+        AccountDto accountDto =
+                AccountMapper.ACCOUNT_MAPPER
+                        .toAccountDto(accountAuthRequestVm);
+
+        // نحدد إن اليوزر Enabled
+        accountDto.setEnabled(true);
+
+        Role userRole = roleRepo
+                .findByRole("USER")
+                .orElseThrow(() ->
+                        new RuntimeException("USER ROLE NOT FOUND")
+                );
+
+        com.spring.boot.resturantbackend.dto.security.RoleDto roleDto =
+                new com.spring.boot.resturantbackend.dto.security.RoleDto();
+
+        roleDto.setId(userRole.getId());
+        roleDto.setRole(userRole.getRole());
+
+        accountDto.setRoles(
+                java.util.List.of(roleDto)
+        );
+
+        // إنشاء الحساب
+        accountDto =
+                accountService.createAccount(accountDto);
+
+        // تجهيز الـ Response
+        AccountAuthResponseVm responseVm =
+                AccountMapper.ACCOUNT_MAPPER
+                        .toAccountResponseVm(accountDto);
+
+        responseVm.setToken(
+                tokenHandler.generateToken(accountDto)
+        );
+
+        responseVm.setUserRoles(
+                getAccountRoles(accountDto)
+        );
+
+        return responseVm;
     }
 
     @Override
