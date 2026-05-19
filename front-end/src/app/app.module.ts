@@ -91,6 +91,7 @@ import { AdminUsersComponent } from './componants/admin-users/admin-users.compon
     NgbPaginationModule,
     FormsModule
   ],
+
   // providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   //   { provide: APP_BASE_HREF, useValue: '/' }],
   providers: [

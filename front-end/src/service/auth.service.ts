@@ -76,10 +76,4 @@ deleteAccount(id: number): Observable<any> {
     sessionStorage.removeItem("id");
   }
 
-  getCurrentUser() {
-  return this.http.get(
-    environment.apiUrl + '/auth/me'
-  );
-}
-
 }

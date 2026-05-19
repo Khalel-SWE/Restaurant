@@ -9,114 +9,122 @@ import { AuthService } from 'src/service/auth.service';
 })
 
 export class ProfileComponent implements OnInit {
+
   id: any;
+
   username: string = '';
+
   email: string = '';
+
   phoneNumber: string = '';
+
   address: string = '';
+
   age: number = 0;
-  
-  // ضيف السطر ده عشان الإيرور يختفي
+
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.getUserData();
+
+    const user = JSON.parse(
+      sessionStorage.getItem('user') || '{}'
+    );
+
+    console.log("CURRENT USER", user);
+
+    this.id = user.id;
+
+    this.username = user.username;
+
+    if (user.accountDetails) {
+
+      this.email =
+        user.accountDetails.email || '';
+
+      this.phoneNumber =
+        user.accountDetails.phoneNumber || '';
+
+      this.address =
+        user.accountDetails.address || '';
+
+      this.age =
+        user.accountDetails.age || 0;
+    }
   }
 
-  getUserData() {
+  update() {
 
-  this.authService.getCurrentUser().subscribe({
+    const updateData = {
 
-    next: (response: any) => {
+      id: this.id,
 
-      console.log("CURRENT USER", response);
+      username: this.username,
 
-      this.id = response.id;
+      accountDetails: {
 
-      this.username = response.username;
+        email: this.email,
 
-      if (response.accountDetails) {
+        phoneNumber: this.phoneNumber,
 
-        this.email =
-          response.accountDetails.email || '';
+        address: this.address,
 
-        this.phoneNumber =
-          response.accountDetails.phoneNumber || '';
-
-        this.address =
-          response.accountDetails.address || '';
-
-        this.age =
-          response.accountDetails.age || 0;
+        age: this.age
       }
+    };
 
-    },
+    console.log("Sending To Backend:", updateData);
 
-    error: (error) => {
+    this.authService
+      .updateAccountDetails(updateData)
+      .subscribe({
 
-      console.log(error);
+        next: (response: any) => {
 
-    }
+          console.log(
+            "Backend Response:",
+            response
+          );
 
-  });
+          const currentUser = JSON.parse(
+            sessionStorage.getItem('user') || '{}'
+          );
 
-}
+          currentUser.accountDetails =
+            updateData.accountDetails;
 
-update() {
+          sessionStorage.setItem(
+            'user',
+            JSON.stringify(currentUser)
+          );
 
-  const updateData = {
-    id: this.id,
-    username: this.username,
-    accountDetails: {
-      email: this.email,
-      phoneNumber: this.phoneNumber,
-      address: this.address,
-      age: this.age
-    }
-  };
+          alert(
+            "Profile Updated Successfully"
+          );
 
-  console.log("Sending To Backend:", updateData);
+          this.router.navigateByUrl('/products');
+        },
 
-  this.authService.updateAccountDetails(updateData).subscribe(
+        error: (error: any) => {
 
-    response => {
+          console.error(
+            "Update Error:",
+            error
+          );
 
-      console.log("Backend Response:", response);
+          this.errorMessage =
+            error?.error?.bundleMessage ||
+            "حدث خطأ أثناء تحديث البيانات";
 
-      // نجيب اليوزر القديم كامل
-      const currentUser = JSON.parse(
-        sessionStorage.getItem('user') || '{}'
-      );
+          alert(this.errorMessage);
+        }
 
-      // نحدث فقط accountDetails
-      currentUser.accountDetails = updateData.accountDetails;
+      });
 
-      // نحفظه تاني مع الحفاظ على التوكن
-      sessionStorage.setItem(
-        'user',
-        JSON.stringify(currentUser)
-      );
+  }
 
-      alert("Profile Updated Successfully");
-
-      this.router.navigateByUrl('/products');
-
-    },
-
-    error => {
-
-      console.error("Update Error:", error);
-
-      this.errorMessage =
-        error?.error?.bundleMessage ||
-        "حدث خطأ أثناء تحديث البيانات";
-
-      alert(this.errorMessage);
-
-    }
-
-  );
-}
 }

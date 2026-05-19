@@ -1,2 +1,107 @@
 /* You can add global styles to this file, and also import other style files */
+.custom-toast {
 
+  position: fixed;
+
+  top: 20px;
+
+  right: 20px;
+
+  z-index: 999999;
+
+  min-width: 280px;
+
+  padding: 16px 20px;
+
+  border-radius: 10px;
+
+  color: white;
+
+  font-weight: 600;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+
+  animation: slideIn .4s ease;
+
+}
+
+.success-toast {
+
+  background: linear-gradient(135deg, #28a745, #20c997);
+
+}
+
+.error-toast {
+
+  background: linear-gradient(135deg, #dc3545, #ff6b6b);
+
+}
+
+@keyframes slideIn {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateX(100px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateX(0);
+
+  }
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* تحسين شكل الفورمات */
+input,
+textarea,
+select {
+  border-radius: 10px !important;
+}
+
+/* تأثير بسيط للزرار */
+.btn {
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* شكل الكاردات */
+.card,
+.product-item {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.card:hover,
+.product-item:hover {
+  transform: translateY(-5px);
+}
+
+/* تحسين الـ section titles */
+.section-title {
+  letter-spacing: 1px;
+}
+
+/* منع العناصر من التلزق */
+.container,
+.container-fluid {
+  padding-left: 15px;
+  padding-right: 15px;
+}
