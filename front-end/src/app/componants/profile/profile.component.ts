@@ -102,8 +102,13 @@ export class ProfileComponent implements OnInit {
             JSON.stringify(currentUser)
           );
 
-          alert(
-            "Profile Updated Successfully"
+          window.dispatchEvent(
+            new CustomEvent('show-toast', {
+              detail: {
+                message: 'Profile Updated Successfully',
+                type: 'success'
+              }
+            })
           );
 
           this.router.navigateByUrl('/products');
@@ -120,7 +125,14 @@ export class ProfileComponent implements OnInit {
             error?.error?.bundleMessage ||
             "حدث خطأ أثناء تحديث البيانات";
 
-          alert(this.errorMessage);
+          window.dispatchEvent(
+            new CustomEvent('show-toast', {
+              detail: {
+                message: this.errorMessage,
+                type: 'error'
+              }
+            })
+          );
         }
 
       });
