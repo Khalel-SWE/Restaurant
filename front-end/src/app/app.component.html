@@ -36,7 +36,9 @@
   {{ toastMessage }}
 </div>
 
-  <div class="container-xxl py-5" *ngIf="isUserLogin()">
+  <div
+  class="container-xxl py-5"
+  *ngIf="isUserLogin() && showCategoryBar()">
     <div class="container">
       <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
         <h5

@@ -374,17 +374,11 @@
 
             <!-- USER BUTTON -->
 
-            <button
-              *ngIf="!isAdmin()"
-              class="btn btn-success"
-
-              (click)="addProduct(selectedProduct)">
-
-              <i class="fa fa-cart-plus me-2"></i>
-
-              Add To Cart
-
-            </button>
+            <button *ngIf="!isAdmin()" class="btn btn-success" data-bs-dismiss="modal" 
+            (click)="addProduct(selectedProduct)">
+            <i class="fa fa-cart-plus me-2"></i>
+            Add To Cart
+          </button>
 
           </div>
 

@@ -124,7 +124,7 @@
         </div>
       </div>
     </div>
-    <app-card *ngIf="isUserLogin()"></app-card>
+    <app-card *ngIf="isUserLogin() && !isAdmin()"></app-card>
   </nav>
 
   <div class="container-xxl py-5 bg-dark hero-header mb-5"></div>

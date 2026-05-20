@@ -19,6 +19,7 @@ public class OrderDto {
     private double totalPrice;
     private double totalNumber;
     private String username;
+    private String status;
     List<ProductDto> products;
 
 }

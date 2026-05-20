@@ -1,54 +1,5 @@
-// import { Component } from '@angular/core';
-// import { AuthService } from 'src/service/auth.service';
-
-// @Component({
-//   selector: 'app-root',
-//   templateUrl: './app.component.html',
-//   styleUrls: ['./app.component.css']
-// })
-
-// export class AppComponent {
-
-//   showToast: boolean = false;
-
-//   toastMessage: string = '';
-
-//   toastType: string = 'success';
-
-//   constructor(private authService: AuthService) {
-
-//     // نخلي أي component يقدر ينده الـ toast
-//     (window as any).showAppToast =
-//       this.showAppToast.bind(this);
-//   }
-
-//   isUserLogin(): boolean {
-
-//     return this.authService.isUserLogin();
-
-//   }
-
-//   showAppToast(
-//     message: string,
-//     type: string = 'success'
-//   ) {
-
-//     this.toastMessage = message;
-
-//     this.toastType = type;
-
-//     this.showToast = true;
-
-//     setTimeout(() => {
-
-//       this.showToast = false;
-
-//     }, 3000);
-
-//   }
-
-// }
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/service/auth.service';
 
 @Component({
@@ -61,7 +12,10 @@ export class AppComponent implements OnInit {
   toastMessage: string = '';
   toastType: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+  private authService: AuthService,
+  private router: Router
+) {}
 
   ngOnInit(): void {
 
@@ -78,9 +32,16 @@ export class AppComponent implements OnInit {
 
   isUserLogin(): boolean {
 
-    return this.authService.isUserLogin();
+  return this.authService.isUserLogin();
 
-  }
+}
+
+  showCategoryBar(): boolean {
+
+  return this.router.url.includes('/products')
+      || this.router.url.includes('/category');
+
+}
 
   showToast(
     message: string,

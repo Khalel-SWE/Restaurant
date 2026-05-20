@@ -85,4 +85,16 @@ public class OrderController {
                 orderService.getAllOrdersForAdmin()
         );
     }
+
+    @PutMapping("/admin/update-status/{orderId}")
+    public ResponseEntity<String> updateOrderStatus(
+            @PathVariable Long orderId,
+            @RequestParam String status
+    ) {
+
+        orderService.updateOrderStatus(orderId, status);
+
+        return ResponseEntity.ok("Order status updated");
+
+    }
 }

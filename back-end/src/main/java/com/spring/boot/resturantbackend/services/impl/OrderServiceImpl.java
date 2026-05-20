@@ -53,6 +53,20 @@ public class OrderServiceImpl implements OrderService {
         return OrderMapper.ORDER_MAPPER.toOrderDtoList(orders);
     }
 
+    @Override
+    public void updateOrderStatus(Long orderId, String status) {
+
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() ->
+                        new RuntimeException("Order not found")
+                );
+
+        order.setStatus(status);
+
+        orderRepo.save(order);
+
+    }
+
 
     @Override
     public ResponseOrderVm requestOrder(RequestOrderVm requestOrderVm) {

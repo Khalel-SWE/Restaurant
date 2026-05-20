@@ -36,4 +36,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Account account;
+
+    @Column(nullable = false)
+    private String status = "PENDING";
 }

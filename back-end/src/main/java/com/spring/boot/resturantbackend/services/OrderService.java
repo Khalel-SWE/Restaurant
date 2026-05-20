@@ -16,4 +16,6 @@ public interface OrderService {
     boolean isUserProfileComplete(String username);
 
     List<OrderDto> getAllOrdersForAdmin();
+
+    void updateOrderStatus(Long orderId, String status);
 }
