@@ -37,4 +37,16 @@ export class RequestOrderService {
     );
   }
 
+  updateOrderStatus(
+  orderId: number,
+  status: string
+): Observable<any> {
+
+  return this.http.put(
+    this.url + '/admin/update-status/' + orderId,
+    { status }
+  );
+
+}
+
 }

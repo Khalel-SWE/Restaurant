@@ -1,93 +1,77 @@
 <div class="orders-container">
-
   <div class="page-header">
-
     <h1>Admin Orders Dashboard</h1>
 
     <div class="summary-box">
-
       <div class="summary-item">
-
         <span>Total Orders</span>
 
         <h2>{{ totalOrders }}</h2>
-
       </div>
 
       <div class="summary-item">
-
         <span>Total Revenue</span>
 
         <h2>${{ totalPrice }}</h2>
-
       </div>
-
     </div>
-
   </div>
 
   <!-- ORDERS -->
 
-  <div *ngFor="let order of orders"
-       class="order-card">
-
+  <div *ngFor="let order of orders" class="order-card">
     <div class="order-top">
-
       <div>
-
         <h2>{{ order.code }}</h2>
 
-        <p class="order-date">
-          Admin View
-        </p>
+        <p class="order-date">Admin View</p>
 
-        <p class="order-user"> Ordered By:
+        <p class="order-user">
+          Ordered By:
           <strong>{{ order.username }}</strong>
         </p>
-
       </div>
 
-      <div class="order-badge">
+      <div class="order-status">
+        <select
+          class="form-select"
+          [value]="order.status"
+          (change)="updateStatus(order.id, $event)"
+        >
+          <option value="PENDING">Pending</option>
 
-        Active
+          <option value="PREPARING">Preparing</option>
 
+          <option value="DELIVERED">Delivered</option>
+
+          <option value="CANCELLED">Cancelled</option>
+
+          <option value="ON_THE_WAY">On The Way</option>
+        </select>
       </div>
-
     </div>
 
     <div class="order-stats">
-
       <div class="stat-box">
-
         <span>Total Price</span>
 
         <h3>${{ order.totalPrice }}</h3>
-
       </div>
 
       <div class="stat-box">
-
         <span>Items Count</span>
 
         <h3>{{ order.totalNumber }}</h3>
-
       </div>
-
     </div>
 
     <!-- PRODUCTS -->
 
     <div class="products-grid">
-
-      <div *ngFor="let product of order.products"
-           class="product-card">
-
-        <img
-          [src]="'assets/img/' + product.imagePath"
-          alt="product image">
+      <div *ngFor="let product of order.products" class="product-card">
+        <img [src]="'assets/img/' + product.imagePath" alt="product image" />
 
         <div class="product-info">
-
           <h4>{{ product.name }}</h4>
 
           <p>
@@ -95,23 +79,14 @@
           </p>
 
           <div class="product-bottom">
-
-            <span class="price">
-              ${{ product.price }}
-            </span>
+            <span class="price"> ${{ product.price }} </span>
 
             <span class="category">
               {{ product.category.name }}
             </span>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

@@ -46,4 +46,28 @@ export class AdminAllOrdersComponent implements OnInit {
 
   }
 
+  updateStatus(orderId: number, event: any) {
+
+  const status = event.target.value;
+
+  this.requestOrderService
+    .updateOrderStatus(orderId, status)
+    .subscribe({
+
+      next: () => {
+
+        console.log("STATUS UPDATED");
+
+      },
+
+      error: (error) => {
+
+        console.log(error);
+
+      }
+
+    });
+
+}
+
 }

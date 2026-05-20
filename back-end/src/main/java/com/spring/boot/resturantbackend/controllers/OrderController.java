@@ -87,14 +87,19 @@ public class OrderController {
     }
 
     @PutMapping("/admin/update-status/{orderId}")
-    public ResponseEntity<String> updateOrderStatus(
+    public ResponseEntity<?> updateOrderStatus(
+
             @PathVariable Long orderId,
-            @RequestParam String status
+
+            @RequestBody java.util.Map<String, String> body
     ) {
 
-        orderService.updateOrderStatus(orderId, status);
+        orderService.updateOrderStatus(
+                orderId,
+                body.get("status")
+        );
 
-        return ResponseEntity.ok("Order status updated");
+        return ResponseEntity.ok().build();
 
     }
 }

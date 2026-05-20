@@ -57,9 +57,7 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrderStatus(Long orderId, String status) {
 
         Order order = orderRepo.findById(orderId)
-                .orElseThrow(() ->
-                        new RuntimeException("Order not found")
-                );
+                .orElseThrow();
 
         order.setStatus(status);
 
