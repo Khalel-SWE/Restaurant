@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../../service/auth.service";
+import { NotificationService } from '../../../service/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,46 @@ import {AuthService} from "../../../service/auth.service";
 })
 export class HeaderComponent {
 
+  notifications: any[] = [];
+  constructor(
+  private routes: Router,
+  private authService: AuthService,
+  private notificationService: NotificationService
+) {
 
-  constructor(private routes: Router, private authService: AuthService) {
-    
+}
+
+ngOnInit(): void {
+
+  const userId = sessionStorage.getItem('id');
+
+  console.log("USER ID =", userId);
+
+  if(userId){
+
+    this.notificationService
+      .getNotifications(Number(userId))
+      .subscribe({
+
+        next: (res: any) => {
+
+          console.log("NOTIFICATIONS =", res);
+
+          this.notifications = res;
+
+        },
+
+        error: (err) => {
+
+          console.log("NOTIFICATION ERROR =", err);
+
+        }
+
+      });
+
   }
 
+}
 
 
   isUserLogin(): boolean {

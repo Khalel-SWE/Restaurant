@@ -12,6 +12,7 @@ import com.spring.boot.resturantbackend.models.Order;
 import com.spring.boot.resturantbackend.models.security.Account;
 import com.spring.boot.resturantbackend.repositories.OrderRepo;
 import com.spring.boot.resturantbackend.repositories.security.AccountRepo;
+import com.spring.boot.resturantbackend.services.NotificationService;
 import com.spring.boot.resturantbackend.services.OrderService;
 import com.spring.boot.resturantbackend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private NotificationService notificationService;
 
     public boolean isUserProfileComplete(String username) {
         // استخدم Optional عشان نتجنب الـ Exception المفاجئ
@@ -103,6 +106,12 @@ public class OrderServiceImpl implements OrderService {
 
         // 9. الحفظ النهائي بعد تحديث الكود
         orderSaved = orderRepo.save(orderSaved);
+
+        notificationService.createNotification(
+                account.getId(),
+                "Your order has been created successfully"
+        );
+
 
         // 10. إرجاع الـ Response بالبيانات النهائية وحالة النجاح
         return new ResponseOrderVm(

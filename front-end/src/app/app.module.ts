@@ -26,6 +26,7 @@ import { AdminAllOrdersComponent } from './componants/admin-all-orders/admin-all
 import { AdminContactMessagesComponent } from './componants/admin-contact-messages/admin-contact-messages.component';
 import { MyMessagesComponent } from './componants/my-messages/my-messages.component';
 import { AdminUsersComponent } from './componants/admin-users/admin-users.component';
+import { NotificationComponent } from './componants/notification/notification.component';
 
 
 // http://localhost:4200/
@@ -83,7 +84,8 @@ import { AdminUsersComponent } from './componants/admin-users/admin-users.compon
     AdminAllOrdersComponent,
     AdminContactMessagesComponent,
     MyMessagesComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    NotificationComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -175,9 +175,96 @@
   font-weight: bold;
 }
 
-.category{
+/* .category{
   background: rgba(249,168,38,0.15);
   color: #f9a826;
   padding: 8px 14px;
   border-radius: 20px;
+}
+
+.pending {
+
+  background: #ffc107 !important;
+  color: black !important;
+
+}
+
+.preparing {
+
+  background: #0dcaf0 !important;
+  color: white !important;
+
+}
+
+.on-way {
+
+  background: #fd7e14 !important;
+  color: white !important;
+
+}
+
+.delivered {
+
+  background: #198754 !important;
+  color: white !important;
+
+}
+
+.cancelled {
+
+  background: #dc3545 !important;
+  color: white !important;
+
+} */
+
+.order-badge {
+  padding: 8px 15px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+/* .pending {
+  background-color: orange;
+}
+
+.preparing {
+  background-color: #3498db;
+}
+
+.on-way {
+  background-color: purple;
+}
+
+.delivered {
+  background-color: green;
+}
+
+.cancelled {
+  background-color: red;
+} */
+
+.pending{
+  background-color: orange;
+  color: white;
+}
+
+.preparing{
+  background-color: blue;
+  color: white;
+}
+
+.on-way{
+  background-color: purple;
+  color: white;
+}
+
+.delivered{
+  background-color: green;
+  color: white;
+}
+
+.cancelled{
+  background-color: red;
+  color: white;
 }
