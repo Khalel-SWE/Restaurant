@@ -1,5 +1,6 @@
 package com.spring.boot.resturantbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.boot.resturantbackend.models.security.Account;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class Notification {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false)
     private Account account;

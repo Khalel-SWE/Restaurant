@@ -1,0 +1,179 @@
+.notification-wrapper {
+  margin-left: 12px;
+}
+
+/* BUTTON */
+
+.notification-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1f1f1f, #2d2d2d);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(255, 166, 0, 0.25);
+}
+
+/* BELL */
+
+.bell-icon {
+  color: #ffb703;
+  font-size: 20px;
+}
+
+/* BADGE */
+
+.notification-badge {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  background: #ff3b30;
+  color: white;
+  border-radius: 50%;
+  min-width: 22px;
+  height: 22px;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #1f1f1f;
+}
+
+/* DROPDOWN */
+
+.notification-menu {
+  width: 360px;
+  max-height: 450px;
+  overflow-y: auto;
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 0;
+  margin-top: 14px;
+  animation: fadeIn 0.25s ease;
+}
+
+/* HEADER */
+
+.notification-header {
+  padding: 16px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 1px solid #f1f1f1;
+  background: linear-gradient(to right, #fff8ef, #ffffff);
+  border-radius: 18px 18px 0 0;
+}
+
+.notification-count {
+  background: #ffb703;
+  color: #000;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+/* ITEM */
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  border-bottom: 1px solid #f3f3f3;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background: #fff8ef;
+}
+
+/* ICON */
+
+.notification-icon {
+  min-width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 183, 3, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-icon i {
+  color: #ff9800;
+  font-size: 18px;
+}
+
+/* CONTENT */
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-message {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.5;
+
+  /* المهم علشان الكلام ما يطلعش برا */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.notification-time {
+  display: inline-block;
+  margin-top: 6px;
+  color: #888;
+  font-size: 12px;
+}
+
+/* EMPTY */
+
+.empty-notification {
+  padding: 45px 20px;
+  text-align: center;
+  color: #999;
+}
+
+.empty-notification i {
+  font-size: 38px;
+  color: #ccc;
+}
+
+/* SCROLL */
+
+.notification-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notification-menu::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 20px;
+}
+
+/* ANIMATION */
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
