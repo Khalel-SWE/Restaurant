@@ -13,8 +13,15 @@ export class NotificationService {
 
   getNotifications(userId: number): Observable<any> {
 
-    console.log("REQUEST URL =", `${this.apiUrl}/${userId}`);
+    return this.http.get(
+      `${this.apiUrl}/${userId}`
+    );
+  }
 
-    return this.http.get(`${this.apiUrl}/${userId}`);
+  getUnreadCount(userId: number): Observable<any> {
+
+    return this.http.get(
+      `${this.apiUrl}/unread-count/${userId}`
+    );
   }
 }

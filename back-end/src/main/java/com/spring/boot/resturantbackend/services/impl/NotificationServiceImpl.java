@@ -14,13 +14,20 @@ public class NotificationServiceImpl implements NotificationService {
     private NotificationRepo notificationRepo;
 
     @Override
-    public void createNotification(Long accountId, String message) {
+    public void createNotification(
+            Long accountId,
+            String message,
+            String type
+    ) {
 
         Notification notification = new Notification();
 
         notification.setMessage(message);
 
+        notification.setType(type);
+
         Account account = new Account();
+
         account.setId(accountId);
 
         notification.setAccount(account);

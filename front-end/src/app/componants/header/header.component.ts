@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import {Router} from "@angular/router";
-import {AuthService} from "../../../service/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { AuthService } from "../../../service/auth.service";
 import { NotificationService } from '../../../service/notification.service';
 
 @Component({
@@ -8,67 +8,79 @@ import { NotificationService } from '../../../service/notification.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   notifications: any[] = [];
+
+  unreadCount: number = 0;
+
   constructor(
-  private routes: Router,
-  private authService: AuthService,
-  private notificationService: NotificationService
-) {
+    private routes: Router,
+    private authService: AuthService,
+    private notificationService: NotificationService
+  ) {}
 
-}
+  ngOnInit(): void {
 
-ngOnInit(): void {
+    const userId = sessionStorage.getItem('id');
 
-  const userId = sessionStorage.getItem('id');
+    console.log("USER ID =", userId);
 
-  console.log("USER ID =", userId);
+    if (userId) {
 
-  if(userId){
+      this.notificationService
+        .getUnreadCount(Number(userId))
+        .subscribe((count: any) => {
 
-    this.notificationService
-      .getNotifications(Number(userId))
-      .subscribe({
+          console.log("UNREAD COUNT =", count);
 
-        next: (res: any) => {
+          this.unreadCount = count;
+        });
+
+    }
+  }
+
+  loadNotifications() {
+
+    const userId = sessionStorage.getItem('id');
+
+    if (userId) {
+
+      this.notificationService
+        .getNotifications(Number(userId))
+        .subscribe((res: any) => {
 
           console.log("NOTIFICATIONS =", res);
 
           this.notifications = res;
 
-        },
+          // أول ما يفتح الجرس
+          // العداد يختفي
+          this.unreadCount = 0;
 
-        error: (err) => {
+        });
 
-          console.log("NOTIFICATION ERROR =", err);
-
-        }
-
-      });
-
+    }
   }
-
-}
-
 
   isUserLogin(): boolean {
     return this.authService.isUserLogin();
   }
+
   isAdmin(): boolean {
     return this.authService.isAdmin();
   }
 
-  search(key: any){
+  search(key: any) {
     this.routes.navigateByUrl("/products/" + key);
   }
 
-  logOut(){
+  logOut() {
     this.authService.logOut();
     this.routes.navigateByUrl("/login");
   }
 
   isProductsPage(): boolean {
-  return this.routes.url.includes('/products');
-}
+    return this.routes.url.includes('/products');
+  }
 }

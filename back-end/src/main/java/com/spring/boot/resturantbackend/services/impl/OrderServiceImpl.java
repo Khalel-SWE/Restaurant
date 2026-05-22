@@ -109,7 +109,8 @@ public class OrderServiceImpl implements OrderService {
 
         notificationService.createNotification(
                 account.getId(),
-                "Your order has been created successfully"
+                "Your order has been created successfully",
+                "ORDER"
         );
 
 

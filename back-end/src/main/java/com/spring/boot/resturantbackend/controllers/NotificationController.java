@@ -20,7 +20,25 @@ public class NotificationController {
             @PathVariable Long accountId
     ) {
 
+        List<Notification> notifications =
+                notificationRepo.findByAccountIdOrderByCreatedAtDesc(accountId);
+
+        for (Notification notification : notifications) {
+
+            notification.setRead(true);
+        }
+
+        notificationRepo.saveAll(notifications);
+
+        return notifications;
+    }
+
+    @GetMapping("/unread-count/{accountId}")
+    public long getUnreadCount(
+            @PathVariable Long accountId
+    ) {
+
         return notificationRepo
-                .findByAccountIdOrderByCreatedAtDesc(accountId);
+                .countByAccountIdAndIsReadFalse(accountId);
     }
 }
