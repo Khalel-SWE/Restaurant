@@ -115,10 +115,16 @@ public class AccountServiceImpl implements AccountService {
             return null;
         }
 
-        String username = authentication.getName();
+        Object principal = authentication.getPrincipal();
 
-        return accountRepo
-                .findByUsername(username)
-                .orElse(null);
+        if (principal instanceof AccountDto accountDto) {
+
+            return accountRepo
+                    .findByUsername(accountDto.getUsername())
+                    .orElse(null);
+
+        }
+
+        return null;
     }
 }

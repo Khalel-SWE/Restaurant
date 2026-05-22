@@ -7,6 +7,7 @@ import com.spring.boot.resturantbackend.models.ContactInfo;
 import com.spring.boot.resturantbackend.models.security.Account;
 import com.spring.boot.resturantbackend.repositories.ContactInfoRepo;
 import com.spring.boot.resturantbackend.services.ContactInfoService;
+import com.spring.boot.resturantbackend.services.NotificationService;
 import com.spring.boot.resturantbackend.services.security.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public ContactInfoDto createContactInfo(ContactInfoDto contactInfoDto) {
@@ -93,6 +97,27 @@ public class ContactInfoServiceImpl implements ContactInfoService {
                                 new RuntimeException("Message not found"));
 
         message.setReply(reply);
+
+        System.out.println("REPLY METHOD STARTED");
+
+        Long accountId =
+                contactInfoRepo.findAccountIdByMessageId(id);
+
+        System.out.println("ACCOUNT ID = " + accountId);
+
+        if (accountId != null) {
+
+            notificationService.createNotification(
+                    accountId,
+                    "Admin replied to your message",
+                    "CONTACT_REPLY"
+            );
+
+        } else {
+
+            System.out.println("ACCOUNT IS NULL");
+
+        }
 
         return contactInfoRepo.save(message);
 
