@@ -36,6 +36,9 @@ public class NotificationServiceImpl implements NotificationService {
 
         notification.setAccount(account);
 
+        // IMPORTANT
+        notification.setRead(false);
+
         notificationRepo.save(notification);
 
         System.out.println("NOTIFICATION SAVED SUCCESSFULLY");

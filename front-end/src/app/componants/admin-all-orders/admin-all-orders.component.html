@@ -1,21 +1,55 @@
 <div class="orders-container">
-  <div class="page-header">
-    <h1>Admin Orders Dashboard</h1>
+  <div class="dashboard-hero">
 
-    <div class="summary-box">
-      <div class="summary-item">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    <div>
+      <h1 class="dashboard-title">
+        Restaurant Admin Dashboard
+      </h1>
+
+      <p class="dashboard-subtitle">
+        Manage orders, monitor revenue and track deliveries in real time
+      </p>
+    </div>
+
+    <div class="dashboard-icon">
+      <i class="fa fa-cutlery"></i>
+    </div>
+
+  </div>
+
+  <div class="summary-box">
+
+    <div class="summary-item">
+      <div class="summary-icon orders-icon">
+        <i class="fa fa-shopping-bag"></i>
+      </div>
+
+      <div>
         <span>Total Orders</span>
 
         <h2>{{ totalOrders }}</h2>
       </div>
+    </div>
 
-      <div class="summary-item">
+    <div class="summary-item">
+      <div class="summary-icon revenue-icon">
+        <i class="fa fa-dollar"></i>
+      </div>
+
+      <div>
         <span>Total Revenue</span>
 
         <h2>${{ totalPrice }}</h2>
       </div>
     </div>
+
   </div>
+
+</div>
 
   <!-- ORDERS -->
 
