@@ -62,9 +62,32 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepo.findById(orderId)
                 .orElseThrow();
 
+        // لو الاوردر خلص
+        // ممنوع يتعدل تاني
+        if (
+                order.getStatus() != null &&
+                        (
+                                order.getStatus().equals("DELIVERED") ||
+                                        order.getStatus().equals("CANCELLED")
+                        )
+        ) {
+
+            throw new RuntimeException(
+                    "Order status cannot be changed anymore"
+            );
+
+        }
+
         order.setStatus(status);
 
         orderRepo.save(order);
+
+        // notification لليوزر
+        notificationService.createNotification(
+                order.getAccount().getId(),
+                "Your order status is now: " + status,
+                "ORDER_STATUS"
+        );
 
     }
 

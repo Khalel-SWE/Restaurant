@@ -14,60 +14,112 @@ export class AdminAllOrdersComponent implements OnInit {
 
   totalPrice: number = 0;
 
-  constructor(private requestOrderService: RequestOrderService) { }
+  constructor(
+    private requestOrderService: RequestOrderService
+  ) { }
 
   ngOnInit(): void {
 
-    this.requestOrderService.getAllOrdersForAdmin().subscribe({
+    this.requestOrderService
+      .getAllOrdersForAdmin()
+      .subscribe({
 
-      next: (response) => {
+        next: (response) => {
 
-  console.log("ADMIN ORDERS", response);
+          console.log("ADMIN ORDERS", response);
 
-  this.orders = response;
+          this.orders = response;
 
-  this.totalOrders = response.length;
+          this.totalOrders = response.length;
 
-  this.totalPrice = response.reduce(
-    (sum: number, order: any) =>
-      sum + order.totalPrice,
-    0
-  );
+          this.totalPrice = response.reduce(
+            (sum: number, order: any) =>
+              sum + order.totalPrice,
+            0
+          );
 
-},
+        },
 
-      error: (error) => {
+        error: (error) => {
 
-        console.log("ADMIN ERROR", error);
+          console.log("ADMIN ERROR", error);
 
-      }
+        }
 
-    });
+      });
 
   }
 
-  updateStatus(orderId: number, event: any) {
+  updateStatus(orderId: number, newStatus: string) {
 
-  const status = event.target.value;
+    const order = this.orders.find(
+      o => o.id === orderId
+    );
 
-  this.requestOrderService
-    .updateOrderStatus(orderId, status)
-    .subscribe({
+    if (!order) {
 
-      next: () => {
+      return;
 
-        console.log("STATUS UPDATED");
+    }
 
-      },
+    // ممنوع التعديل بعد النهاية
+    if (
+      order.status === 'DELIVERED' ||
+      order.status === 'CANCELLED'
+    ) {
 
-      error: (error) => {
+      alert("Final status cannot be changed");
 
-        console.log(error);
+      return;
 
-      }
+    }
 
-    });
+    this.requestOrderService
+      .updateOrderStatus(orderId, newStatus)
+      .subscribe({
 
-}
+        next: () => {
+
+          console.log("STATUS UPDATED");
+
+          order.status = newStatus;
+
+        },
+
+        error: (error) => {
+
+          console.log(error);
+
+        }
+
+      });
+
+  }
+
+  getStatusClass(status: string) {
+
+    switch(status) {
+
+      case 'PENDING':
+        return 'bg-warning text-dark';
+
+      case 'PREPARING':
+        return 'bg-info text-dark';
+
+      case 'ON_THE_WAY':
+        return 'bg-primary text-white';
+
+      case 'DELIVERED':
+        return 'bg-success text-white';
+
+      case 'CANCELLED':
+        return 'bg-danger text-white';
+
+      default:
+        return 'bg-secondary text-white';
+
+    }
+
+  }
 
 }
