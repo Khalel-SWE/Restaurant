@@ -46,6 +46,12 @@ public class ContactInfoServiceImpl implements ContactInfoService {
         ContactInfo saved =
                 contactInfoRepo.save(contactInfo);
 
+        notificationService.createNotification(
+                1L,
+                "New contact message received",
+                "NEW_CONTACT_MESSAGE"
+        );
+
         contactInfoDto.setId(saved.getId());
 
         return contactInfoDto;
