@@ -10,6 +10,9 @@ export class AdminContactMessagesComponent implements OnInit {
 
   messages: any[] = [];
 
+  // الردود المؤقتة
+  tempReplies: { [key: number]: string } = {};
+
   constructor(
     private contactInfoService: ContactInfoService
   ) { }
@@ -35,12 +38,13 @@ export class AdminContactMessagesComponent implements OnInit {
         },
 
         error: (error: any) => {
-          
+
           console.log("FULL ERROR", error);
-          
+
           console.log("STATUS", error.status);
-          
+
           console.log("ERROR BODY", error.error);
+
         }
 
       });
@@ -49,16 +53,33 @@ export class AdminContactMessagesComponent implements OnInit {
 
   sendReply(message: any) {
 
+    const replyText = this.tempReplies[message.id];
+
+    // حماية بسيطة
+    if (!replyText || replyText.trim() === '') {
+
+      alert("Reply cannot be empty");
+
+      return;
+
+    }
+
     this.contactInfoService
       .replyMessage(
         message.id,
-        message.reply
+        replyText
       )
       .subscribe({
 
         next: () => {
 
           console.log("REPLY SENT");
+
+          // تحديث الرسالة في الواجهة
+          message.reply = replyText;
+
+          // تنظيف المؤقت
+          delete this.tempReplies[message.id];
 
         },
 

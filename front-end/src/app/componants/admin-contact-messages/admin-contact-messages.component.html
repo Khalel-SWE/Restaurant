@@ -1,122 +1,119 @@
 <div class="container py-5">
-
-  <h1 class="text-center text-white mb-5 fw-bold">
-    Admin Contact Messages
-  </h1>
+  <h1 class="text-center text-white mb-5 fw-bold">Admin Contact Messages</h1>
 
   <div
     *ngFor="let message of messages"
-    class="card bg-dark text-light border-0 shadow-lg mb-4 rounded-4">
-
+    class="card bg-dark text-light border-0 shadow-lg mb-4 rounded-4"
+  >
     <div class="card-body p-4">
+      <!-- Status -->
+
+      <div class="d-flex justify-content-end mb-3">
+        <span
+          *ngIf="message.reply === 'No reply yet'"
+          class="badge bg-warning text-dark px-3 py-2"
+        >
+          Waiting
+        </span>
+
+        <span
+          *ngIf="message.reply !== 'No reply yet'"
+          class="badge bg-success px-3 py-2"
+        >
+          Replied
+        </span>
+      </div>
 
       <!-- Subject -->
       <div class="mb-4">
-
         <h3 class="fw-bold text-warning">
           {{ message.subject }}
         </h3>
-
       </div>
 
       <!-- User Info -->
       <div class="row mb-4">
-
         <div class="col-md-4 mb-3">
-
           <div class="bg-black rounded-3 p-3 h-100">
-
-            <small class="text-secondary">
-              Name
-            </small>
+            <small class="text-secondary"> Name </small>
 
             <h5 class="mt-2">
               {{ message.name }}
             </h5>
-
           </div>
-
         </div>
 
         <div class="col-md-4 mb-3">
-
           <div class="bg-black rounded-3 p-3 h-100">
-
-            <small class="text-secondary">
-              Email
-            </small>
+            <small class="text-secondary"> Email </small>
 
             <h6 class="mt-2">
               {{ message.email }}
             </h6>
-
           </div>
-
         </div>
 
         <div class="col-md-4 mb-3">
-
           <div class="bg-black rounded-3 p-3 h-100">
-
-            <small class="text-secondary">
-              Username
-            </small>
+            <small class="text-secondary"> Username </small>
 
             <h5 class="mt-2">
               {{ message.username }}
             </h5>
-
           </div>
-
         </div>
-
       </div>
 
       <!-- User Message -->
       <div class="mb-4">
-
-        <h5 class="fw-bold mb-3 text-info">
-          User Message
-        </h5>
+        <h5 class="fw-bold mb-3 text-info">User Message</h5>
 
         <div class="bg-secondary bg-opacity-25 rounded-3 p-3">
-
           {{ message.message }}
-
         </div>
-
       </div>
 
       <!-- Reply -->
       <div class="mb-4">
+        <h5 class="fw-bold mb-3 text-success">Admin Reply</h5>
 
-        <h5 class="fw-bold mb-3 text-success">
-          Admin Reply
-        </h5>
+        <!-- لو مفيش رد -->
+        <div *ngIf="message.reply === 'No reply yet'">
+          <textarea
+            class="form-control bg-black text-light border-warning rounded-4 p-3"
+            rows="5"
+            placeholder="Write your reply here..."
+            [(ngModel)]="tempReplies[message.id]"
+          ></textarea>
+        </div>
 
-        <textarea
-          class="form-control bg-dark text-light border-secondary"
-          rows="5"
-          [(ngModel)]="message.reply">
-        </textarea>
+        <!-- لو فيه رد -->
 
+        <div
+          *ngIf="message.reply !== 'No reply yet'"
+          class="bg-success bg-opacity-10 border border-success rounded-4 p-4"
+        >
+          <div class="d-flex align-items-center mb-2">
+            <span class="badge bg-success me-2"> ADMIN </span>
+
+            <small class="text-success"> Reply Sent </small>
+          </div>
+
+          <div class="fs-5">
+            {{ message.reply }}
+          </div>
+        </div>
       </div>
 
       <!-- Button -->
-      <div class="d-grid">
-
+      <div class="d-grid" *ngIf="message.reply === 'No reply yet'">
         <button
-          class="btn btn-warning fw-bold py-2"
-          (click)="sendReply(message)">
-
+          class="btn btn-warning fw-bold py-3 rounded-4 shadow"
+          (click)="sendReply(message)"
+        >
           SEND REPLY
-
         </button>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
