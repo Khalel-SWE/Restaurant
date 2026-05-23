@@ -60,7 +60,8 @@
 
   background: linear-gradient(to right,#ffffff,#f9a826);
 
-  -webkit-background-clip: text;
+  -webkit-background-clip: text;/* للمتصفحات اللي بتدعم ويب كيت زي كروم وسافاري */
+background-clip: text;         /* الخاصية القياسية لباقي المتصفحات */
   -webkit-text-fill-color: transparent;
 }
 
