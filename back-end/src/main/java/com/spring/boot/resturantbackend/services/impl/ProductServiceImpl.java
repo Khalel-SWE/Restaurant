@@ -3,8 +3,12 @@ package com.spring.boot.resturantbackend.services.impl;
 import com.spring.boot.resturantbackend.controllers.vm.ProductResponseVm;
 import com.spring.boot.resturantbackend.dto.ProductDto;
 import com.spring.boot.resturantbackend.mappers.ProductMapper;
+import com.spring.boot.resturantbackend.models.Notification;
 import com.spring.boot.resturantbackend.models.Product;
+import com.spring.boot.resturantbackend.models.security.Account;
+import com.spring.boot.resturantbackend.repositories.NotificationRepo;
 import com.spring.boot.resturantbackend.repositories.ProductRepo;
+import com.spring.boot.resturantbackend.repositories.security.AccountRepo;
 import com.spring.boot.resturantbackend.services.CategoryService;
 import com.spring.boot.resturantbackend.services.ProductService;
 import jakarta.transaction.SystemException;
@@ -12,9 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,6 +29,11 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepo productRepo;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private NotificationRepo notificationRepo;
+
+    @Autowired
+    private AccountRepo accountRepo;
 
     @Override
     public ProductResponseVm getAllProducts(int page, int size) {
@@ -63,16 +72,58 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+//    @Override
+//    public ProductDto createProduct(ProductDto productDto) {
+//        try {
+//            if (Objects.nonNull(productDto.getId())) {
+//                throw new SystemException("id.must_be.null");
+//            }
+//            Product product = ProductMapper.PRODUCT_MAPPER.toProduct(productDto);
+//            product = productRepo.save(product);
+//            return ProductMapper.PRODUCT_MAPPER.toProductDto(product);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e.getMessage());
+//        }
+//    }
+
     @Override
     public ProductDto createProduct(ProductDto productDto) {
         try {
             if (Objects.nonNull(productDto.getId())) {
                 throw new SystemException("id.must_be.null");
             }
+
             Product product = ProductMapper.PRODUCT_MAPPER.toProduct(productDto);
+
             product = productRepo.save(product);
+
+            // =========================
+            // CREATE NOTIFICATION
+            // =========================
+
+            List<Account> users = accountRepo.findAll();
+
+            for (Account user : users) {
+
+                Notification notification = new Notification();
+
+                notification.setAccount(user);
+
+                notification.setMessage(
+                        "New product added: " + product.getName()
+                );
+
+                notification.setRead(false);
+
+                notification.setCreatedAt(LocalDateTime.now());
+
+                notificationRepo.save(notification);
+            }
+
             return ProductMapper.PRODUCT_MAPPER.toProductDto(product);
+
         } catch (Exception e) {
+
             throw new RuntimeException(e.getMessage());
         }
     }
