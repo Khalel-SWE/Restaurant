@@ -79,3 +79,17 @@ select {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+/* =========================
+   PAGE SPACING
+========================= */
+
+body {
+  background-color: #0f172b;
+}
+
+router-outlet + * {
+  display: block;
+  min-height: 70vh;
+  padding-bottom: 60px;
+}
