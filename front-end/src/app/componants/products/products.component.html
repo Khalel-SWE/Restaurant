@@ -5,40 +5,59 @@
         <div *ngFor="let pro of products" class="col-lg-6 mb-3">
           <div class="card h-100 shadow-sm">
             <div class="card-body d-flex">
-
               <!-- Product Image -->
-              <img class="flex-shrink-0 img-fluid rounded"
-                   src="../../../assets/img/{{pro.imagePath}}"
-                   alt="{{pro.name}}"
-                   style="width: 100px; height: 100px; object-fit: cover;">
+              <img
+                class="flex-shrink-0 img-fluid rounded"
+                src="../../../assets/img/{{ pro.imagePath }}"
+                alt="{{ pro.name }}"
+                style="width: 100px; height: 100px; object-fit: cover"
+              />
 
               <!-- Product Info -->
               <div class="w-100 d-flex flex-column text-start ps-4">
                 <h5 class="d-flex justify-content-between border-bottom pb-2">
-                  <span>{{pro.name}}</span>
-                  <span class="text-primary">${{pro.price}}</span>
+                  <span>{{ pro.name }}</span>
+                  <span class="text-primary">${{ pro.price }}</span>
                 </h5>
-                <small class="fst-italic mb-2">{{pro.description | slice:0:80}}...</small>
+                <small class="fst-italic mb-2"
+                  >{{ pro.description | slice: 0 : 80 }}...</small
+                >
 
                 <!-- Action Buttons at bottom -->
                 <div class="mt-auto d-flex gap-2 flex-wrap">
-
-                  <!-- Update --> <!-- Edit -->
-                   <button *ngIf="isAdmin()" type="button" class="btn btn-warning btn-sm gap-2" 
-                   (click)="editProduct(pro)" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                   <i class="fa fa-edit"></i>
+                  <!-- Update -->
+                  <!-- Edit -->
+                  <button
+                    *ngIf="isAdmin()"
+                    type="button"
+                    class="btn btn-warning btn-sm gap-2"
+                    (click)="editProduct(pro)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addProductModal"
+                  >
+                    <i class="fa fa-edit"></i>
                   </button>
 
                   <!-- Delete -->
-                   <button *ngIf="isAdmin()" type="button" class="btn btn-danger btn-sm gap-2"
-                   (click)="deleteProduct(pro.id)">
-                   <i class="fa fa-trash"></i>
+                  <button
+                    *ngIf="isAdmin()"
+                    type="button"
+                    class="btn btn-danger btn-sm gap-2"
+                    (click)="deleteProduct(pro.id)"
+                  >
+                    <i class="fa fa-trash"></i>
                   </button>
 
                   <!-- Details -->
-                  <button type="button" class="btn btn-info btn-sm gap-2" (click)="showDetails(pro)" 
-                  data-bs-toggle="modal" data-bs-target="#productDetailsModal"> <i class="fa fa-info-circle"></i> 
-                </button>
+                  <button
+                    type="button"
+                    class="btn btn-info btn-sm gap-2"
+                    (click)="showDetails(pro)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#productDetailsModal"
+                  >
+                    <i class="fa fa-info-circle"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -47,15 +66,15 @@
       </div>
 
       <div class="col-md-9 pag" style="padding-left: 30%">
-            <ngb-pagination
-              [(page)]="pageNumber"
-              [pageSize]="pageSize"
-              [collectionSize]="totalProductSize"
-              (pageChange)="pagination()"
-              [maxSize]="5"
-              [boundaryLinks]="true"
-            >
-            </ngb-pagination>
+        <ngb-pagination
+          [(page)]="pageNumber"
+          [pageSize]="pageSize"
+          [collectionSize]="totalProductSize"
+          (pageChange)="pagination()"
+          [maxSize]="5"
+          [boundaryLinks]="true"
+        >
+        </ngb-pagination>
 
         <!--
                -->
@@ -74,323 +93,199 @@
 
     <div class="container" *ngIf="products.length === 0">
       <div class="alert alert-light shadow message-box">
-        <p class="message-ar mb-1">{{messageAr}}</p>
-        <p class="message-en mb-0">{{messageEn}}</p>
+        <p class="message-ar mb-1">{{ messageAr }}</p>
+        <p class="message-en mb-0">{{ messageEn }}</p>
       </div>
     </div>
   </div>
 
   <!-- Add Product Modal -->
 
-<div
-  class="modal fade"
-  id="addProductModal"
-  tabindex="-1"
-  aria-hidden="true">
-
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-
-    <div class="modal-content custom-modal">
-
-      <!-- HEADER -->
-
-      <div class="modal-header custom-header">
-
-        <h3 class="modal-title">
-
-          <i class="fa fa-utensils me-2"></i>
-
-          Add New Product
-
-        </h3>
-
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="modal">
-        </button>
-
-      </div>
-
-      <!-- BODY -->
-
-      <div class="modal-body">
-
-        <div class="row g-4">
-
-          <!-- PRODUCT NAME -->
-
-          <div class="col-md-6">
-
-            <label class="custom-label">
-
-              Product Name
-
-            </label>
-
-            <input
-              type="text"
-              class="form-control custom-input"
-
-              placeholder="Enter product name"
-
-              [(ngModel)]="newProduct.name">
-
-          </div>
-
-          <!-- PRICE -->
-
-          <div class="col-md-6">
-
-            <label class="custom-label">
-
-              Price
-
-            </label>
-
-            <input
-              type="number"
-              class="form-control custom-input"
-
-              placeholder="Enter price"
-
-              [(ngModel)]="newProduct.price">
-
-          </div>
-
-          <!-- IMAGE -->
-
-          <div class="col-md-6">
-
-            <label class="custom-label">
-
-              Product Image
-
-            </label>
-
-            <select
-              class="form-select custom-input"
-
-              [(ngModel)]="newProduct.imagePath">
-
-              <option value="menu-1.jpg">
-                Burger
-              </option>
-
-              <option value="menu-2.jpg">
-                Pizza
-              </option>
-
-              <option value="menu-3.jpg">
-                Chicken
-              </option>
-
-              <option value="menu-4.jpg">
-                Rice
-              </option>
-
-              <option value="menu-5.jpg">
-                Pasta
-              </option>
-
-              <option value="menu-6.jpg">
-                Drinks
-              </option>
-
-            </select>
-
-          </div>
-
-          <!-- CATEGORY -->
-
-          <div class="col-md-6">
-
-            <label class="custom-label">
-
-              Category
-
-            </label>
-
-            <select
-              class="form-select custom-input"
-
-              [(ngModel)]="newProduct.category.id">
-
-              <option [ngValue]="1">
-                Fast Food
-              </option>
-
-              <option [ngValue]="2">
-                Cold Drinks
-              </option>
-
-              <option [ngValue]="3">
-                Hot Drinks
-              </option>
-
-              <option [ngValue]="4">
-                Sweets
-              </option>
-
-            </select>
-
-          </div>
-
-          <!-- DESCRIPTION -->
-
-          <div class="col-12">
-
-            <label class="custom-label">
-
-              Description
-
-            </label>
-
-            <textarea
-              rows="5"
-              class="form-control custom-input custom-textarea"
-
-              placeholder="Enter product description"
-
-              [(ngModel)]="newProduct.description">
-
-            </textarea>
-
-          </div>
-
+  <div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal">
+        <!-- HEADER -->
+
+        <div class="modal-header custom-header">
+          <h3 class="modal-title">
+            <i class="fa fa-utensils me-2"></i>
+
+            Add New Product
+          </h3>
+
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+          ></button>
         </div>
 
-      </div>
+        <!-- BODY -->
 
-      <!-- FOOTER -->
+        <div class="modal-body">
+          <div class="row g-4">
+            <!-- PRODUCT NAME -->
 
-      <div class="modal-footer custom-footer">
+            <div class="col-md-6">
+              <label class="custom-label"> Product Name </label>
 
-        <button
-          type="button"
-          class="btn cancel-btn"
-          data-bs-dismiss="modal">
-
-          Cancel
-
-        </button>
-
-        <button
-          type="button"
-          class="btn save-btn"
-
-          (click)="saveProduct()">
-
-          <i class="fa fa-save me-2"></i>
-
-          Save Product
-
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- PRODUCT DETAILS MODAL -->
-
-<div
-  class="modal fade"
-  id="productDetailsModal"
-  tabindex="-1"
-  aria-hidden="true">
-
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-
-    <div class="modal-content">
-
-      <div class="modal-header bg-dark text-white">
-
-        <h4 class="modal-title">
-
-          {{ selectedProduct?.name }}
-
-        </h4>
-
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="modal">
-        </button>
-
-      </div>
-
-      <div
-        class="modal-body"
-        *ngIf="selectedProduct">
-
-        <div class="row">
-
-          <!-- IMAGE -->
-
-          <div class="col-md-5 text-center">
-
-            <img
-              [src]="'assets/img/' + selectedProduct.imagePath"
-              class="img-fluid rounded shadow"
-              style="max-height: 300px; object-fit: cover;">
-
-          </div>
-
-          <!-- DETAILS -->
-
-          <div class="col-md-7">
-
-            <h2 class="fw-bold">
-
-              {{ selectedProduct.name }}
-
-            </h2>
-
-            <h4 class="text-primary mb-3">
-
-              ${{ selectedProduct.price }}
-
-            </h4>
-
-            <p class="text-muted">
-
-              {{ selectedProduct.description }}
-
-            </p>
-
-            <div class="mb-3">
-
-              <span class="badge bg-dark">
-
-                {{ selectedProduct.category.name }}
-
-              </span>
-
+              <input
+                type="text"
+                class="form-control custom-input"
+                placeholder="Enter product name"
+                [(ngModel)]="newProduct.name"
+              />
             </div>
 
-            <!-- USER BUTTON -->
+            <!-- PRICE -->
 
-            <button *ngIf="!isAdmin()" class="btn btn-success" data-bs-dismiss="modal" 
-            (click)="addProduct(selectedProduct)">
-            <i class="fa fa-cart-plus me-2"></i>
-            Add To Cart
-          </button>
+            <div class="col-md-6">
+              <label class="custom-label"> Price </label>
 
+              <input
+                type="number"
+                class="form-control custom-input"
+                placeholder="Enter price"
+                [(ngModel)]="newProduct.price"
+              />
+            </div>
+
+            <!-- IMAGE -->
+
+            <div class="col-md-6">
+              <label class="custom-label"> Product Image </label>
+
+              <select
+                class="form-select custom-input"
+                [(ngModel)]="newProduct.imagePath"
+              >
+                <option *ngFor="let img of imageOptions" [value]="img">
+                  {{ img }}
+                </option>
+              </select>
+            </div>
+
+            <!-- CATEGORY -->
+
+            <div class="col-md-6">
+              <label class="custom-label"> Category </label>
+
+              <select
+                class="form-select custom-input"
+                [(ngModel)]="newProduct.category.id"
+                (change)="updateImageOptions()"
+              >
+                <option [ngValue]="1">Fast Food</option>
+
+                <option [ngValue]="2">Cold Drinks</option>
+
+                <option [ngValue]="3">Hot Drinks</option>
+
+                <option [ngValue]="4">Sweets</option>
+              </select>
+            </div>
+
+            <!-- DESCRIPTION -->
+
+            <div class="col-12">
+              <label class="custom-label"> Description </label>
+
+              <textarea
+                rows="5"
+                class="form-control custom-input custom-textarea"
+                placeholder="Enter product description"
+                [(ngModel)]="newProduct.description"
+              >
+              </textarea>
+            </div>
           </div>
-
         </div>
 
+        <!-- FOOTER -->
+
+        <div class="modal-footer custom-footer">
+          <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">
+            Cancel
+          </button>
+
+          <button type="button" class="btn save-btn" (click)="saveProduct()">
+            <i class="fa fa-save me-2"></i>
+
+            Save Product
+          </button>
+        </div>
       </div>
-
     </div>
-
   </div>
 
-</div>
+  <!-- PRODUCT DETAILS MODAL -->
 
-</div>
+  <div
+    class="modal fade"
+    id="productDetailsModal"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h4 class="modal-title">
+            {{ selectedProduct?.name }}
+          </h4>
 
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <div class="modal-body" *ngIf="selectedProduct">
+          <div class="row">
+            <!-- IMAGE -->
+
+            <div class="col-md-5 text-center">
+              <img
+                [src]="'assets/img/' + selectedProduct.imagePath"
+                class="img-fluid rounded shadow"
+                style="max-height: 300px; object-fit: cover"
+              />
+            </div>
+
+            <!-- DETAILS -->
+
+            <div class="col-md-7">
+              <h2 class="fw-bold">
+                {{ selectedProduct.name }}
+              </h2>
+
+              <h4 class="text-primary mb-3">${{ selectedProduct.price }}</h4>
+
+              <p class="text-muted">
+                {{ selectedProduct.description }}
+              </p>
+
+              <div class="mb-3">
+                <span class="badge bg-dark">
+                  {{ selectedProduct.category.name }}
+                </span>
+              </div>
+
+              <!-- USER BUTTON -->
+
+              <button
+                *ngIf="!isAdmin()"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                (click)="addProduct(selectedProduct)"
+              >
+                <i class="fa fa-cart-plus me-2"></i>
+                Add To Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

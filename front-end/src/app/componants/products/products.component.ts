@@ -44,6 +44,51 @@ openAddProductModal() {
   };
 
 }
+
+imageOptions: string[] = [];
+
+updateImageOptions() {
+
+  const categoryId = this.newProduct.category.id;
+
+  // FAST FOOD
+  if (categoryId == 1) {
+
+    this.imageOptions = [
+      'menu-1.jpg',
+      'menu-2.jpg'
+    ];
+  }
+
+  // COLD DRINKS
+  else if (categoryId == 2) {
+
+    this.imageOptions = [
+      'menu-6.jpg'
+    ];
+  }
+
+  // HOT DRINKS
+  else if (categoryId == 3) {
+
+    this.imageOptions = [
+      'menu-5.jpg'
+    ];
+  }
+
+  // SWEETS
+  else if (categoryId == 4) {
+
+    this.imageOptions = [
+      'menu-4.jpg'
+    ];
+  }
+
+  // أول صورة تتحدد تلقائي
+  this.newProduct.imagePath = this.imageOptions[0];
+}
+
+
   pageNumber: number = 1;
   pageSize: number = 20;
   totalProductSize: number = 0;
@@ -130,6 +175,7 @@ editProduct(product: any) {
   }
 
   ngOnInit(): void {
+    this.updateImageOptions();
     this.activatedRoute.paramMap.subscribe(
       () => this.loadProducts(this.pageNumber)
     )
