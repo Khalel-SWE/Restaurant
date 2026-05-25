@@ -1,0 +1,153 @@
+/* =========================
+   FOOTER
+========================= */
+
+.modern-footer {
+
+  background: #0f172b;
+
+  color: white;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.footer-logo {
+
+  color: #fea116;
+
+  font-weight: 700;
+
+  margin-bottom: 20px;
+
+}
+
+.footer-text {
+
+  color: #bfc8d6;
+
+  line-height: 1.8;
+
+}
+
+/* =========================
+   TITLES
+========================= */
+
+.footer-title {
+
+  color: white;
+
+  margin-bottom: 20px;
+
+  font-weight: 600;
+
+}
+
+/* =========================
+   LINKS
+========================= */
+
+.footer-links {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+}
+
+.footer-links a {
+
+  color: #bfc8d6;
+
+  text-decoration: none;
+
+  transition: 0.3s;
+
+}
+
+.footer-links a:hover {
+
+  color: #fea116;
+
+  transform: translateX(5px);
+
+}
+
+/* =========================
+   SOCIAL
+========================= */
+
+.social-icons {
+
+  display: flex;
+
+  gap: 15px;
+
+  margin-top: 20px;
+
+}
+
+.social-icons a {
+
+  width: 45px;
+
+  height: 45px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.08);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: white;
+
+  text-decoration: none;
+
+  transition: 0.3s;
+
+  font-size: 18px;
+
+}
+
+.social-icons a:hover {
+
+  background: #fea116;
+
+  transform: translateY(-5px);
+
+}
+
+/* =========================
+   BOTTOM
+========================= */
+
+.footer-bottom {
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  text-align: center;
+
+  padding: 20px;
+
+  color: #bfc8d6;
+
+}
+
+.developer-name {
+
+  color: #fea116;
+
+  font-weight: 700;
+
+}
