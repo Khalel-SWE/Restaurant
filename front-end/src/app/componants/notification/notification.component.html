@@ -43,7 +43,47 @@
     <li *ngFor="let n of notifications">
       <div class="notification-item">
         <div class="notification-icon">
-          <i class="fa fa-check-circle"></i>
+          <!-- ADMIN REPLY -->
+          <i
+            *ngIf="n.message.includes('reply')"
+            class="fa fa-reply text-info"
+          ></i>
+
+          <!-- NEW ORDER -->
+          <i
+            *ngIf="n.message.includes('order')"
+            class="fa fa-shopping-bag text-warning"
+          ></i>
+
+          <!-- ORDER STATUS -->
+          <i
+            *ngIf="n.message.includes('status')"
+            class="fa fa-truck text-primary"
+          ></i>
+
+          <!-- NEW PRODUCT -->
+          <i
+            *ngIf="n.message.includes('product')"
+            class="fa fa-gift text-success"
+          ></i>
+
+          <!-- MESSAGE -->
+          <i
+            *ngIf="n.message.includes('message')"
+            class="fa fa-envelope text-danger"
+          ></i>
+
+          <!-- DEFAULT -->
+          <i
+            *ngIf="
+              !n.message.includes('reply') &&
+              !n.message.includes('order') &&
+              !n.message.includes('status') &&
+              !n.message.includes('product') &&
+              !n.message.includes('message')
+            "
+            class="fa fa-bell text-secondary"
+          ></i>
         </div>
 
         <div class="notification-content">

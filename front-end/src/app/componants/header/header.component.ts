@@ -42,26 +42,30 @@ export class HeaderComponent implements OnInit {
 
   loadNotifications() {
 
-    const userId = sessionStorage.getItem('id');
+  const userId = sessionStorage.getItem('id');
 
-    if (userId) {
+  if (userId) {
 
-      this.notificationService
-        .getNotifications(Number(userId))
-        .subscribe((res: any) => {
+    this.notificationService
+      .markAllAsRead(Number(userId))
+      .subscribe(() => {
 
-          console.log("NOTIFICATIONS =", res);
+        this.unreadCount = 0;
 
-          this.notifications = res;
+        this.notificationService
+          .getNotifications(Number(userId))
+          .subscribe((res: any) => {
 
-          // أول ما يفتح الجرس
-          // العداد يختفي
-          this.unreadCount = 0;
+            console.log("NOTIFICATIONS =", res);
 
-        });
+            this.notifications = res;
 
-    }
+          });
+
+      });
+
   }
+}
 
   isUserLogin(): boolean {
     return this.authService.isUserLogin();
