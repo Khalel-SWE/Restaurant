@@ -314,3 +314,82 @@
   color: white !important;
 }
 
+.image-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+
+  gap: 12px;
+
+  margin-top: 15px;
+
+  max-height: 280px;
+
+  overflow-y: auto;
+
+  padding: 10px;
+
+  background: #181818;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Scroll جميل */
+
+.image-grid::-webkit-scrollbar {
+
+  width: 8px;
+}
+
+.image-grid::-webkit-scrollbar-thumb {
+
+  background: #ff9800;
+
+  border-radius: 20px;
+}
+
+.image-item {
+
+  border: 2px solid transparent;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  background: #232323;
+
+  padding: 4px;
+}
+
+.image-item img {
+
+  width: 100%;
+
+  height: 65px;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+}
+
+.image-item:hover {
+
+  transform: scale(1.06);
+
+  border-color: #ff9800;
+}
+
+.active-image {
+
+  border-color: #ff9800;
+
+  box-shadow:
+    0 0 15px rgba(255,152,0,0.35);
+}

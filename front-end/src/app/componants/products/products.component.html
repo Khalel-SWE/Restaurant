@@ -155,14 +155,24 @@
             <div class="col-md-6">
               <label class="custom-label"> Product Image </label>
 
-              <select
+              <!-- <select
                 class="form-select custom-input"
                 [(ngModel)]="newProduct.imagePath"
               >
                 <option *ngFor="let img of imageOptions" [value]="img">
                   {{ img }}
                 </option>
-              </select>
+              </select> -->
+              <div class="image-grid">
+                <div
+                  *ngFor="let img of imageOptions"
+                  class="image-item"
+                  [class.active-image]="newProduct.imagePath === img"
+                  (click)="newProduct.imagePath = img"
+                >
+                  <img [src]="'assets/img/' + img" alt="product-image" />
+                </div>
+              </div>
             </div>
 
             <!-- CATEGORY -->

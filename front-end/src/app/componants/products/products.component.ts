@@ -51,12 +51,33 @@ updateImageOptions() {
 
   const categoryId = this.newProduct.category.id;
 
-  // FAST FOOD
+  // FOODS
   if (categoryId == 1) {
 
     this.imageOptions = [
-      'menu-1.jpg',
-      'menu-2.jpg'
+
+      'foods/beefburger.jpg',
+      'foods/chickenburger.jpg',
+      'foods/chickencrepe.jpg',
+      'foods/chickenpizza.jpg',
+      'foods/chickenshawarma.jpg',
+      'foods/diffrentgreens.jpg',
+      'foods/dissolvedkebab.jpg',
+      'foods/glee.jpg',
+      'foods/grilledchicken.jpg',
+      'foods/kofta.jpg',
+      'foods/koftacrepe.jpg',
+      'foods/lambfeathers.jpg',
+      'foods/liver.jpg',
+      'foods/meatshawarma.jpg',
+      'foods/mixcheesepizza.jpg',
+      'foods/mombar.jpg',
+      'foods/okrawithmeat.jpg',
+      'foods/potatoeswithmeat.jpg',
+      'foods/rice.jpg',
+      'foods/ricewithmeat.jpg',
+      'foods/sausage.jpg'
+
     ];
   }
 
@@ -64,7 +85,20 @@ updateImageOptions() {
   else if (categoryId == 2) {
 
     this.imageOptions = [
-      'menu-6.jpg'
+
+      'cold-drinks/applejuice.jpg',
+      'cold-drinks/cocktail.jpg',
+      'cold-drinks/kiwijuice.jpg',
+      'cold-drinks/lemonjuice.jpg',
+      'cold-drinks/mangojuice.jpg',
+      'cold-drinks/mirnda.jpg',
+      'cold-drinks/orangejuice.jpg',
+      'cold-drinks/pepsi.jpg',
+      'cold-drinks/rani.jpg',
+      'cold-drinks/schweppes.jpg',
+      'cold-drinks/strawberryicecream.jpg',
+      'cold-drinks/strawberryjuice.jpg'
+
     ];
   }
 
@@ -72,7 +106,25 @@ updateImageOptions() {
   else if (categoryId == 3) {
 
     this.imageOptions = [
-      'menu-5.jpg'
+
+      'hot-drinks/blackcoffee.jpg',
+      'hot-drinks/cinnamontea.jpg',
+      'hot-drinks/coffeewithhazelnuts.jpg',
+      'hot-drinks/forget.jpg',
+      'hot-drinks/frenchcoffee.jpg',
+      'hot-drinks/greentea.jpg',
+      'hot-drinks/hotchocolate.jpg',
+      'hot-drinks/milkcinnamon.jpg',
+      'hot-drinks/mint.jpg',
+      'hot-drinks/nescafeblack.jpg',
+      'hot-drinks/nescafemilk.jpg',
+      'hot-drinks/pepperminttea.jpg',
+      'hot-drinks/plainsahlab.jpg',
+      'hot-drinks/sahlabwithnuts.jpg',
+      'hot-drinks/tea.jpg',
+      'hot-drinks/teawithmilk.jpg',
+      'hot-drinks/turkishcoffee.jpg'
+
     ];
   }
 
@@ -80,12 +132,38 @@ updateImageOptions() {
   else if (categoryId == 4) {
 
     this.imageOptions = [
-      'menu-4.jpg'
+
+      'sweets/basbousa.jpg',
+      'sweets/blueberrycheesecake.jpg',
+      'sweets/chocolatecheesecake.jpg',
+      'sweets/chocolatecupcake.jpg',
+      'sweets/chocolateicecream.jpg',
+      'sweets/chocolatemilkshake.jpg',
+      'sweets/knafehdates.jpg',
+      'sweets/knafehmanga.jpg',
+      'sweets/knafehnablusia.jpg',
+      'sweets/knafehwithcream.jpg',
+      'sweets/lotuscheesecake.jpg',
+      'sweets/mangoicecream.jpg',
+      'sweets/mixedsweets.jpg',
+      'sweets/mixicecream.jpg',
+      'sweets/pancake.jpg',
+      'sweets/plainbasboush.jpg',
+      'sweets/ricewithmilk.jpg',
+      'sweets/strawberrycheesecake.jpg',
+      'sweets/strawberryicecream.jpg',
+      'sweets/strawberryjuicewithmilk.jpg',
+      'sweets/strawberrymilkshake.jpg',
+      'sweets/sweetcrepe.jpg',
+      'sweets/vanillacupcake.jpg',
+      'sweets/vanillaicecream.jpg',
+      'sweets/vanillamilkshake.jpg'
+
     ];
   }
 
-  // أول صورة تتحدد تلقائي
   this.newProduct.imagePath = this.imageOptions[0];
+
 }
 
 
@@ -135,6 +213,16 @@ updateImageOptions() {
         alert("Product Added Successfully 🔥");
 
         this.loadProducts(this.pageNumber);
+
+        const modal = document.getElementById('addProductModal');
+
+if (modal) {
+
+  const bootstrapModal =
+    (window as any).bootstrap.Modal.getInstance(modal);
+
+  bootstrapModal.hide();
+}
 
       },
 
