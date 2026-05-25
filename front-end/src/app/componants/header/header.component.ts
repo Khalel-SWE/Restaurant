@@ -87,4 +87,16 @@ export class HeaderComponent implements OnInit {
   isProductsPage(): boolean {
     return this.routes.url.includes('/products');
   }
+
+  isLoginPage(): boolean {
+
+  return this.routes.url.includes('/login');
+
+}
+
+isSignupPage(): boolean {
+
+  return this.routes.url.includes('/signup');
+
+}
 }
