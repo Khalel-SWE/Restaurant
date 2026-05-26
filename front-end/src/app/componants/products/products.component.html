@@ -110,7 +110,7 @@
           <h3 class="modal-title">
             <i class="fa fa-utensils me-2"></i>
 
-            Add New Product
+            {{ isEditMode ? "Edit Product" : "Add New Product" }}
           </h3>
 
           <button
@@ -221,7 +221,7 @@
           <button type="button" class="btn save-btn" (click)="saveProduct()">
             <i class="fa fa-save me-2"></i>
 
-            Save Product
+            {{ isEditMode ? "Update Product" : "Save Product" }}
           </button>
         </div>
       </div>

@@ -99,4 +99,9 @@ isSignupPage(): boolean {
   return this.routes.url.includes('/signup');
 
 }
+
+openAddProductModal() {
+
+}
+
 }
