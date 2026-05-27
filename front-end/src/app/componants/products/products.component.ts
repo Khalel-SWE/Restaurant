@@ -109,33 +109,18 @@ export class ProductsComponent implements OnInit {
   // =====================================
 
   editProduct(product: any) {
-
-  console.log("EDIT PRODUCT =", product);
-
   this.isEditMode = true;
-
   this.newProduct = {
-
     id: product.id,
-
     name: product.name,
-
     imagePath: product.imagePath,
-
     description: product.description,
-
     price: product.price,
-
     category: {
-  id: Number(product.categoryId)
-}
-
+      id: product.category?.id || 1
+    }
   };
-
-  this.imageOptions = [];
-
   this.updateImageOptions();
-
 }
 
   // =====================================

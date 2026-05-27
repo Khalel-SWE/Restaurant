@@ -43,7 +43,7 @@ public class AuthFilter extends OncePerRequestFilter {
 
                     List<SimpleGrantedAuthority> roles =
                             userValidated.getRoles().stream()
-                                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole()))
+                                    .map(role -> new SimpleGrantedAuthority( role.getRole()))
                                     .toList();
 
                     UsernamePasswordAuthenticationToken authentication =

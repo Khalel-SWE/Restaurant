@@ -174,14 +174,36 @@ public class ProductController {
         return ResponseEntity.ok("Product deleted successfully");
     }
 
+//    @PutMapping("/admin/update-product")
+//    public ResponseEntity<ProductDto> updateProduct(
+//            @RequestBody ProductDto productDto
+//    ) {
+//
+//        return ResponseEntity.ok(
+//                productService.updateProduct(productDto)
+//        );
+//    }
+
     @PutMapping("/admin/update-product")
-    public ResponseEntity<ProductDto> updateProduct(
+    public ResponseEntity<?> updateProduct(
             @RequestBody ProductDto productDto
     ) {
 
-        return ResponseEntity.ok(
-                productService.updateProduct(productDto)
-        );
+        try {
+
+            System.out.println("UPDATE REQUEST ARRIVED");
+            System.out.println(productDto);
+
+            return ResponseEntity.ok(
+                    productService.updateProduct(productDto)
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

@@ -3,9 +3,11 @@ package com.spring.boot.resturantbackend.services.impl;
 import com.spring.boot.resturantbackend.controllers.vm.ProductResponseVm;
 import com.spring.boot.resturantbackend.dto.ProductDto;
 import com.spring.boot.resturantbackend.mappers.ProductMapper;
+import com.spring.boot.resturantbackend.models.Category;
 import com.spring.boot.resturantbackend.models.Notification;
 import com.spring.boot.resturantbackend.models.Product;
 import com.spring.boot.resturantbackend.models.security.Account;
+import com.spring.boot.resturantbackend.repositories.CategoryRepo;
 import com.spring.boot.resturantbackend.repositories.NotificationRepo;
 import com.spring.boot.resturantbackend.repositories.ProductRepo;
 import com.spring.boot.resturantbackend.repositories.security.AccountRepo;
@@ -29,6 +31,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepo productRepo;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CategoryRepo categoryRepo;
     @Autowired
     private NotificationRepo notificationRepo;
 
@@ -130,56 +134,42 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto createProduct(ProductDto productDto) {
-
         try {
-
             if (Objects.nonNull(productDto.getId())) {
-
                 throw new SystemException("id.must_be.null");
             }
 
-            Product product =
-                    ProductMapper.PRODUCT_MAPPER.toProduct(productDto);
+            Product product = new Product();
+            product.setName(productDto.getName());
+            product.setImagePath(productDto.getImagePath());
+            product.setDescription(productDto.getDescription());
+            product.setPrice(productDto.getPrice());
+
+            if (productDto.getCategory() != null && productDto.getCategory().getId() != null) {
+                Category category = categoryRepo.findById(productDto.getCategory().getId())
+                        .orElseThrow(() -> new SystemException("category.not.found"));
+                product.setCategory(category);
+            }
 
             product = productRepo.save(product);
 
-            // =========================
-            // CREATE NOTIFICATION
-            // =========================
-
+            // Notifications
             List<Account> users = accountRepo.findAll();
-
             for (Account user : users) {
-
-                // الادمن ما ياخدش نوتيفيكشن
-                if (
-                        user.getRoles()
-                                .stream()
-                                .anyMatch(role -> role.getRole().equals("ADMIN"))
-                ) {
-
+                if (user.getRoles().stream().anyMatch(role -> role.getRole().equals("ADMIN"))) {
                     continue;
                 }
-
                 Notification notification = new Notification();
-
                 notification.setAccount(user);
-
-                notification.setMessage(
-                        "New product added: " + product.getName()
-                );
-
+                notification.setMessage("New product added: " + product.getName());
                 notification.setRead(false);
-
                 notification.setCreatedAt(LocalDateTime.now());
-
                 notificationRepo.save(notification);
             }
 
             return ProductMapper.PRODUCT_MAPPER.toProductDto(product);
 
         } catch (Exception e) {
-
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -204,9 +194,24 @@ public class ProductServiceImpl implements ProductService {
             if (Objects.isNull(productDto.getId())) {
                 throw new SystemException("id.must_be.not_null");
             }
-            Product product = ProductMapper.PRODUCT_MAPPER.toProduct(productDto);
+
+            Product product = productRepo.findById(productDto.getId())
+                    .orElseThrow(() -> new SystemException("product.not.found"));
+
+            product.setName(productDto.getName());
+            product.setImagePath(productDto.getImagePath());
+            product.setDescription(productDto.getDescription());
+            product.setPrice(productDto.getPrice());
+
+            if (productDto.getCategory() != null && productDto.getCategory().getId() != null) {
+                Category category = categoryRepo.findById(productDto.getCategory().getId())
+                        .orElseThrow(() -> new SystemException("category.not.found"));
+                product.setCategory(category);
+            }
+
             product = productRepo.save(product);
             return ProductMapper.PRODUCT_MAPPER.toProductDto(product);
+
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
