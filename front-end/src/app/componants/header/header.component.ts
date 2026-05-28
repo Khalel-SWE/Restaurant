@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from "../../../service/auth.service";
 import { NotificationService } from '../../../service/notification.service';
+import { ModalService } from '../../../service/modal.service';
 
 @Component({
   selector: 'app-header',
@@ -17,26 +18,18 @@ export class HeaderComponent implements OnInit {
   constructor(
     private routes: Router,
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
-
     const userId = sessionStorage.getItem('id');
-
-    console.log("USER ID =", userId);
-
     if (userId) {
-
       this.notificationService
         .getUnreadCount(Number(userId))
         .subscribe((count: any) => {
-
-          console.log("UNREAD COUNT =", count);
-
           this.unreadCount = count;
         });
-
     }
   }
 
@@ -55,8 +48,6 @@ export class HeaderComponent implements OnInit {
         this.notificationService
           .getNotifications(Number(userId))
           .subscribe((res: any) => {
-
-            console.log("NOTIFICATIONS =", res);
 
             this.notifications = res;
 
@@ -101,7 +92,7 @@ isSignupPage(): boolean {
 }
 
 openAddProductModal() {
-
-}
+    this.modalService.openAddProduct();
+  }
 
 }
