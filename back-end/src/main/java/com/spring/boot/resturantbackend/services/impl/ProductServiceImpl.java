@@ -76,6 +76,19 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+//    @Override
+//    public ProductDto createProduct(ProductDto productDto) {
+//        try {
+//            if (Objects.nonNull(productDto.getId())) {
+//                throw new SystemException("id.must_be.null");
+//            }
+//            Product product = ProductMapper.PRODUCT_MAPPER.toProduct(productDto);
+//            product = productRepo.save(product);
+//            return ProductMapper.PRODUCT_MAPPER.toProductDto(product);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e.getMessage());
+//        }
+//    }
 
 //    @Override
 //    public ProductDto createProduct(ProductDto productDto) {
