@@ -3,7 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,37 +27,38 @@ export class AuthService {
   }
 
   updateAccountDetails(data: any): Observable<any> {
-  return this.http.put(
-    `${this.baseUrl}/update-details`,
-     data,
-      { responseType: 'text' as 'json' });
-}
+    return this.http.put(
+      `${this.baseUrl}/update-details`,
+      data,
+      { responseType: 'text' as 'json' }
+    );
+  }
 
-getAllAccounts(): Observable<any> {
+  getAllAccounts(): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/admin/all-users`
+    );
+  }
 
-  return this.http.get(
-    `${this.baseUrl}/admin/all-users`
-  );
+  deleteAccount(id: number): Observable<any> {
+    return this.http.delete(
+      `${this.baseUrl}/admin/delete-user/${id}`,
+      {
+        responseType: 'text' as 'json'
+      }
+    );
+  }
 
-}
-
-deleteAccount(id: number): Observable<any> {
-
-  return this.http.delete(
-    `${this.baseUrl}/admin/delete-user/${id}`,
-    {
-      responseType: 'text' as 'json'
-    }
-  );
-
-}
+  // الدالة الجديدة اللي بتجيب الداتا باليوزرنيم
+  getUserByUsername(username: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/user/${username}`);
+  }
 
   isUserLogin(): boolean {
     return sessionStorage.getItem("token") != null;
   }
 
   isAdmin(): boolean {
-
     const roles = sessionStorage.getItem("roles");
 
     if (!roles) {
@@ -69,7 +69,6 @@ deleteAccount(id: number): Observable<any> {
   }
 
   logOut() {
-
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("roles");
     sessionStorage.removeItem("user");
