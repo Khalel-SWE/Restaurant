@@ -43,7 +43,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
       () => this.loadProducts(this.pageNumber)
     );
 
-    // استدعاء من الـ header لفتح مودل الإضافة فقط
     this.modalInstance = this.modalService.openAddProduct$.subscribe(() => {
       this.initAddProductAndOpen();
     });
@@ -55,7 +54,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // تم تغيير الـ ID الافتراضي إلى 3 (Fast Food) ليتوافق مع الداتابيز
   getEmptyProduct() {
     return {
       id: null,
@@ -72,14 +70,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.updateImageOptions();
   }
 
-  // هذه الدالة مخصصة فقط لتهيئة المودل كـ Add Product
   initAddProductAndOpen() {
     this.isEditMode = false;
     this.resetProductForm();
     this.showModal();
   }
 
-  // هذه الدالة مخصصة فقط لتهيئة المودل كـ Edit Product
   editProduct(product: any) {
     this.isEditMode = true;
     this.newProduct = {
@@ -88,24 +84,24 @@ export class ProductsComponent implements OnInit, OnDestroy {
       imagePath: product.imagePath,
       description: product.description,
       price: product.price,
-      // تأمين الكاتيجوري في حال كان غير موجود
       category: { id: product.category?.id || 3 }
     };
+    
+    // استدعاء جلب الصور فوراً بعد تعبئة الـ Model لضمان عرض الصور والكاتيجوري الصحيح
     this.updateImageOptions();
+    
     this.showModal();
   }
 
-  // دالة موحدة لفتح المودل بشكل سليم دون مشاكل DOM
   showModal() {
     setTimeout(() => {
       const modalEl = document.getElementById('addProductModal');
       if (modalEl) {
         modalEl.classList.add('show');
         modalEl.style.display = 'block';
-        modalEl.removeAttribute('aria-hidden'); // إصلاح خطأ الكونسل
+        modalEl.removeAttribute('aria-hidden');
         document.body.classList.add('modal-open');
 
-        // إضافة الخلفية السوداء الشفافة
         if (!document.getElementById('customBackdrop')) {
           const backdrop = document.createElement('div');
           backdrop.className = 'modal-backdrop fade show';
@@ -157,12 +153,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // تم تحديث الأرقام لتتطابق مع أرقام الجداول في الداتابيز التي أرسلتها
   updateImageOptions() {
     const categoryId = Number(this.newProduct?.category?.id || 3);
     
-    // Fast Food (3) or Foods (2)
-    if (categoryId === 3 || categoryId === 2) { 
+    // ربط كل أرقام المأكولات (1, 2, 3, 4) بنفس مجموعة صور الأكل
+    if ([1, 2, 3, 4].includes(categoryId)) { 
       this.imageOptions = ['foods/beefburger.jpg','foods/chickenburger.jpg','foods/chickencrepe.jpg','foods/chickenpizza.jpg','foods/chickenshawarma.jpg','foods/diffrentgreens.jpg','foods/dissolvedkebab.jpg','foods/glee.jpg','foods/grilledchicken.jpg','foods/kofta.jpg','foods/koftacrepe.jpg','foods/lambfeathers.jpg','foods/liver.jpg','foods/meatshawarma.jpg','foods/mixcheesepizza.jpg','foods/mombar.jpg','foods/okrawithmeat.jpg','foods/potatoeswithmeat.jpg','foods/rice.jpg','foods/ricewithmeat.jpg','foods/sausage.jpg'];
     } 
     // Cold Drinks (5)
@@ -178,8 +173,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.imageOptions = ['sweets/basbousa.jpg','sweets/blueberrycheesecake.jpg','sweets/chocolatecheesecake.jpg','sweets/chocolatecupcake.jpg','sweets/chocolateicecream.jpg'];
     }
     
+    // الاحتفاظ بصورة المنتج الحالية، وفي حالة عدم وجودها (أو الإضافة) يختار أول صورة في اللستة
     const imageExists = this.imageOptions.includes(this.newProduct.imagePath);
-    if (!imageExists) {
+    if (!imageExists && this.imageOptions.length > 0) {
       this.newProduct.imagePath = this.imageOptions[0];
     }
   }

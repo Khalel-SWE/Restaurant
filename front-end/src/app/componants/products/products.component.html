@@ -5,6 +5,7 @@
         <div *ngFor="let pro of products" class="col-lg-6 mb-3">
           <div class="card h-100 shadow-sm">
             <div class="card-body d-flex">
+              <!-- Product Image -->
               <img
                 class="flex-shrink-0 img-fluid rounded"
                 src="../../../assets/img/{{ pro.imagePath }}"
@@ -12,6 +13,7 @@
                 style="width: 100px; height: 100px; object-fit: cover"
               />
 
+              <!-- Product Info -->
               <div class="w-100 d-flex flex-column text-start ps-4">
                 <h5 class="d-flex justify-content-between border-bottom pb-2">
                   <span>{{ pro.name }}</span>
@@ -21,7 +23,9 @@
                   >{{ pro.description | slice: 0 : 80 }}...</small
                 >
 
+                <!-- Action Buttons at bottom -->
                 <div class="mt-auto d-flex gap-2 flex-wrap">
+                  <!-- Edit Button -->
                   <button
                     *ngIf="isAdmin()"
                     type="button"
@@ -31,6 +35,7 @@
                     <i class="fa fa-edit"></i>
                   </button>
 
+                  <!-- Delete -->
                   <button
                     *ngIf="isAdmin()"
                     type="button"
@@ -40,6 +45,7 @@
                     <i class="fa fa-trash"></i>
                   </button>
 
+                  <!-- Details -->
                   <button
                     type="button"
                     class="btn btn-info btn-sm gap-2"
@@ -88,9 +94,11 @@
     </div>
   </div>
 
+  <!-- Add / Edit Product Modal -->
   <div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content custom-modal">
+        <!-- HEADER -->
         <div class="modal-header custom-header">
           <h3 class="modal-title">
             <i class="fa fa-utensils me-2"></i>
@@ -104,8 +112,10 @@
           ></button>
         </div>
 
+        <!-- BODY -->
         <div class="modal-body">
           <div class="row g-4">
+            <!-- PRODUCT NAME -->
             <div class="col-md-6">
               <label class="custom-label"> Product Name </label>
               <input
@@ -116,6 +126,7 @@
               />
             </div>
 
+            <!-- PRICE -->
             <div class="col-md-6">
               <label class="custom-label"> Price </label>
               <input
@@ -126,6 +137,7 @@
               />
             </div>
 
+            <!-- IMAGE -->
             <div class="col-md-6">
               <label class="custom-label"> Product Image </label>
               <div class="image-grid">
@@ -140,6 +152,7 @@
               </div>
             </div>
 
+            <!-- CATEGORY -->
             <div class="col-md-6">
               <label class="custom-label"> Category </label>
               <select
@@ -147,13 +160,17 @@
                 [(ngModel)]="newProduct.category.id"
                 (change)="updateImageOptions()"
               >
+                <option [ngValue]="1">Popular (All)</option>
+                <option [ngValue]="2">Foods</option>
                 <option [ngValue]="3">Fast Food</option>
+                <option [ngValue]="4">Other Foods</option>
                 <option [ngValue]="5">Cold Drinks</option>
                 <option [ngValue]="6">Hot Drinks</option>
                 <option [ngValue]="7">Sweets</option>
               </select>
             </div>
 
+            <!-- DESCRIPTION -->
             <div class="col-12">
               <label class="custom-label"> Description </label>
               <textarea
@@ -167,6 +184,7 @@
           </div>
         </div>
 
+        <!-- FOOTER -->
         <div class="modal-footer custom-footer">
           <button
             type="button"
@@ -184,6 +202,7 @@
     </div>
   </div>
 
+  <!-- PRODUCT DETAILS MODAL -->
   <div
     class="modal fade"
     id="productDetailsModal"
@@ -205,6 +224,7 @@
 
         <div class="modal-body" *ngIf="selectedProduct">
           <div class="row">
+            <!-- IMAGE -->
             <div class="col-md-5 text-center">
               <img
                 [src]="'assets/img/' + selectedProduct.imagePath"
@@ -213,6 +233,7 @@
               />
             </div>
 
+            <!-- DETAILS -->
             <div class="col-md-7">
               <h2 class="fw-bold">
                 {{ selectedProduct.name }}
@@ -227,6 +248,7 @@
                 </span>
               </div>
 
+              <!-- USER BUTTON -->
               <button
                 *ngIf="!isAdmin()"
                 class="btn btn-success"
