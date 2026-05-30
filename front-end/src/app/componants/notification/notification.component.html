@@ -7,7 +7,6 @@
     aria-expanded="false"
   >
     <i class="fa fa-bell bell-icon"></i>
-
     <span *ngIf="unreadCount > 0" class="notification-badge">
       {{ unreadCount }}
     </span>
@@ -16,64 +15,70 @@
   <ul
     class="dropdown-menu dropdown-menu-end notification-menu shadow-lg border-0"
   >
-    <!-- HEADER -->
     <li class="notification-header">
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-between align-items-center mb-2">
         <span>
           <i class="fa fa-bell text-warning me-2"></i>
           Notifications
+          <span class="notification-count ms-2">{{
+            notifications.length
+          }}</span>
         </span>
+      </div>
 
-        <span class="notification-count">
-          {{ notifications.length }}
-        </span>
+      <div
+        class="d-flex justify-content-between align-items-center mt-2 border-top pt-2"
+      >
+        <button
+          class="btn btn-sm btn-link text-decoration-none p-0 text-success fw-bold"
+          (click)="markAllAsRead($event)"
+          [disabled]="unreadCount === 0"
+        >
+          <i class="fa fa-check-double me-1"></i> Mark as read
+        </button>
+        <button
+          class="btn btn-sm btn-link text-decoration-none p-0 text-danger fw-bold"
+          (click)="clearAllNotifications($event)"
+          [disabled]="notifications.length === 0"
+        >
+          <i class="fa fa-trash-alt me-1"></i> Clear All
+        </button>
       </div>
     </li>
 
-    <!-- EMPTY -->
     <li *ngIf="notifications.length === 0">
       <div class="empty-notification">
         <i class="fa fa-bell-slash mb-2"></i>
-
         <p class="mb-0">No notifications yet</p>
       </div>
     </li>
 
-    <!-- NOTIFICATIONS -->
     <li *ngFor="let n of notifications">
-      <div class="notification-item">
+      <div
+        class="notification-item position-relative"
+        [class.bg-light]="!n.read"
+      >
         <div class="notification-icon">
-          <!-- ADMIN REPLY -->
           <i
             *ngIf="n.message.includes('reply')"
             class="fa fa-reply text-info"
           ></i>
-
-          <!-- NEW ORDER -->
           <i
             *ngIf="n.message.includes('order')"
             class="fa fa-shopping-bag text-warning"
           ></i>
-
-          <!-- ORDER STATUS -->
           <i
             *ngIf="n.message.includes('status')"
             class="fa fa-truck text-primary"
           ></i>
-
-          <!-- NEW PRODUCT -->
           <i
             *ngIf="n.message.includes('product')"
             class="fa fa-gift text-success"
           ></i>
-
-          <!-- MESSAGE -->
           <i
             *ngIf="n.message.includes('message')"
             class="fa fa-envelope text-danger"
           ></i>
-
-          <!-- DEFAULT -->
           <i
             *ngIf="
               !n.message.includes('reply') &&
@@ -90,12 +95,19 @@
           <div class="notification-message">
             {{ n.message }}
           </div>
-
           <small class="notification-time">
             <i class="fa fa-clock me-1"></i>
             {{ n.createdAt | date: "medium" }}
           </small>
         </div>
+
+        <button
+          class="btn btn-sm text-danger delete-btn"
+          (click)="deleteNotification($event, n.id)"
+          title="Delete Notification"
+        >
+          <i class="fa fa-times"></i>
+        </button>
       </div>
     </li>
   </ul>
