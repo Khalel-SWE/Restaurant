@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   totalProductSize: number = 0;
   newProduct: any = {};
 
-  private modalSub: Subscription = new Subscription();
+  private modalInstance: any = null;
 
   constructor(
     private productService: ProductService,
@@ -43,16 +43,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
       () => this.loadProducts(this.pageNumber)
     );
 
-    // استنى لما الـ header يقول افتح Add modal
-    this.modalSub = this.modalService.openAddProduct$.subscribe(() => {
-      this.openAddProductModal();
+    // استدعاء من الـ header لفتح مودل الإضافة فقط
+    this.modalInstance = this.modalService.openAddProduct$.subscribe(() => {
+      this.initAddProductAndOpen();
     });
   }
 
   ngOnDestroy(): void {
-    this.modalSub.unsubscribe();
+    if (this.modalInstance) {
+      this.modalInstance.unsubscribe();
+    }
   }
 
+  // تم تغيير الـ ID الافتراضي إلى 3 (Fast Food) ليتوافق مع الداتابيز
   getEmptyProduct() {
     return {
       id: null,
@@ -60,7 +63,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       imagePath: '',
       description: '',
       price: 0,
-      category: { id: 1 }
+      category: { id: 3 }
     };
   }
 
@@ -69,18 +72,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.updateImageOptions();
   }
 
-  openAddProductModal() {
+  // هذه الدالة مخصصة فقط لتهيئة المودل كـ Add Product
+  initAddProductAndOpen() {
     this.isEditMode = false;
-    this.newProduct = this.getEmptyProduct();
-    this.updateImageOptions();
-
-    const modalEl = document.getElementById('addProductModal');
-    if (modalEl) {
-      const modal = new (window as any).bootstrap.Modal(modalEl);
-      modal.show();
-    }
+    this.resetProductForm();
+    this.showModal();
   }
 
+  // هذه الدالة مخصصة فقط لتهيئة المودل كـ Edit Product
   editProduct(product: any) {
     this.isEditMode = true;
     this.newProduct = {
@@ -89,16 +88,44 @@ export class ProductsComponent implements OnInit, OnDestroy {
       imagePath: product.imagePath,
       description: product.description,
       price: product.price,
-      category: { id: product.category?.id || 1 }
+      // تأمين الكاتيجوري في حال كان غير موجود
+      category: { id: product.category?.id || 3 }
     };
     this.updateImageOptions();
+    this.showModal();
+  }
+
+  // دالة موحدة لفتح المودل بشكل سليم دون مشاكل DOM
+  showModal() {
+    setTimeout(() => {
+      const modalEl = document.getElementById('addProductModal');
+      if (modalEl) {
+        modalEl.classList.add('show');
+        modalEl.style.display = 'block';
+        modalEl.removeAttribute('aria-hidden'); // إصلاح خطأ الكونسل
+        document.body.classList.add('modal-open');
+
+        // إضافة الخلفية السوداء الشفافة
+        if (!document.getElementById('customBackdrop')) {
+          const backdrop = document.createElement('div');
+          backdrop.className = 'modal-backdrop fade show';
+          backdrop.id = 'customBackdrop';
+          document.body.appendChild(backdrop);
+        }
+      }
+    }, 0);
   }
 
   closeProductModal() {
     const modalEl = document.getElementById('addProductModal');
     if (modalEl) {
-      const modal = (window as any).bootstrap.Modal.getInstance(modalEl);
-      if (modal) modal.hide();
+      modalEl.classList.remove('show');
+      modalEl.style.display = 'none';
+      modalEl.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+
+      const backdrop = document.getElementById('customBackdrop');
+      if (backdrop) backdrop.remove();
     }
   }
 
@@ -130,18 +157,27 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // باقي الدوال زي ما هي بدون تغيير
+  // تم تحديث الأرقام لتتطابق مع أرقام الجداول في الداتابيز التي أرسلتها
   updateImageOptions() {
-    const categoryId = Number(this.newProduct?.category?.id || 1);
-    if (categoryId === 1) {
+    const categoryId = Number(this.newProduct?.category?.id || 3);
+    
+    // Fast Food (3) or Foods (2)
+    if (categoryId === 3 || categoryId === 2) { 
       this.imageOptions = ['foods/beefburger.jpg','foods/chickenburger.jpg','foods/chickencrepe.jpg','foods/chickenpizza.jpg','foods/chickenshawarma.jpg','foods/diffrentgreens.jpg','foods/dissolvedkebab.jpg','foods/glee.jpg','foods/grilledchicken.jpg','foods/kofta.jpg','foods/koftacrepe.jpg','foods/lambfeathers.jpg','foods/liver.jpg','foods/meatshawarma.jpg','foods/mixcheesepizza.jpg','foods/mombar.jpg','foods/okrawithmeat.jpg','foods/potatoeswithmeat.jpg','foods/rice.jpg','foods/ricewithmeat.jpg','foods/sausage.jpg'];
-    } else if (categoryId === 2) {
+    } 
+    // Cold Drinks (5)
+    else if (categoryId === 5) { 
       this.imageOptions = ['cold-drinks/applejuice.jpg','cold-drinks/cocktail.jpg','cold-drinks/kiwijuice.jpg','cold-drinks/lemonjuice.jpg','cold-drinks/mangojuice.jpg','cold-drinks/mirnda.jpg','cold-drinks/orangejuice.jpg','cold-drinks/pepsi.jpg','cold-drinks/rani.jpg','cold-drinks/schweppes.jpg','cold-drinks/strawberryicecream.jpg','cold-drinks/strawberryjuice.jpg'];
-    } else if (categoryId === 3) {
+    } 
+    // Hot Drinks (6)
+    else if (categoryId === 6) { 
       this.imageOptions = ['hot-drinks/blackcoffee.jpg','hot-drinks/cinnamontea.jpg','hot-drinks/coffeewithhazelnuts.jpg','hot-drinks/forget.jpg','hot-drinks/frenchcoffee.jpg','hot-drinks/greentea.jpg','hot-drinks/hotchocolate.jpg','hot-drinks/milkcinnamon.jpg','hot-drinks/mint.jpg','hot-drinks/nescafeblack.jpg','hot-drinks/nescafemilk.jpg','hot-drinks/pepperminttea.jpg','hot-drinks/plainsahlab.jpg','hot-drinks/sahlabwithnuts.jpg','hot-drinks/tea.jpg','hot-drinks/teawithmilk.jpg','hot-drinks/turkishcoffee.jpg'];
-    } else {
+    } 
+    // Sweets (7)
+    else { 
       this.imageOptions = ['sweets/basbousa.jpg','sweets/blueberrycheesecake.jpg','sweets/chocolatecheesecake.jpg','sweets/chocolatecupcake.jpg','sweets/chocolateicecream.jpg'];
     }
+    
     const imageExists = this.imageOptions.includes(this.newProduct.imagePath);
     if (!imageExists) {
       this.newProduct.imagePath = this.imageOptions[0];
