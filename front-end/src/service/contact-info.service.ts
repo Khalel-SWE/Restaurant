@@ -12,41 +12,33 @@ export class ContactInfoService {
   constructor(private http: HttpClient) { }
 
   sendMessage(data: any): Observable<any> {
-
+    // شيلنا الـ responseType عشان الباك إند بيرجع JSON بشكل افتراضي
     return this.http.post(
       this.baseUrl,
-      data,
-      { responseType: 'text' as 'json' }
+      data
     );
-
   }
 
   getAllMessages(): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/admin/all`
+    );
+  }
 
-  return this.http.get(
-    `${this.baseUrl}/admin/all`
-  );
+  replyMessage(id: number, reply: string): Observable<any> {
+    return this.http.put(
+      `${this.baseUrl}/admin/reply/${id}`,
+      reply,
+      {
+        responseType: 'text' as 'json'
+      }
+    );
+  }
 
-}
-
-replyMessage(id: number, reply: string): Observable<any> {
-
-  return this.http.put(
-    `${this.baseUrl}/admin/reply/${id}`,
-    reply,
-    {
-      responseType: 'text' as 'json'
-    }
-  );
-
-}
-
-getMyMessages(): Observable<any> {
-
-  return this.http.get(
-    `${this.baseUrl}/my-messages`
-  );
-
-}
+  getMyMessages(): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/my-messages`
+    );
+  }
 
 }
