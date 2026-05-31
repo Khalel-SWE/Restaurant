@@ -15,33 +15,19 @@ export class MyMessagesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.loadMessages();
-
   }
 
   loadMessages() {
-
-    this.contactInfoService
-      .getMyMessages()
-      .subscribe({
-
-        next: (response: any) => {
-
-          console.log("MY MESSAGES", response);
-
-          this.messages = response;
-
-        },
-
-        error: (error: any) => {
-
-          console.log(error);
-
-        }
-
-      });
-
+    this.contactInfoService.getMyMessages().subscribe({
+      next: (response: any) => {
+        console.log("MY MESSAGES", response);
+        this.messages = response;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
   }
 
 }

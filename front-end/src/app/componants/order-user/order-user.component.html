@@ -1,78 +1,73 @@
-<div class="orders-container">
-  <div class="page-header">
-    <h1>My Orders</h1>
+<div class="user-orders-wrapper">
+  <div class="d-flex flex-column align-items-center text-center mb-5 mt-4">
+    <i class="fa fa-receipt fs-1 text-info mb-3 glow-icon"></i>
+    <h1 class="text-white fw-bold premium-title mb-2">My Orders History</h1>
+    <p class="text-muted letter-spacing-1">Track and review all your delicious choices</p>
+  </div>
 
-    <div class="summary-box">
-      <div class="summary-item">
-        <span>Total Orders</span>
-        <h2>{{ totalOrders }}</h2>
-      </div>
-
-      <div class="summary-item">
-        <span>Total Price</span>
-        <h2>${{ totalPrice }}</h2>
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-8 col-lg-6">
+      <div class="d-flex gap-3">
+        <div class="user-summary-card flex-grow-1 text-center">
+          <i class="fa fa-boxes text-muted mb-2 fs-4"></i>
+          <h4 class="text-white fw-bold mb-0">{{ totalOrders }}</h4>
+          <span class="text-uppercase small fw-bold letter-spacing-1 text-muted">Total Orders</span>
+        </div>
+        <div class="user-summary-card flex-grow-1 text-center">
+          <i class="fa fa-wallet text-info mb-2 fs-4"></i>
+          <h4 class="text-white fw-bold mb-0">${{ totalPrice }}</h4>
+          <span class="text-uppercase small fw-bold letter-spacing-1 text-muted">Total Spent</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ORDERS -->
-
-  <div *ngFor="let order of orders" class="order-card">
-    <div class="order-top">
-      <div>
-        <h2>{{ order.code }}</h2>
-
-        <p class="order-date">Restaurant Order</p>
-      </div>
-
-      <div
-        class="order-badge"
-        [ngClass]="{
-          pending: order.status === 'PENDING',
-          preparing: order.status === 'PREPARING',
-          'on-way': order.status === 'ON_THE_WAY',
-          delivered: order.status === 'DELIVERED',
-          cancelled: order.status === 'CANCELLED'
-        }"
-      >
-        {{ order.status }}
-      </div>
-    </div>
-
-    <div class="order-stats">
-      <div class="stat-box">
-        <span>Total Price</span>
-
-        <h3>${{ order.totalPrice }}</h3>
-      </div>
-
-      <div class="stat-box">
-        <span>Items Count</span>
-
-        <h3>{{ order.totalNumber }}</h3>
-      </div>
-    </div>
-
-    <!-- PRODUCTS -->
-
-    <div class="products-grid">
-      <div *ngFor="let product of order.products" class="product-card">
-        <img [src]="'assets/img/' + product.imagePath" alt="product image" />
-
-        <div class="product-info">
-          <h4>{{ product.name }}</h4>
-
-          <p>
-            {{ product.description }}
-          </p>
-
-          <div class="product-bottom">
-            <span class="price"> ${{ product.price }} </span>
-
-            <span class="category">
-              {{ product.category.name }}
-            </span>
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div *ngFor="let order of orders" class="user-order-card mb-5">
+        
+        <div class="user-card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div>
+            <h3 class="mb-0 text-white fw-bold">
+              <i class="fa fa-hashtag text-info opacity-75 me-2 fs-5"></i>{{ order.code }}
+            </h3>
+            <small class="text-muted ms-4 ps-2"><i class="fa fa-calendar-alt me-1"></i> Requested Order</small>
           </div>
+
+          <div class="status-badge" [ngClass]="{'badge-pending': order.status === 'PENDING', 'badge-preparing': order.status === 'PREPARING', 'badge-onway': order.status === 'ON_THE_WAY', 'badge-delivered': order.status === 'DELIVERED', 'badge-cancelled': order.status === 'CANCELLED'}">
+            <i class="fa me-2" [ngClass]="{'fa-clock': order.status === 'PENDING', 'fa-fire': order.status === 'PREPARING', 'fa-motorcycle': order.status === 'ON_THE_WAY', 'fa-check-circle': order.status === 'DELIVERED', 'fa-times-circle': order.status === 'CANCELLED'}"></i>
+            {{ order.status }}
+          </div>
+        </div>
+
+        <div class="user-card-body p-4">
+          
+          <div class="d-flex gap-4 mb-4">
+            <div class="flex-grow-1 bg-dark bg-opacity-25 p-3 rounded-3 border border-secondary border-opacity-10 text-center">
+              <span class="text-muted d-block small text-uppercase fw-bold letter-spacing-1 mb-1">Total Cost</span>
+              <h4 class="text-info fw-bold mb-0">${{ order.totalPrice }}</h4>
+            </div>
+            <div class="flex-grow-1 bg-dark bg-opacity-25 p-3 rounded-3 border border-secondary border-opacity-10 text-center">
+              <span class="text-muted d-block small text-uppercase fw-bold letter-spacing-1 mb-1">Items Count</span>
+              <h4 class="text-white fw-bold mb-0">{{ order.totalNumber }}</h4>
+            </div>
+          </div>
+
+          <h6 class="text-muted text-uppercase fw-bold letter-spacing-1 mb-3"><i class="fa fa-shopping-bag me-2"></i>Items Details</h6>
+          <div class="user-products-grid">
+            <div *ngFor="let product of order.products" class="user-product-item">
+              <img [src]="'assets/img/' + product.imagePath" alt="product image" />
+              <div class="p-3 d-flex flex-column h-100">
+                <h5 class="text-white mb-2">{{ product.name }}</h5>
+                <p class="text-muted small product-desc flex-grow-1">{{ product.description }}</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25 mt-2">
+                  <span class="text-info fw-bold fs-5">${{ product.price }}</span>
+                  <span class="badge bg-secondary bg-opacity-25 text-light">{{ product.category.name }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -1,89 +1,84 @@
-<div class="container mt-5 mb-5">
-
-  <div class="text-center mb-5">
-
-    <h1 class="fw-bold">
-      My Contact Messages
-    </h1>
-
-    <p class="text-muted">
+<div class="container py-5">
+  <div class="text-center mb-5 mt-3">
+    <i class="fa fa-envelope-open fs-1 text-warning mb-3 shadow-icon"></i>
+    <h1 class="fw-bold text-white premium-title">My Contact Messages</h1>
+    <p class="text-muted letter-spacing-1">
       Here you can view your messages and admin replies
     </p>
-
   </div>
 
   <div
-    *ngFor="let message of messages"
-    class="card border-0 shadow-lg rounded-4 mb-4">
-
-    <div class="card-body p-4">
-
-      <div class="d-flex justify-content-between align-items-center mb-3">
-
-        <h3 class="fw-bold text-dark">
-
-          {{ message.subject }}
-
-        </h3>
-
-        <span
-          *ngIf="message.reply != 'No reply yet'"
-          class="badge bg-success p-2">
-
-          Replied
-
-        </span>
-
-        <span
-          *ngIf="message.reply == 'No reply yet'"
-          class="badge bg-warning text-dark p-2">
-
-          Waiting
-
-        </span>
-
-      </div>
-
-      <div class="mb-4">
-
-        <h5 class="fw-bold text-primary">
-
-          My Message
-
-        </h5>
-
-        <div class="alert alert-light border rounded-3">
-
-          {{ message.message }}
-
-        </div>
-
-      </div>
-
-      <div>
-
-        <h5 class="fw-bold text-success">
-
-          Admin Reply
-
-        </h5>
-
-        <div
-          class="alert rounded-3"
-          [ngClass]="
-            message.reply == 'No reply yet'
-            ? 'alert-warning'
-            : 'alert-success'
-          ">
-
-          {{ message.reply }}
-
-        </div>
-
-      </div>
-
-    </div>
-
+    *ngIf="messages.length === 0"
+    class="text-center text-muted mt-5 empty-state"
+  >
+    <i class="fa fa-folder-open fs-1 mb-3 opacity-50"></i>
+    <h4 class="fw-light">You haven't sent any messages yet.</h4>
   </div>
 
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <div *ngFor="let message of messages" class="premium-card mb-5">
+        <div
+          class="card-header-premium d-flex justify-content-between align-items-center flex-wrap gap-3"
+        >
+          <h3 class="fw-bold mb-0 text-white subject-text">
+            <i class="fa fa-comment-alt text-warning opacity-75 me-2 fs-5"></i>
+            {{ message.subject }}
+          </h3>
+
+          <span
+            class="status-badge shadow-sm"
+            [ngClass]="message.reply === 'No reply yet' ? 'waiting' : 'replied'"
+          >
+            <i
+              class="fa"
+              [ngClass]="
+                message.reply === 'No reply yet'
+                  ? 'fa-hourglass-half'
+                  : 'fa-check-double'
+              "
+            ></i>
+            {{ message.reply === "No reply yet" ? "Waiting" : "Replied" }}
+          </span>
+        </div>
+
+        <div class="card-body-premium p-4">
+          <div class="mb-4">
+            <label class="section-label mb-2"
+              ><i class="fa fa-paper-plane text-info me-2"></i>My Message</label
+            >
+            <div
+              class="message-content user-msg border-info border-opacity-25 shadow-sm"
+            >
+              {{ message.message }}
+            </div>
+          </div>
+
+          <div class="mt-4 pt-4 border-top border-secondary border-opacity-25">
+            <label class="section-label mb-2"
+              ><i class="fa fa-user-tie text-success me-2"></i>Admin
+              Reply</label
+            >
+
+            <div
+              *ngIf="message.reply === 'No reply yet'"
+              class="message-content waiting-reply text-muted fst-italic text-center py-4"
+            >
+              <i class="fa fa-spinner fa-spin text-warning me-2"></i> The admin
+              has not replied to this message yet.
+            </div>
+
+            <div
+              *ngIf="message.reply !== 'No reply yet'"
+              class="message-content admin-msg border-success border-opacity-50 shadow-sm"
+            >
+              <div class="fs-6 lh-lg text-light">
+                {{ message.reply }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
