@@ -1,111 +1,171 @@
-<!-- Navbar & Hero Start -->
-<div class="container-xxl position-relative p-0">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-    <a href="" class="navbar-brand p-0">
-      <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Restoran</h1>
-      <!-- <img src="img/logo.png" alt="Logo"> -->
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-      <span class="fa fa-bars"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-    </div>
-  </nav>
-
-  <div class="container-xxl py-5 bg-dark hero-header mb-5">
-    <div class="container text-center my-5 pt-5 pb-4">
-      <h1 class="display-3 text-white mb-3 animated slideInDown">Contact Us</h1>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb justify-content-center text-uppercase">
-          <li class="breadcrumb-item text-white active" aria-current="page">Contact</li>
-        </ol>
-      </nav>
-    </div>
+<!-- Hero Section -->
+<div class="container-xxl py-5 contact-hero mb-5">
+  <div class="container text-center my-5 pt-5 pb-4 position-relative z-index-1">
+    <i class="fa fa-paper-plane fs-1 text-warning mb-3 shadow-icon"></i>
+    <h1 class="display-3 text-white mb-3 fw-bold shadow-text premium-title">
+      Get In Touch
+    </h1>
+    <p class="text-white-50 fs-5 letter-spacing">
+      We'd love to hear from you. Drop us a message!
+    </p>
   </div>
+  <div class="hero-overlay"></div>
 </div>
-<!-- Navbar & Hero End -->
 
-
-<!-- Contact Start -->
+<!-- Contact Section Start -->
 <div class="container-xxl py-5">
   <div class="container">
-    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-      <h5 class="section-title ff-secondary text-center text-primary fw-normal">Contact Us</h5>
-      <h1 class="mb-5">Contact For Any Query</h1>
+    <!-- Title -->
+    <div class="text-center mb-5">
+      <h5
+        class="section-title text-warning fw-bold text-uppercase letter-spacing"
+      >
+        Contact Us
+      </h5>
+      <h2 class="display-6 fw-bold mt-2">Always Here To Help</h2>
     </div>
-    <div class="row g-4">
-      <div class="col-12">
-        <div class="row gy-4">
-          <div class="col-md-4">
-            <h5 class="section-title ff-secondary fw-normal text-start text-primary">Booking</h5>
-            <p><i class="fa fa-envelope-open text-primary me-2"></i>book@example.com</p>
+
+    <div class="row g-5 align-items-center">
+      <!-- Left Side: Contact Information Cards -->
+      <div class="col-lg-5 col-md-12">
+        <div class="d-flex flex-column gap-4">
+          <!-- Info Card 1 -->
+          <div class="info-card shadow-sm d-flex align-items-center p-4">
+            <div class="icon-box me-4 shadow">
+              <i class="fa fa-calendar-check text-white fs-4"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-1">Booking Inquiries</h5>
+              <p class="text-muted mb-0">
+                <i class="fa fa-envelope-open text-warning me-2"></i
+                >book@example.com
+              </p>
+            </div>
           </div>
-          <div class="col-md-4">
-            <h5 class="section-title ff-secondary fw-normal text-start text-primary">General</h5>
-            <p><i class="fa fa-envelope-open text-primary me-2"></i>info@example.com</p>
+
+          <!-- Info Card 2 -->
+          <div class="info-card shadow-sm d-flex align-items-center p-4">
+            <div class="icon-box me-4 shadow">
+              <i class="fa fa-info-circle text-white fs-4"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-1">General Questions</h5>
+              <p class="text-muted mb-0">
+                <i class="fa fa-envelope-open text-warning me-2"></i
+                >info@example.com
+              </p>
+            </div>
           </div>
-          <div class="col-md-4">
-            <h5 class="section-title ff-secondary fw-normal text-start text-primary">Technical</h5>
-            <p><i class="fa fa-envelope-open text-primary me-2"></i>tech@example.com</p>
+
+          <!-- Info Card 3 -->
+          <div class="info-card shadow-sm d-flex align-items-center p-4">
+            <div class="icon-box me-4 shadow">
+              <i class="fa fa-headset text-white fs-4"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-1">Technical Support</h5>
+              <p class="text-muted mb-0">
+                <i class="fa fa-envelope-open text-warning me-2"></i
+                >tech@example.com
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="wow fadeInUp" data-wow-delay="0.2s">
+
+      <!-- Right Side: The Form -->
+      <div class="col-lg-7 col-md-12">
+        <div class="form-card shadow-lg p-4 p-sm-5">
+          <h3 class="fw-bold mb-4">
+            Send a Message <i class="fa fa-pen-nib text-warning ms-2"></i>
+          </h3>
+
           <form (ngSubmit)="sendMessage()">
+            <!-- Success Alert -->
+            <div *ngIf="successMessage" class="premium-alert mb-4 fade-in">
+              <i class="fa fa-check-circle fs-5"></i>
+              <span>{{ successMessage }}</span>
+            </div>
+
             <div class="row g-3">
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input type="text" 
-                  class="form-control" 
-                  id="name" 
-                  placeholder="Your Name" 
-                  [(ngModel)]="contactData.name" 
-                  name="name">
-                  <label for="name">Your Name</label>
+                <div class="form-floating premium-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Your Name"
+                    [(ngModel)]="contactData.name"
+                    name="name"
+                    required
+                  />
+                  <label for="name"
+                    ><i class="fa fa-user text-muted me-2"></i>Your Name</label
+                  >
                 </div>
               </div>
+
               <div class="col-md-6">
-                <div class="form-floating">
-                  <input 
-                  type="email" 
-                  class="form-control" 
-                  id="email" 
-                  placeholder="Your Email" 
-                  [(ngModel)]="contactData.email" 
-                  name="email">
-                  <label for="email">Your Email</label>
+                <div class="form-floating premium-floating">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Your Email"
+                    [(ngModel)]="contactData.email"
+                    name="email"
+                    required
+                  />
+                  <label for="email"
+                    ><i class="fa fa-envelope text-muted me-2"></i>Your
+                    Email</label
+                  >
                 </div>
               </div>
+
               <div class="col-12">
-                <div class="form-floating">
-                  <input 
-                  type="text" 
-                  class="form-control" 
-                  id="subject"
-                  placeholder="Subject" 
-                  [(ngModel)]="contactData.subject" 
-                  name="subject">
-                  <label for="subject">Subject</label>
+                <div class="form-floating premium-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="subject"
+                    placeholder="Subject"
+                    [(ngModel)]="contactData.subject"
+                    name="subject"
+                    required
+                  />
+                  <label for="subject"
+                    ><i class="fa fa-tag text-muted me-2"></i>Subject</label
+                  >
                 </div>
               </div>
+
               <div class="col-12">
-                <textarea
-                class="form-control" 
-                placeholder="Leave a message here" 
-                id="message"
-                style="height: 150px"
-                [(ngModel)]="contactData.message"
-                name="message">
-              </textarea>
+                <div class="form-floating premium-floating">
+                  <textarea
+                    class="form-control custom-textarea"
+                    placeholder="Leave a message here"
+                    id="message"
+                    style="height: 160px"
+                    [(ngModel)]="contactData.message"
+                    name="message"
+                    required
+                  ></textarea>
+                  <label for="message"
+                    ><i class="fa fa-comment-dots text-muted me-2"></i>Your
+                    Message</label
+                  >
+                </div>
               </div>
-              <div class="col-12">
-                <div 
-                *ngIf="successMessage" 
-                class="alert alert-success"> 
-                {{ successMessage }} 
-              </div>
-                <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+
+              <div class="col-12 mt-4">
+                <button
+                  class="btn-premium w-100 py-3 fw-bold shadow"
+                  type="submit"
+                >
+                  <span>SEND MESSAGE</span>
+                  <i class="fa fa-paper-plane ms-2"></i>
+                </button>
               </div>
             </div>
           </form>
@@ -114,3 +174,4 @@
     </div>
   </div>
 </div>
+<!-- Contact Section End -->
