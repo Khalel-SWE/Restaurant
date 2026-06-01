@@ -37,14 +37,9 @@ public class SecurityConfig {
 
                 // auth endpoints
                 .requestMatchers("/auth/**").permitAll()
-
-//                .requestMatchers("/orders/admin/**").hasAuthority("ADMIN")
-//                .requestMatchers("/orders/admin/**").hasRole("ADMIN")
-//                .requestMatchers("/contact/admin/**").hasRole("ADMIN")
-//                .requestMatchers("/products/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/orders/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/contact/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/products/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/orders/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/contact/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/products/admin/**").hasAuthority("ADMIN")
 
                 .requestMatchers("/contact/**").authenticated()
                 .anyRequest().authenticated()

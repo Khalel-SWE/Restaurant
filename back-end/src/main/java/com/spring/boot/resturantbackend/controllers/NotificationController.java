@@ -47,8 +47,6 @@ public class NotificationController {
         System.out.println("ALL NOTIFICATIONS MARKED AS READ");
     }
 
-    // --- الدوال الجديدة للحذف ---
-
     @DeleteMapping("/delete/{id}")
     public void deleteNotification(@PathVariable Long id) {
         notificationRepo.deleteById(id);

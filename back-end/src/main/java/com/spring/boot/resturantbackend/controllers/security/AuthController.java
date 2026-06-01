@@ -94,7 +94,6 @@ public class AuthController {
         return ResponseEntity.ok(accountDto);
     }
 
-    // --- الإضافة الجديدة لحل المشكلة ---
     @GetMapping("/user/{username}")
     public ResponseEntity<AccountDto> getUserByUsername(@PathVariable String username) {
         AccountDto accountDto = accountService.getAccountByUsername(username);

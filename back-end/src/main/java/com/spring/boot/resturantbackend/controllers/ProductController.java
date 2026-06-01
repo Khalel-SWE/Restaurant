@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 )
 @RestController
 @RequestMapping("/products")
-//@CrossOrigin("http://localhost:4200")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -173,16 +172,6 @@ public class ProductController {
 
         return ResponseEntity.ok("Product deleted successfully");
     }
-
-//    @PutMapping("/admin/update-product")
-//    public ResponseEntity<ProductDto> updateProduct(
-//            @RequestBody ProductDto productDto
-//    ) {
-//
-//        return ResponseEntity.ok(
-//                productService.updateProduct(productDto)
-//        );
-//    }
 
     @PutMapping("/admin/update-product")
     public ResponseEntity<?> updateProduct(

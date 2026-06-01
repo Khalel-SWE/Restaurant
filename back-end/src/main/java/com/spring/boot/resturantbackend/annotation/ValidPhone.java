@@ -1,7 +1,5 @@
 package com.spring.boot.resturantbackend.annotation;
 
-
-
 import com.spring.boot.resturantbackend.annotation.impl.ValidPhoneImpl;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
