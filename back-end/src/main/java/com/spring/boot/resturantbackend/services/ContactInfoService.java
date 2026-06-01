@@ -11,7 +11,6 @@ public interface ContactInfoService {
 
     ContactInfoDto createContactInfo(ContactInfoDto contactInfoDto);
 
-//    List<ContactInfo> getAllMessages();
     List<AdminContactMessageDto> getAllMessages();
 
     ContactInfo replyMessage(Long id, String reply);

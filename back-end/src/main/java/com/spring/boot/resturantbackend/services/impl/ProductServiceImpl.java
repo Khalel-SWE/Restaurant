@@ -76,62 +76,6 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-//    @Override
-//    public ProductDto createProduct(ProductDto productDto) {
-//        try {
-//            if (Objects.nonNull(productDto.getId())) {
-//                throw new SystemException("id.must_be.null");
-//            }
-//            Product product = ProductMapper.PRODUCT_MAPPER.toProduct(productDto);
-//            product = productRepo.save(product);
-//            return ProductMapper.PRODUCT_MAPPER.toProductDto(product);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e.getMessage());
-//        }
-//    }
-
-//    @Override
-//    public ProductDto createProduct(ProductDto productDto) {
-//        try {
-//            if (Objects.nonNull(productDto.getId())) {
-//                throw new SystemException("id.must_be.null");
-//            }
-//
-//            Product product = ProductMapper.PRODUCT_MAPPER.toProduct(productDto);
-//
-//            product = productRepo.save(product);
-//
-//            // =========================
-//            // CREATE NOTIFICATION
-//            // =========================
-//
-//            List<Account> users = accountRepo.findAll();
-//
-//            for (Account user : users) {
-//
-//                Notification notification = new Notification();
-//
-//                notification.setAccount(user);
-//
-//                notification.setMessage(
-//                        "New product added: " + product.getName()
-//                );
-//
-//                notification.setRead(false);
-//
-//                notification.setCreatedAt(LocalDateTime.now());
-//
-//                notificationRepo.save(notification);
-//            }
-//
-//            return ProductMapper.PRODUCT_MAPPER.toProductDto(product);
-//
-//        } catch (Exception e) {
-//
-//            throw new RuntimeException(e.getMessage());
-//        }
-//    }
-
     @Override
     public ProductDto createProduct(ProductDto productDto) {
         try {

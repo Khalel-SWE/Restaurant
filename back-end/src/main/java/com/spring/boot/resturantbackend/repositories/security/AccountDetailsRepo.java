@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountDetailsRepo extends JpaRepository<AccountDetails, Long> {
 
-    // الريبو تبع Account Details
 }

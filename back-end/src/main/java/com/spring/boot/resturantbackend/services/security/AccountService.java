@@ -12,7 +12,6 @@ public interface AccountService {
 
     AccountDto updateAccount(AccountDto accountDto);
 
-    //اضفنا الكود دا ك service لتحديث البيانات عند اول order
     AccountDto updateAccountDetails(AccountDto accountDto);
 
     void deleteAccount(Long id);

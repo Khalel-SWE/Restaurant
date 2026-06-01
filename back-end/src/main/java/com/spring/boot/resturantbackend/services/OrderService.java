@@ -12,7 +12,6 @@ public interface OrderService {
 
     UserOrdersResponse getOrders();
 
-    // ضيف السطر ده هنا:
     boolean isUserProfileComplete(String username);
 
     List<OrderDto> getAllOrdersForAdmin();

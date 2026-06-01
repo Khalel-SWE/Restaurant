@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepo orderRepo;
 
     @Autowired
-    private AccountRepo accountRepo; // محتاجينه عشان نشيك على الداتا بيز
+    private AccountRepo accountRepo;
 
     @Autowired
     private ProductService productService;
@@ -36,9 +36,9 @@ public class OrderServiceImpl implements OrderService {
     private NotificationService notificationService;
 
     public boolean isUserProfileComplete(String username) {
-        // استخدم Optional عشان نتجنب الـ Exception المفاجئ
+
         return accountRepo.findByUsername(username).map(account -> {
-            // التحقق من وجود Details ومن إن الحقول الأساسية مش فاضية
+
             if (account.getAccountDetails() == null) return false;
 
             String address = account.getAccountDetails().getAddress();
@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 
             return address != null && !address.trim().isEmpty() &&
                     phone != null && !phone.trim().isEmpty();
-        }).orElse(false); // لو اليوزر مش موجود أصلاً نرجع false
+        }).orElse(false);
     }
 
     @Override
@@ -62,8 +62,6 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepo.findById(orderId)
                 .orElseThrow();
 
-        // لو الاوردر خلص
-        // ممنوع يتعدل تاني
         if (
                 order.getStatus() != null &&
                         (
@@ -82,7 +80,6 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepo.save(order);
 
-        // notification لليوزر
         notificationService.createNotification(
                 order.getAccount().getId(),
                 "Your order status is now: " + status,
@@ -95,39 +92,29 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ResponseOrderVm requestOrder(RequestOrderVm requestOrderVm) {
 
-        // 1. نجيب المنتجات بناءً على الـ IDs المبعوثة من الفرونت إند
         List<ProductDto> productDtoList = productService.getProductByIds(requestOrderVm.getProductsIds());
 
-        // 2. نجيب بيانات المستخدم الحالي من الـ Security Context
-        // تأكدنا إننا بنعمل Cast لـ AccountDto اللي متخزن وقت الـ Login
         AccountDto accountDto = (AccountDto) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
 
-        // 3. إنشاء كائن الـ Order الجديد
         Order order = new Order();
 
-        // 4. توليد كود مؤقت فريد (استخدمنا الوقت الحالي بالملي ثانية لضمان عدم التكرار قبل الحفظ)
         order.setCode("TEMP-" + System.currentTimeMillis());
 
-        // 5. ضبط البيانات الأساسية (السعر، العدد، المنتجات)
         order.setTotalPrice(requestOrderVm.getTotalPrice());
         order.setTotalNumber(requestOrderVm.getTotalNumber());
         order.setProducts(ProductMapper.PRODUCT_MAPPER.toProductList(productDtoList));
 
-        // 6. ربط الأوردر بالمستخدم (طريقة احترافية: ننشئ كائن Account بـ ID فقط للربط)
         Account account = new Account();
         account.setId(accountDto.getId());
         order.setAccount(account);
 
-        // 7. الحفظ الأول (للحصول على الـ ID التلقائي من قاعدة البيانات)
         Order orderSaved = orderRepo.save(order);
 
-        // 8. تحديث الكود ليصبح الكود النهائي المعتمد على الـ ID (مثلاً RES-15)
         orderSaved.setCode("RES-" + orderSaved.getId());
 
-        // 9. الحفظ النهائي بعد تحديث الكود
         orderSaved = orderRepo.save(orderSaved);
 
         notificationService.createNotification(
@@ -143,8 +130,6 @@ public class OrderServiceImpl implements OrderService {
                 "NEW_ORDER"
         );
 
-
-        // 10. إرجاع الـ Response بالبيانات النهائية وحالة النجاح
         return new ResponseOrderVm(
                 orderSaved.getCode(),
                 orderSaved.getTotalPrice(),
