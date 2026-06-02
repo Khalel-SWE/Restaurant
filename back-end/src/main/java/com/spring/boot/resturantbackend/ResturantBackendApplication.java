@@ -11,7 +11,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class ResturantBackendApplication {
 
     public static void main(String[] args) {
-        //admin
         SpringApplication.run(ResturantBackendApplication.class, args);
     }
 
