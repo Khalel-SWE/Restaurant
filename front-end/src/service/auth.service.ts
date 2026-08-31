@@ -49,7 +49,6 @@ export class AuthService {
     );
   }
 
-  // الدالة الجديدة اللي بتجيب الداتا باليوزرنيم
   getUserByUsername(username: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/user/${username}`);
   }

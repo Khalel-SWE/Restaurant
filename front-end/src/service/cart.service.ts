@@ -13,12 +13,9 @@ export class CartService {
 
   constructor() { }
 
-  // case 1: productOrders for first one  quantity = 1
-  // case 1: productOrders for not first one
   addProductToOrder(product: ProductOrder){
 
     let isExist: boolean = false;
-    // let existedProduct: ProductOrder = undefined;
     let existedProduct: ProductOrder | undefined = undefined;
 
     if(this.productOrders.length > 0){
@@ -53,9 +50,6 @@ export class CartService {
     console.log(this.totalOrderSize)
   }
 
-  // case product quantity = 1   0
-  // case product quantity = 5   4
-
   removeProduct(product: ProductOrder){
     product.quantity--;
     if (product.quantity === 0) {
@@ -65,8 +59,6 @@ export class CartService {
     this.calculateTotals();
   }
 
-  //                 0  1  2  3
-  // productOrders [o1,o2,o3,o4]
   remove(product: ProductOrder) {
     let index = this.productOrders.findIndex(productOrder => productOrder.id === product.id); // 0 ....    2
     if(index > -1){
