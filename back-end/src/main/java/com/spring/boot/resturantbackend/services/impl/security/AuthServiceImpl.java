@@ -34,12 +34,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AccountAuthResponseVm signUp(AccountAuthRequestVm accountAuthRequestVm) {
 
-        // نحول الـ VM لـ DTO
         AccountDto accountDto =
                 AccountMapper.ACCOUNT_MAPPER
                         .toAccountDto(accountAuthRequestVm);
 
-        // نحدد إن اليوزر Enabled
         accountDto.setEnabled(true);
 
         Role userRole = roleRepo
@@ -58,11 +56,9 @@ public class AuthServiceImpl implements AuthService {
                 java.util.List.of(roleDto)
         );
 
-        // إنشاء الحساب
         accountDto =
                 accountService.createAccount(accountDto);
 
-        // تجهيز الـ Response
         AccountAuthResponseVm responseVm =
                 AccountMapper.ACCOUNT_MAPPER
                         .toAccountResponseVm(accountDto);
@@ -82,15 +78,15 @@ public class AuthServiceImpl implements AuthService {
     public AccountAuthResponseVm login(AccountAuthRequestVm accountAuthRequestVm) {
         try {
             AccountDto accountDto = accountService.getAccountByUsername(accountAuthRequestVm.getUsername());
-            // check account exists
+
             if (Objects.isNull(accountDto)) {
                 throw new SystemException("not_found.account");
             }
-            // check account enabled (السطر اللي طلبته)
+
             if (!accountDto.isEnabled()) {
                 throw new SystemException("account.disabled");
             }
-            // check password
+
             if (!passwordEncoder.matches(accountAuthRequestVm.getPassword(), accountDto.getPassword())) {
                 throw new SystemException("error.invalid.credentials");
             }

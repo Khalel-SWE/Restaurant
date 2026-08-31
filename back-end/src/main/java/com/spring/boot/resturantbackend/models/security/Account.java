@@ -56,17 +56,14 @@ public class Account {
     )
     private List<Role> roles = new ArrayList<>();
 
-    // تم إضافة orphanRemoval لضمان الحذف التام
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<ContactInfo> contacts;
 
-    // تم إضافة orphanRemoval لضمان الحذف التام
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Order> orders;
 
-    // --- الإضافة دي هي اللي هتحل المشكلة من جذورها ---
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Notification> notifications;

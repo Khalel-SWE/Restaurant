@@ -52,7 +52,6 @@ public class OrderController {
     @PostMapping("/create-orders")
     public ResponseEntity<ResponseOrderVm> createOrder(@RequestBody @Valid RequestOrderVm requestOrderVm) {
 
-        // 1. هنجيب الـ DTO من الـ SecurityContext مباشرة (ده أسرع وأدق)
         Object principal = org.springframework.security.core.context.SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
 
@@ -63,13 +62,11 @@ public class OrderController {
         AccountDto currentAccount = (AccountDto) principal;
         String username = currentAccount.getUsername();
 
-        // 2. التحقق من اكتمال البروفايل
         if (!orderService.isUserProfileComplete(username)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseOrderVm("PROFILE_INCOMPLETE"));
         }
 
-        // 3. التنفيذ
         return ResponseEntity.ok(orderService.requestOrder(requestOrderVm));
     }
 

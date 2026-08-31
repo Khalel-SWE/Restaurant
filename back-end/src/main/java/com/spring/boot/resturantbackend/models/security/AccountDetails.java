@@ -14,8 +14,6 @@ import lombok.Setter;
 @Getter
 public class AccountDetails {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
 @Id
 @SequenceGenerator(
         name = "account_seq",
@@ -28,19 +26,17 @@ public class AccountDetails {
 )
     private Long id;
 
-    // int not String
     @Column(name = "age", nullable = false)
     private Integer age;
 
     @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "phone_number", nullable = false) // استخدام underscore ليتناسب مع naming convention الخاص بأوراكل
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     @Column(name = "address", nullable = false)
     private String address;
 
-    // mappedBy تشير إلى اسم المتغير 'accountDetails' الموجود في كلاس Account
     @OneToOne(mappedBy = "accountDetails")
     private Account account;
 }

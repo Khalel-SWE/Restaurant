@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-//temporary class i have created to make accounts and hash passwords
-
 @Component
 public class PasswordHack {
 

@@ -86,7 +86,6 @@ public class ProductServiceImpl implements ProductService {
             Product product = new Product();
             product.setName(productDto.getName());
             product.setImagePath(productDto.getImagePath());
-//            product.setDescription(productDto.getDescription());
             product.setDescription(
                     productDto.getDescription() != null ? productDto.getDescription() : ""
             );
@@ -100,7 +99,6 @@ public class ProductServiceImpl implements ProductService {
 
             product = productRepo.save(product);
 
-            // Notifications
             List<Account> users = accountRepo.findAll();
             for (Account user : users) {
                 if (user.getRoles().stream().anyMatch(role -> role.getRole().equals("ADMIN"))) {
@@ -261,7 +259,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    private static Pageable getPageable(int page, int size) {//2
+    private static Pageable getPageable(int page, int size) {
         try {
             if (page < 1) {
                 throw new SystemException("error.min.one.page");

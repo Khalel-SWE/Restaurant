@@ -123,7 +123,6 @@ public class OrderServiceImpl implements OrderService {
                 "ORDER"
         );
 
-// notification للادمن
         notificationService.createNotification(
                 1L,
                 "New order received",

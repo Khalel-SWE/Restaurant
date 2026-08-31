@@ -51,11 +51,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto updateAccountDetails(AccountDto accountDto) {
-        // 1. هات الحساب
+
         Account existingAccount = accountRepo.findById(accountDto.getId())
                 .orElseThrow(() -> new RuntimeException("Account not found"));
 
-        // 2. ظبط الـ Details
+
         AccountDetails details = existingAccount.getAccountDetails();
         if (details == null) {
             details = new AccountDetails();
@@ -63,24 +63,16 @@ public class AccountServiceImpl implements AccountService {
             existingAccount.setAccountDetails(details);
         }
 
-        // 3. الحل العبقري: هنقرأ من الـ DTO الرئيسي لو الفرونت إند باعتها مفرودة
-        // (لأن Angular عندك بيبعتهم بره مش جوه الـ nested object)
-
-        // سحب البيانات (بنحط قيمة افتراضية لو الـ nested null)
         String address = (accountDto.getAccountDetails() != null) ? accountDto.getAccountDetails().getAddress() : null;
         String email = (accountDto.getAccountDetails() != null) ? accountDto.getAccountDetails().getEmail() : null;
         String phone = (accountDto.getAccountDetails() != null) ? accountDto.getAccountDetails().getPhoneNumber() : null;
         Integer age = (accountDto.getAccountDetails() != null) ? accountDto.getAccountDetails().getAge() : 0;
-
-        // لو لسه null، جرب تسحب من الـ DTO الرئيسي مباشرة (عشان الأنجولار اللي مغلبيك)
-        // لازم تتأكد إن الحقول دي موجودة في AccountDto أو استخدم الـ "Flat Mapping"
 
         details.setAddress(address);
         details.setEmail(email);
         details.setPhoneNumber(phone);
         details.setAge(age);
 
-        // 4. حفظ
         accountRepo.save(existingAccount);
         return AccountMapper.ACCOUNT_MAPPER.toAccountDto(existingAccount);
     }
