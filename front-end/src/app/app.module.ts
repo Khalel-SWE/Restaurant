@@ -61,10 +61,6 @@ import { NotificationComponent } from './componants/notification/notification.co
 
 
 
-/*
-*   // http://localhost:4200/
-  {path: '', component:OrderItemsComponent}
-* */
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,8 +91,7 @@ import { NotificationComponent } from './componants/notification/notification.co
     FormsModule
   ],
 
-  // providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  //   { provide: APP_BASE_HREF, useValue: '/' }],
+  
   providers: [
   {
     provide: HTTP_INTERCEPTORS,
