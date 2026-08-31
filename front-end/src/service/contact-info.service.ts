@@ -12,7 +12,6 @@ export class ContactInfoService {
   constructor(private http: HttpClient) { }
 
   sendMessage(data: any): Observable<any> {
-    // شيلنا الـ responseType عشان الباك إند بيرجع JSON بشكل افتراضي
     return this.http.post(
       this.baseUrl,
       data
