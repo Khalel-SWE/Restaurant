@@ -23,7 +23,6 @@ export class NotificationService {
     return this.http.put(`${this.apiUrl}/mark-as-read/${userId}`, {});
   }
 
-  // --- الدوال الجديدة ---
   
   deleteNotification(notificationId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete/${notificationId}`);
