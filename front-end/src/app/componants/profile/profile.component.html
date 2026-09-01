@@ -1,62 +1,157 @@
 <div class="container mt-5 d-flex justify-content-center">
-  <div style="width:100%;max-width:560px;background:#222;border:1px solid rgba(255,165,0,.25);border-radius:10px;overflow:hidden;">
-
-    <!-- Header -->
-    <div style="background:#2a2a2a;border-bottom:1px solid rgba(255,165,0,.25);padding:1.4rem 1.8rem;display:flex;align-items:center;gap:.9rem;">
-      <div style="width:42px;height:42px;background:rgba(255,165,0,.12);border:1px solid rgba(255,165,0,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;">
+  <div
+    style="
+      width: 100%;
+      max-width: 560px;
+      background: #222;
+      border: 1px solid rgba(255, 165, 0, 0.25);
+      border-radius: 10px;
+      overflow: hidden;
+    "
+  >
+    <div
+      style="
+        background: #2a2a2a;
+        border-bottom: 1px solid rgba(255, 165, 0, 0.25);
+        padding: 1.4rem 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+      "
+    >
+      <div
+        style="
+          width: 42px;
+          height: 42px;
+          background: rgba(255, 165, 0, 0.12);
+          border: 1px solid rgba(255, 165, 0, 0.25);
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+      >
         👤
       </div>
       <div>
         <h5 class="mb-0 text-white fw-bold">Update Personal Details</h5>
-        <small style="color:#aaa;">Manage and update your account information</small>
+        <small style="color: #aaa"
+          >Manage and update your account information</small
+        >
       </div>
     </div>
-
-    <!-- Body -->
-    <div style="padding:1.8rem;">
+    <div style="padding: 1.8rem">
       <div class="row g-3">
-
         <div class="col-6">
-          <label style="color:#FFA500;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Age</label>
-          <input type="number" [(ngModel)]="age" name="age"
-                 class="form-control"
-                 style="background:#2a2a2a;border:1px solid rgba(255,165,0,.25);color:#fff;"
-                 placeholder="e.g. 25">
+          <label
+            style="
+              color: #ffa500;
+              font-size: 0.75rem;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.04em;
+            "
+            >Age</label
+          >
+          <input
+            type="number"
+            [(ngModel)]="age"
+            name="age"
+            class="form-control"
+            style="
+              background: #2a2a2a;
+              border: 1px solid rgba(255, 165, 0, 0.25);
+              color: #fff;
+            "
+            placeholder="e.g. 25"
+          />
         </div>
 
         <div class="col-6">
-          <label style="color:#FFA500;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Phone Number</label>
-          <input type="tel" [(ngModel)]="phoneNumber" name="phoneNumber"
-                 class="form-control"
-                 style="background:#2a2a2a;border:1px solid rgba(255,165,0,.25);color:#fff;"
-                 placeholder="01012345678">
+          <label
+            style="
+              color: #ffa500;
+              font-size: 0.75rem;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.04em;
+            "
+            >Phone Number</label
+          >
+          <input
+            type="tel"
+            [(ngModel)]="phoneNumber"
+            name="phoneNumber"
+            class="form-control"
+            style="
+              background: #2a2a2a;
+              border: 1px solid rgba(255, 165, 0, 0.25);
+              color: #fff;
+            "
+            placeholder="01012345678"
+          />
         </div>
 
         <div class="col-12">
-          <label style="color:#FFA500;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Email</label>
-          <input type="email" [(ngModel)]="email" name="email"
-                 class="form-control"
-                 style="background:#2a2a2a;border:1px solid rgba(255,165,0,.25);color:#fff;"
-                 placeholder="example@email.com">
+          <label
+            style="
+              color: #ffa500;
+              font-size: 0.75rem;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.04em;
+            "
+            >Email</label
+          >
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            class="form-control"
+            style="
+              background: #2a2a2a;
+              border: 1px solid rgba(255, 165, 0, 0.25);
+              color: #fff;
+            "
+            placeholder="example@email.com"
+          />
         </div>
 
         <div class="col-12">
-          <label style="color:#FFA500;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;">Address</label>
-          <input type="text" [(ngModel)]="address" name="address"
-                 class="form-control"
-                 style="background:#2a2a2a;border:1px solid rgba(255,165,0,.25);color:#fff;"
-                 placeholder="e.g. Cairo, Egypt">
+          <label
+            style="
+              color: #ffa500;
+              font-size: 0.75rem;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.04em;
+            "
+            >Address</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="address"
+            name="address"
+            class="form-control"
+            style="
+              background: #2a2a2a;
+              border: 1px solid rgba(255, 165, 0, 0.25);
+              color: #fff;
+            "
+            placeholder="e.g. Cairo, Egypt"
+          />
         </div>
-
       </div>
 
-      <hr style="border-color:rgba(255,165,0,.2);margin:1.5rem 0;">
+      <hr style="border-color: rgba(255, 165, 0, 0.2); margin: 1.5rem 0" />
 
-      <button class="btn w-100 fw-bold py-2" (click)="update()"
-              style="background:#FFA500;color:#111;border:none;">
+      <button
+        class="btn w-100 fw-bold py-2"
+        (click)="update()"
+        style="background: #ffa500; color: #111; border: none"
+      >
         💾 Save Changes
       </button>
     </div>
-
   </div>
 </div>
