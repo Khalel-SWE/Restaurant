@@ -6,6 +6,7 @@ import { CartService } from "../../../service/cart.service";
 import { ProductOrder } from "../../../model/product-order";
 import { AuthService } from "../../../service/auth.service";
 import { ModalService } from "../../../service/modal.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
