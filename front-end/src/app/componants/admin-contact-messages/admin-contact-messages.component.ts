@@ -42,9 +42,7 @@ export class AdminContactMessagesComponent implements OnInit {
     this.contactInfoService.replyMessage(message.id, replyText).subscribe({
       next: () => {
         console.log("REPLY SENT");
-        // تحديث الرسالة في الواجهة مباشرة
         message.reply = replyText;
-        // تنظيف الحقل المؤقت
         delete this.tempReplies[message.id];
       },
       error: (error: any) => {

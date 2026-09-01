@@ -1,4 +1,3 @@
-/* Hero Header */
 .hero-header {
   background: linear-gradient(rgba(15, 23, 43, 0.8), rgba(15, 23, 43, 0.8)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop') center center no-repeat;
   background-size: cover;
@@ -7,8 +6,6 @@
 .shadow-text {
   text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
 }
-
-/* Titles */
 .letter-spacing {
   letter-spacing: 1.5px;
 }
@@ -28,10 +25,7 @@
 }
 .section-title::before { right: 100%; margin-right: 15px; }
 .section-title::after { left: 100%; margin-left: 15px; }
-
-/* Premium Team Cards */
 .premium-team-item {
-  /* بيعتمد على خلفية الكارد الأساسية بتاع البوتستراب عشان يشتغل لايت ودارك */
   background-color: var(--bs-card-bg, #ffffff);
   border: 1px solid var(--bs-border-color, rgba(0,0,0,0.08));
   border-radius: 1rem;
@@ -39,29 +33,22 @@
   transition: all 0.4s ease-in-out;
   color: var(--bs-body-color);
 }
-
 .premium-team-item:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
   border-color: #fea116;
 }
-
-/* Image Container & Hover Effect */
 .img-container {
   position: relative;
   overflow: hidden;
 }
-
 .img-container img {
   transition: transform 0.5s ease;
   object-fit: cover;
 }
-
 .premium-team-item:hover .img-container img {
   transform: scale(1.08);
 }
-
-/* Social Icons Overlay */
 .social-overlay {
   position: absolute;
   top: 0;
@@ -76,12 +63,9 @@
   opacity: 0;
   transition: opacity 0.4s ease;
 }
-
 .premium-team-item:hover .social-overlay {
   opacity: 1;
 }
-
-/* Social Buttons */
 .btn-square {
   width: 45px;
   height: 45px;
@@ -96,23 +80,17 @@
   transform: translateY(20px);
   transition: all 0.3s ease;
 }
-
 .premium-team-item:hover .btn-square {
   transform: translateY(0);
 }
-
 .btn-square:hover {
   background: #fff;
   color: #fea116;
   box-shadow: 0 5px 15px rgba(254, 161, 22, 0.4);
 }
-
-/* Staggered animation for icons to slide up one by one */
 .btn-square:nth-child(1) { transition-delay: 0.0s; }
 .btn-square:nth-child(2) { transition-delay: 0.08s; }
 .btn-square:nth-child(3) { transition-delay: 0.16s; }
-
-/* Text Area */
 .team-text {
   background-color: transparent;
 }

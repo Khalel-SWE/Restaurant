@@ -18,8 +18,6 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     this.refreshUnreadCount();
   }
-
-  // جلب عدد الإشعارات الغير مقروءة
   refreshUnreadCount() {
     const userId = sessionStorage.getItem('id');
     if (userId) {
@@ -31,7 +29,6 @@ export class NotificationComponent implements OnInit {
     }
   }
 
-  // تحميل الإشعارات (بدون مسح العداد تلقائياً)
   loadNotifications() {
     const userId = sessionStorage.getItem('id');
     if (userId) {
@@ -43,32 +40,27 @@ export class NotificationComponent implements OnInit {
     }
   }
 
-  // زر: قراءة الكل
   markAllAsRead(event: Event) {
-    event.stopPropagation(); // لمنع إغلاق القائمة
+    event.stopPropagation(); 
     const userId = sessionStorage.getItem('id');
     if (userId && this.unreadCount > 0) {
       this.notificationService.markAllAsRead(Number(userId)).subscribe(() => {
         this.unreadCount = 0;
-        this.loadNotifications(); // لتحديث شكل الإشعارات لو لزم الأمر
+        this.loadNotifications(); 
       });
     }
   }
 
-  // زر: حذف إشعار واحد
   deleteNotification(event: Event, id: number) {
-    event.stopPropagation(); // لمنع إغلاق القائمة
+    event.stopPropagation(); 
     this.notificationService.deleteNotification(id).subscribe(() => {
-      // إزالة الإشعار من المصفوفة في الشاشة
       this.notifications = this.notifications.filter(n => n.id !== id);
-      // تحديث العداد عشان لو كان غير مقروء واتحذف
       this.refreshUnreadCount();
     });
   }
 
-  // زر: حذف الكل
   clearAllNotifications(event: Event) {
-    event.stopPropagation(); // لمنع إغلاق القائمة
+    event.stopPropagation(); 
     const userId = sessionStorage.getItem('id');
     if (userId && this.notifications.length > 0) {
       if (confirm('Are you sure you want to delete all notifications?')) {

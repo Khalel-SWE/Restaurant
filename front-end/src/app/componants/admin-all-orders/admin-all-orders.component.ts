@@ -62,7 +62,6 @@ export class AdminAllOrdersComponent implements OnInit {
 
     }
 
-    // ممنوع التعديل بعد النهاية
     if (
       order.status === 'DELIVERED' ||
       order.status === 'CANCELLED'

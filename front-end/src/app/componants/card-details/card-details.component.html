@@ -4,109 +4,122 @@
       <div class="col-md-6 text-center mb-4">
         <h1 class="heading-section">Orders</h1>
         <div class="mt-3">
+          <h5>
+            Total Items:
+            <span class="text-warning">
+              {{ totalProductSize }}
+            </span>
+          </h5>
 
-  <h5>
-    Total Items:
-    <span class="text-warning">
-      {{totalProductSize}}
-    </span>
-  </h5>
-
-  <h5>
-    Total Price:
-    <span class="text-success">
-      ${{totalProductPrice}}
-    </span>
-  </h5>
-
-</div>
+          <h5>
+            Total Price:
+            <span class="text-success"> ${{ totalProductPrice }} </span>
+          </h5>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <!--					<h3 class="h5 mb-4 text-center">Table Accordion</h3>-->
         <div class="table-wrap">
           <table class="table">
             <thead class="thead-primary">
-            <tr>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>Product</th>
-              <th>Price</th>
-              <th>ADD</th>
-              <th>Quantity</th>
-              <th>REMOVE</th>
-              <th>total</th>
-              <th>&nbsp;</th>
-            </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>ADD</th>
+                <th>Quantity</th>
+                <th>REMOVE</th>
+                <th>total</th>
+                <th>&nbsp;</th>
+              </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let order of productOrders" class="alert" role="alert">
-              <td>
-                <label class="checkbox-wrap checkbox-primary">
-                </label>
-              </td>
-              <td>
-                <img class="img" src="../../../assets/img/{{order.imagePath}}" />
-              </td>
-              <td>
-                <div class="email">
-                  <span style="font-weight: bold">{{order.name}} </span><br>
-                  <span>{{order.description}}</span>
-                </div>
-              </td>
-              <td>${{order.price}}</td>
-              <td class="quantity">
-                <div class="input-group">
-                  <a style="cursor: pointer" (click)="addProduct(order)">
-                    <i class="fa fa-plus"></i>
-                  </a>
-                </div>
-              </td>
-              <td class="quantity">
-                <div class="input-group">
-                  <input disabled type="text" name="quantity" class="quantity form-control input-number" value="{{order.quantity}}" min="1" max="100">
-                </div>
-              </td>
-              <td class="quantity" >
-                <div class="input-group">
-                  <a *ngIf="order.quantity !== 1" style="cursor: pointer" (click)="removeSelectedProduct(order)">
-                    <i  class="fa fa-minus"></i>
-                  </a>
-                </div>
-              </td>
-              <td>${{order.quantity * order.price}}</td>
-              <td>
-                <button (click)="removeFullProduct(order)" type="button" class="close"  aria-label="Close">
-                  X
-                </button>
-              </td>
-            </tr>
+              <tr
+                *ngFor="let order of productOrders"
+                class="alert"
+                role="alert"
+              >
+                <td>
+                  <label class="checkbox-wrap checkbox-primary"> </label>
+                </td>
+                <td>
+                  <img
+                    class="img"
+                    src="../../../assets/img/{{ order.imagePath }}"
+                  />
+                </td>
+                <td>
+                  <div class="email">
+                    <span style="font-weight: bold">{{ order.name }} </span
+                    ><br />
+                    <span>{{ order.description }}</span>
+                  </div>
+                </td>
+                <td>${{ order.price }}</td>
+                <td class="quantity">
+                  <div class="input-group">
+                    <a style="cursor: pointer" (click)="addProduct(order)">
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </td>
+                <td class="quantity">
+                  <div class="input-group">
+                    <input
+                      disabled
+                      type="text"
+                      name="quantity"
+                      class="quantity form-control input-number"
+                      value="{{ order.quantity }}"
+                      min="1"
+                      max="100"
+                    />
+                  </div>
+                </td>
+                <td class="quantity">
+                  <div class="input-group">
+                    <a
+                      *ngIf="order.quantity !== 1"
+                      style="cursor: pointer"
+                      (click)="removeSelectedProduct(order)"
+                    >
+                      <i class="fa fa-minus"></i>
+                    </a>
+                  </div>
+                </td>
+                <td>${{ order.quantity * order.price }}</td>
+                <td>
+                  <button
+                    (click)="removeFullProduct(order)"
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                  >
+                    X
+                  </button>
+                </td>
+              </tr>
             </tbody>
           </table>
           <div class="d-flex gap-2">
+            <button
+              type="button"
+              class="btn btn-danger col-6"
+              (click)="clearCart()"
+            >
+              Clear Cart
+            </button>
 
-  <button
-    type="button"
-    class="btn btn-danger col-6"
-
-    (click)="clearCart()">
-
-    Clear Cart
-
-  </button>
-
-  <button
-    type="button"
-    class="btn btn-success col-6"
-
-    (click)="createOrder()">
-
-    Take Order
-
-  </button>
-
-</div>
+            <button
+              type="button"
+              class="btn btn-success col-6"
+              (click)="createOrder()"
+            >
+              Take Order
+            </button>
+          </div>
         </div>
       </div>
     </div>

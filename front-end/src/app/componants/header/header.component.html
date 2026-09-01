@@ -1,4 +1,3 @@
-<!-- Navbar & Hero Start -->
 <div class="container-xxl position-relative p-0">
   <nav
     class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0"
@@ -7,7 +6,6 @@
       <h1 class="text-primary m-0">
         <i class="fa fa-utensils me-3"></i>Restoran
       </h1>
-      <!-- <img src="img/logo.png" alt="Logo"> -->
     </a>
     <button
       class="navbar-toggler"
@@ -27,10 +25,7 @@
         aria-label="Search"
         (input)="search(key.value)"
       />
-      <!--      <button class="btn btn-outline-success" type="submit" (click)="search(key.value)">Search</button>-->
       <div class="navbar-nav ms-auto py-0 pe-4">
-        <!-- LOGIN -->
-
         <div
           *ngIf="!isUserLogin() && !isLoginPage()"
           class="nav-item nav-link active"
@@ -38,92 +33,14 @@
           <a routerLink="/login">Login</a>
         </div>
 
-        <!-- SIGNUP -->
-
         <div
           *ngIf="!isUserLogin() && !isSignupPage()"
           class="nav-item nav-link active"
         >
           <a routerLink="/signup">Signup</a>
         </div>
-        <div *ngIf="isUserLogin()" class="nav-item nav-link active">
-          <!-- <a href="" (click)="logOut()">logout</a> -->
-        </div>
+        <div *ngIf="isUserLogin()" class="nav-item nav-link active"></div>
         <div class="nav-item nav-link active"></div>
-
-        <!-- <div class="nav-item dropdown" *ngIf="isUserLogin()">
-          <a
-            href="#"
-            class="nav-link dropdown-toggle fw-bold text-uppercase"
-            data-bs-toggle="dropdown"
-          >
-            <i class="fa fa-user-circle me-2"></i> 
-            {{ isAdmin() ? 'Admin Panel' : 'My Account' }}
-          </a>
-
-          <div
-            class="dropdown-menu shadow-lg rounded-3 border-0 p-2 animate__animated animate__fadeIn"
-          >
-            <a
-              *ngIf="!isAdmin()"
-              routerLink="/orders-user"
-              class="dropdown-item d-flex align-items-center rounded mb-1"
-            >
-              <i class="fa fa-box-open text-primary me-2"></i> Show Orders H
-            </a>
-
-            <a
-              *ngIf="!isAdmin()"
-              routerLink="/profile"
-              class="dropdown-item d-flex align-items-center rounded mb-1"
-            >
-              <i class="fa fa-user-edit text-warning me-2"></i>
-              Edit Profile</a
-            >
-
-            <a
-              *ngIf="!isAdmin()"
-              routerLink="/my-messages"
-              class="dropdown-item d-flex align-items-center rounded mb-1"
-            >
-              <i class="fa fa-comments text-info me-2"></i> My Messages
-            </a>
-
-            <button
-              *ngIf="isAdmin()"
-              routerLink="/admin-all-orders"
-              class="dropdown-item d-flex align-items-center rounded mb-1 border-0 bg-transparent"
-            >
-              <i class="fa fa-box-open text-primary me-2"></i> Show All Orders
-            </button>
-
-            <button
-              *ngIf="isAdmin() && isProductsPage()"
-              type="button"
-              class="dropdown-item d-flex align-items-center rounded mb-1 border-0 bg-transparent"
-              data-bs-toggle="modal"
-              data-bs-target="#addProductModal"
-            >
-              <i class="fa fa-plus text-warning me-2"></i>
-              Add New Product
-            </button>
-            <a
-              *ngIf="isAdmin()"
-              routerLink="/admin-users"
-              class="dropdown-item d-flex align-items-center rounded"
-            >
-              <i class="fa fa-users text-danger me-2"></i> All Users
-            </a>
-            <a
-              *ngIf="isAdmin()"
-              routerLink="/admin-contact-messages"
-              class="dropdown-item d-flex align-items-center rounded"
-            >
-              <i class="fa fa-envelope text-danger me-2"></i>
-              Contact Messages
-            </a>
-          </div>
-        </div> -->
         <div class="nav-item dropdown" *ngIf="isUserLogin()">
           <a
             href="#"
@@ -143,8 +60,6 @@
               border: 1px solid rgba(255, 255, 255, 0.08);
             "
           >
-            <!-- USER -->
-
             <ng-container *ngIf="!isAdmin()">
               <a
                 routerLink="/orders-user"
@@ -187,8 +102,6 @@
               </a>
             </ng-container>
 
-            <!-- ADMIN -->
-
             <ng-container *ngIf="isAdmin()">
               <a
                 routerLink="/admin-all-orders"
@@ -225,8 +138,6 @@
               </a>
             </ng-container>
 
-            <!-- LINE -->
-
             <div
               style="
                 height: 1px;
@@ -234,8 +145,6 @@
                 margin: 10px 0;
               "
             ></div>
-
-            <!-- LOGOUT -->
 
             <a
               href=""
@@ -255,4 +164,3 @@
 
   <div class="container-xxl py-5 bg-dark hero-header mb-5"></div>
 </div>
-<!-- Navbar & Hero End -->

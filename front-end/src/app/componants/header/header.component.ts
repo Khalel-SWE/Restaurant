@@ -57,40 +57,32 @@ export class HeaderComponent implements OnInit {
 
   }
 }
-
   isUserLogin(): boolean {
     return this.authService.isUserLogin();
   }
-
   isAdmin(): boolean {
     return this.authService.isAdmin();
   }
-
   search(key: any) {
     this.routes.navigateByUrl("/products/" + key);
   }
-
   logOut() {
     this.authService.logOut();
     this.routes.navigateByUrl("/login");
   }
-
   isProductsPage(): boolean {
     return this.routes.url.includes('/products');
   }
-
   isLoginPage(): boolean {
 
   return this.routes.url.includes('/login');
 
 }
-
 isSignupPage(): boolean {
 
   return this.routes.url.includes('/signup');
 
 }
-
 openAddProductModal() {
     this.modalService.openAddProduct();
   }

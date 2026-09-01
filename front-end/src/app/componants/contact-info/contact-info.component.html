@@ -1,4 +1,3 @@
-<!-- Hero Section -->
 <div class="container-xxl py-5 contact-hero mb-5">
   <div class="container text-center my-5 pt-5 pb-4 position-relative z-index-1">
     <i class="fa fa-paper-plane fs-1 text-warning mb-3 shadow-icon"></i>
@@ -12,10 +11,8 @@
   <div class="hero-overlay"></div>
 </div>
 
-<!-- Contact Section Start -->
 <div class="container-xxl py-5">
   <div class="container">
-    <!-- Title -->
     <div class="text-center mb-5">
       <h5
         class="section-title text-warning fw-bold text-uppercase letter-spacing"
@@ -26,10 +23,8 @@
     </div>
 
     <div class="row g-5 align-items-center">
-      <!-- Left Side: Contact Information Cards -->
       <div class="col-lg-5 col-md-12">
         <div class="d-flex flex-column gap-4">
-          <!-- Info Card 1 -->
           <div class="info-card shadow-sm d-flex align-items-center p-4">
             <div class="icon-box me-4 shadow">
               <i class="fa fa-calendar-check text-white fs-4"></i>
@@ -43,7 +38,6 @@
             </div>
           </div>
 
-          <!-- Info Card 2 -->
           <div class="info-card shadow-sm d-flex align-items-center p-4">
             <div class="icon-box me-4 shadow">
               <i class="fa fa-info-circle text-white fs-4"></i>
@@ -57,7 +51,6 @@
             </div>
           </div>
 
-          <!-- Info Card 3 -->
           <div class="info-card shadow-sm d-flex align-items-center p-4">
             <div class="icon-box me-4 shadow">
               <i class="fa fa-headset text-white fs-4"></i>
@@ -73,7 +66,6 @@
         </div>
       </div>
 
-      <!-- Right Side: The Form -->
       <div class="col-lg-7 col-md-12">
         <div class="form-card shadow-lg p-4 p-sm-5">
           <h3 class="fw-bold mb-4">
@@ -81,7 +73,6 @@
           </h3>
 
           <form (ngSubmit)="sendMessage()">
-            <!-- Success Alert -->
             <div *ngIf="successMessage" class="premium-alert mb-4 fade-in">
               <i class="fa fa-check-circle fs-5"></i>
               <span>{{ successMessage }}</span>
@@ -174,4 +165,3 @@
     </div>
   </div>
 </div>
-<!-- Contact Section End -->

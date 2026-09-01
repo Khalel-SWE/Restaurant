@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {CartService} from "../../../service/cart.service";
 import {ProductOrder} from "../../../model/product-order";
-//import {Product} from "../../../model/product";
 import {RequestOrderService} from "../../../service/request-order.service";
 import {Router} from "@angular/router";
 
@@ -34,55 +33,12 @@ export class CardDetailsComponent {
   addProduct(productOrder: ProductOrder){
     this.cartService.addProductToOrder(productOrder);
   }
-
-
-
   removeSelectedProduct(productOrder: ProductOrder){
     this.cartService.removeProduct(productOrder);
   }
-
   removeFullProduct(productOrder: ProductOrder){
     this.cartService.remove(productOrder);
   }
-
-
-  //createOrder() {
-  //  const productIds = this.cartService.productOrders.map(or => or.id);
-
-  //  this.requestOrderService.createOrder(productIds, this.totalProductPrice, this.totalProductSize).subscribe(
-  //    response => {
-  //      this.cartService.productOrders = [];
-  //      this.cartService.totalPrice.next(0);
-  //      this.cartService.totalOrderSize.next(0);
-  //      this.router.navigateByUrl("/order-code/" + response.code)
-  //    }
-  //  )
-  //}
-
-//   createOrder() {
-//   const productIds = this.cartService.productOrders.map(or => or.id);
-
-//   this.requestOrderService.createOrder(productIds, this.totalProductPrice, this.totalProductSize).subscribe(
-//     response => {
-//       this.cartService.productOrders = [];
-//       this.cartService.totalPrice.next(0);
-//       this.cartService.totalOrderSize.next(0);
-//       this.router.navigateByUrl("/order-code/" + response.code);
-//     },
-//     error => {
-//   console.log("Error Details:", error);
-  
-//   // الوصول للرسالة مباشرة (Spring Boot بيرجعها في حقل اسمه message)
-//   const msg = error.error?.message || error.message || "";
-
-//   if (msg.includes("update your profile")) {
-//     alert(" من فضلك أكمل بياناتك (العنوان والهاتف) لتتمكن من إتمام الطلب");
-//     this.router.navigateByUrl("/profile");
-//   } else {
-//     alert(" حدث خطأ: " + msg);
-//   }
-// }
-//   );
 
 createOrder() {
 
@@ -100,7 +56,7 @@ createOrder() {
     response => {
 
       console.log(response);
-      // حالة النجاح
+
       this.cartService.productOrders = [];
       this.cartService.totalPrice.next(0);
       this.cartService.totalOrderSize.next(0);
@@ -109,7 +65,6 @@ createOrder() {
     error => {
       console.log("Error Details:", error);
       
-      // بنجيب الرسالة اللي راجعة من الـ body بتاع الـ Error
       const errorMsg = error.error?.message;
 
       if (errorMsg === "PROFILE_INCOMPLETE") {

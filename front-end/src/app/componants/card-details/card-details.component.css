@@ -1,7 +1,6 @@
 .img {
   height: 56px;
 }
-
 body {
   display: flex;
   justify-content: center;
@@ -11,7 +10,6 @@ body {
   font-family: Arial, sans-serif;
   background: #f4f6f9;
 }
-
 .no-order-box {
   padding: 20px 30px;
   background: #fff;

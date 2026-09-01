@@ -1,25 +1,11 @@
-/* =========================
-   NAVBAR
-========================= */
-
 .navbar {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-
-/* =========================
-   LOGO
-========================= */
-
 .navbar-brand h1 {
   font-size: 3rem;
   font-weight: 700;
 }
-
-/* =========================
-   SEARCH
-========================= */
-
 .search-input {
   max-width: 420px;
   width: 100%;
@@ -36,7 +22,6 @@
 
   transition: 0.3s;
 }
-
 .search-input:focus {
   border-color: #fea116;
 
@@ -46,15 +31,9 @@
 
   color: white;
 }
-
 .search-input::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
-
-/* =========================
-   NAV LINKS
-========================= */
-
 .navbar .nav-link {
   font-size: 15px;
   font-weight: 600;
@@ -63,21 +42,14 @@
 
   transition: 0.3s;
 }
-
 .navbar .nav-link:hover {
   color: #fea116 !important;
 }
-
-/* =========================
-   DROPDOWN
-========================= */
-
 .dropdown-menu {
   margin-top: 18px !important;
 
   animation-duration: 0.3s;
 }
-
 .dropdown-item {
   color: white !important;
 
@@ -87,49 +59,30 @@
 
   font-weight: 500;
 }
-
 .dropdown-item:hover {
   background: rgba(254, 161, 22, 0.12);
 
   transform: translateX(4px);
 }
-
-/* =========================
-   CART + NOTIFICATION
-========================= */
-
 app-card,
 app-notification {
   margin-left: 18px;
 }
-
-/* =========================
-   HERO
-========================= */
-
 .hero-header {
   background-position: center center;
   background-size: cover;
 }
-
-/* =========================
-   MOBILE
-========================= */
-
 @media (max-width: 991px) {
-
   .search-input {
 
     margin: 20px 0;
 
     max-width: 100%;
   }
-
   .navbar-nav {
 
     padding-top: 20px;
   }
-
   .dropdown-menu {
 
     width: 100%;

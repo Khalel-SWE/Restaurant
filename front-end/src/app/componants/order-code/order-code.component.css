@@ -7,7 +7,6 @@ body {
   font-family: Arial, sans-serif;
   background: #f4f6f9;
 }
-
 .order-box {
   padding: 20px 30px;
   background: #fff;
@@ -16,12 +15,10 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   text-align: center;
 }
-
 .order-box h2 {
   margin: 0 0 10px;
   color: #374151;
 }
-
 .order-code {
   font-size: 20px;
   font-weight: bold;
