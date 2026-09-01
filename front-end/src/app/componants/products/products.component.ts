@@ -87,7 +87,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
       category: { id: product.category?.id || 3 }
     };
     
-    // استدعاء جلب الصور فوراً بعد تعبئة الـ Model لضمان عرض الصور والكاتيجوري الصحيح
     this.updateImageOptions();
     
     this.showModal();
