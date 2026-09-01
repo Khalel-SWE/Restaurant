@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @ConfigurationPropertiesScan
 public class ResturantBackendApplication {
 
-    
+
     public static void main(String[] args) {
         SpringApplication.run(ResturantBackendApplication.class, args);
     }
