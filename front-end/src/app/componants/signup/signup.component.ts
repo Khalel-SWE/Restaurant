@@ -26,11 +26,7 @@ export class SignupComponent implements OnInit {
     }
 
     this.authService.createAccount(username, password).subscribe(
-      // response => {
-      //   sessionStorage.setItem("token", response.token);
-      //   sessionStorage.setItem("roles", response.userRoles);
-      //   this.routes.navigateByUrl("/products");
-      // }
+      
       response => {
 
   sessionStorage.setItem(
@@ -42,11 +38,6 @@ export class SignupComponent implements OnInit {
     "token",
     response.token
   );
-
-  // sessionStorage.setItem(
-  //   "roles",
-  //   response.userRoles
-  // );
 
   sessionStorage.setItem(
   "roles",

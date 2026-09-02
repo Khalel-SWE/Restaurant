@@ -155,24 +155,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
   updateImageOptions() {
     const categoryId = Number(this.newProduct?.category?.id || 3);
     
-    // ربط كل أرقام المأكولات (1, 2, 3, 4) بنفس مجموعة صور الأكل
     if ([1, 2, 3, 4].includes(categoryId)) { 
       this.imageOptions = ['foods/beefburger.jpg','foods/chickenburger.jpg','foods/chickencrepe.jpg','foods/chickenpizza.jpg','foods/chickenshawarma.jpg','foods/diffrentgreens.jpg','foods/dissolvedkebab.jpg','foods/glee.jpg','foods/grilledchicken.jpg','foods/kofta.jpg','foods/koftacrepe.jpg','foods/lambfeathers.jpg','foods/liver.jpg','foods/meatshawarma.jpg','foods/mixcheesepizza.jpg','foods/mombar.jpg','foods/okrawithmeat.jpg','foods/potatoeswithmeat.jpg','foods/rice.jpg','foods/ricewithmeat.jpg','foods/sausage.jpg'];
     } 
-    // Cold Drinks (5)
     else if (categoryId === 5) { 
       this.imageOptions = ['cold-drinks/applejuice.jpg','cold-drinks/cocktail.jpg','cold-drinks/kiwijuice.jpg','cold-drinks/lemonjuice.jpg','cold-drinks/mangojuice.jpg','cold-drinks/mirnda.jpg','cold-drinks/orangejuice.jpg','cold-drinks/pepsi.jpg','cold-drinks/rani.jpg','cold-drinks/schweppes.jpg','cold-drinks/strawberryicecream.jpg','cold-drinks/strawberryjuice.jpg'];
     } 
-    // Hot Drinks (6)
     else if (categoryId === 6) { 
       this.imageOptions = ['hot-drinks/blackcoffee.jpg','hot-drinks/cinnamontea.jpg','hot-drinks/coffeewithhazelnuts.jpg','hot-drinks/forget.jpg','hot-drinks/frenchcoffee.jpg','hot-drinks/greentea.jpg','hot-drinks/hotchocolate.jpg','hot-drinks/milkcinnamon.jpg','hot-drinks/mint.jpg','hot-drinks/nescafeblack.jpg','hot-drinks/nescafemilk.jpg','hot-drinks/pepperminttea.jpg','hot-drinks/plainsahlab.jpg','hot-drinks/sahlabwithnuts.jpg','hot-drinks/tea.jpg','hot-drinks/teawithmilk.jpg','hot-drinks/turkishcoffee.jpg'];
     } 
-    // Sweets (7)
     else { 
       this.imageOptions = ['sweets/basbousa.jpg','sweets/blueberrycheesecake.jpg','sweets/chocolatecheesecake.jpg','sweets/chocolatecupcake.jpg','sweets/chocolateicecream.jpg'];
     }
     
-    // الاحتفاظ بصورة المنتج الحالية، وفي حالة عدم وجودها (أو الإضافة) يختار أول صورة في اللستة
     const imageExists = this.imageOptions.includes(this.newProduct.imagePath);
     if (!imageExists && this.imageOptions.length > 0) {
       this.newProduct.imagePath = this.imageOptions[0];

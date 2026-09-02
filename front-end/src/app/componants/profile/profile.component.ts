@@ -23,24 +23,22 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // 1. نقرأ اليوزرنيم من الجلسة
+    
     const sessionUser = JSON.parse(sessionStorage.getItem('user') || '{}');
     
     this.id = sessionUser.id;
     this.username = sessionUser.username;
 
-    // 2. لو اليوزرنيم موجود، نكلم الباك إند يجيب الداتا الطازة
     if (this.username) {
       this.authService.getUserByUsername(this.username).subscribe({
         next: (user: any) => {
           console.log("FRESH CURRENT USER FROM DB", user);
           
           if (user) {
-            // نأكد على الـ ID واليوزرنيم
+
             this.id = user.id || this.id;
             this.username = user.username || this.username;
 
-            // لو عنده بيانات تفصيلية، نملاها
             if (user.accountDetails) {
               this.email = user.accountDetails.email || '';
               this.phoneNumber = user.accountDetails.phoneNumber || '';
@@ -52,7 +50,6 @@ export class ProfileComponent implements OnInit {
         error: (error: any) => {
           console.error("Error fetching user data from backend", error);
           
-          // حل بديل لو حصل إيرور (نقرأ القديم من الجلسة)
           if (sessionUser.accountDetails) {
             this.email = sessionUser.accountDetails.email || '';
             this.phoneNumber = sessionUser.accountDetails.phoneNumber || '';

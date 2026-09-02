@@ -17,14 +17,12 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
 
-    // نجيب اليوزر كامل من السيشن
     const userString = sessionStorage.getItem('user');
 
     if (userString) {
 
       const user = JSON.parse(userString);
 
-      // نجيب التوكن من جوه اليوزر
       const token = user.token;
 
       if (token) {

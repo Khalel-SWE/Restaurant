@@ -46,23 +46,31 @@
 
           <div
             class="status-badge"
-            [ngClass]="{
-              'badge-pending': order.status === 'PENDING',
-              'badge-preparing': order.status === 'PREPARING',
-              'badge-onway': order.status === 'ON_THE_WAY',
-              'badge-delivered': order.status === 'DELIVERED',
-              'badge-cancelled': order.status === 'CANCELLED',
-            }"
+            [ngClass]="
+              order.status === 'PENDING'
+                ? 'badge-pending'
+                : order.status === 'PREPARING'
+                  ? 'badge-preparing'
+                  : order.status === 'ON_THE_WAY'
+                    ? 'badge-onway'
+                    : order.status === 'DELIVERED'
+                      ? 'badge-delivered'
+                      : 'badge-cancelled'
+            "
           >
             <i
               class="fa me-2"
-              [ngClass]="{
-                'fa-clock': order.status === 'PENDING',
-                'fa-fire': order.status === 'PREPARING',
-                'fa-motorcycle': order.status === 'ON_THE_WAY',
-                'fa-check-circle': order.status === 'DELIVERED',
-                'fa-times-circle': order.status === 'CANCELLED',
-              }"
+              [ngClass]="
+                order.status === 'PENDING'
+                  ? 'fa-clock'
+                  : order.status === 'PREPARING'
+                    ? 'fa-fire'
+                    : order.status === 'ON_THE_WAY'
+                      ? 'fa-motorcycle'
+                      : order.status === 'DELIVERED'
+                        ? 'fa-check-circle'
+                        : 'fa-times-circle'
+              "
             ></i>
             {{ order.status }}
           </div>
