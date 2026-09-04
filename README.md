@@ -556,5 +556,3 @@ Possible future improvements include:
 * Production deployment
 * More advanced security and account management
 
-```
-```
